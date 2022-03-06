@@ -33,6 +33,15 @@ function link_config {
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
   ln "$@" -rs ./runcom/zshenv "$HOME"/.zshenv
+  ln "$@" -rs ./runcom/p10k.zsh "$HOME"/.p10k.zsh
+
+  export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+  export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+  export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+  export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+  export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
+  export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+  export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 
   # ln -rs "$@" ./configs/ssh_config "$XDG_CONFIG_HOME"/ssh/config
   ln -rs "$@" ./configs/ssh_config "$HOME"/.ssh/config
@@ -53,7 +62,7 @@ function link_config {
 function do_setup {
   update_upgrade "$@"
   base_packages "$@"
-  ./packages/zsh_omz.sh "$@"
+  chmod +x ./packages/zsh_omz.sh && ./packages/zsh_omz.sh "$@"
   link_config
   sudo "$1" autoremove -y
 }
