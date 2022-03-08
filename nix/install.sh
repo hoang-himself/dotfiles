@@ -47,7 +47,7 @@ function link_config {
   mkdir -p "$HOME"/.{config,cache,local}
   mkdir -p "$HOME"/.local/{share,state,bin}
   mkdir -p "$HOME"/.config/{git,gnupg,ssh,zsh}
-  mkdir -p "$HOME"/.ssh
+  mkdir -p "$HOME"/.ssh/sockets
 
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
