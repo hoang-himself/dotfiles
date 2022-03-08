@@ -78,7 +78,7 @@ changed = green
 untracked = cyan
 
 [core]
-excludesfile = ~/.gitignore.global
+excludesfile = ~/.config/git/ignore.global
 pager = less
 
 [init]
@@ -107,4 +107,4 @@ process = git-lfs filter-process
 required = true
 
 [include]
-path = ~/.gitconfig.local
+path = ~/.config/git/config.local
