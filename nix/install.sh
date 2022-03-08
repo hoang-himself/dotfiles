@@ -15,7 +15,7 @@ function base_packages {
     dos2unix htop git git-lfs tree gnupg)
 
   if [[ "$1" == dnf ]]; then
-    pre_req+=(dnf-plugins-core crontabs ShellCheck)
+    pre_req+=(dnf-plugins-core crontabs ShellCheck util-linux-user)
   elif [[ "$1" == apt ]]; then
     pre_req+=(apt-utils cron shellcheck)
   fi
@@ -33,7 +33,6 @@ function link_config {
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
   ln "$@" -rs ./runcom/zshenv "$HOME"/.zshenv
-  ln "$@" -rs ./runcom/p10k.zsh "$HOME"/.p10k.zsh
 
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}

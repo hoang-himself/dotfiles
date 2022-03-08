@@ -89,15 +89,6 @@ HIST_STAMPS="yyyy-mm-dd"
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-# Choose between one [code, code-insiders or codium]
-# The following line will make the plugin to open VS Code Insiders
-# Invalid entries will be ignored, no aliases will be added
-if [[ -x "$(command -v code-insiders)" ]]; then
-  VSCODE=code-insiders
-else
-  VSCODE=code
-fi
-
 # ssh-agent plugin
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
 zstyle :omz:plugins:ssh-agent quiet yes
@@ -112,13 +103,12 @@ plugins=(
   colored-man-pages
   common-aliases
   docker
-  git
   git-lfs
+  git
   gpg-agent
   pyenv
   rsync
   ssh-agent
-  vscode
   zsh-autosuggestions
   zsh-syntax-highlighting # Must be placed at last
 )
