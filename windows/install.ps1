@@ -1,20 +1,21 @@
-# Run this script in the latest PowerShell
-
-# -----------------------------------------------------------------------------
 # Self elevate administrative permissions in this script
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+  Start-Process pwsh "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+  exit
+}
 
-# -----------------------------------------------------------------------------
-# Set a new computer name
-# $computerName = Read-Host 'Enter New Computer Name'
-# Rename-Computer -NewName $computerName
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force
 
-function Uninstall-Bloat() {
-  # -----------------------------------------------------------------------------
-  # Remove a few pre-installed UWP applications
-  # To list all appx packages:
+Import-Module -Name .\packages\common.psm1
+
+function Set-ComputerName {
+  $ComputerName = Read-Host -Prompt Enter New Computer Name
+  Rename-Computer -NewName $ComputerName
+}
+
+function Uninstall-Bloat {
   # Get-AppxPackage | Format-Table -Property Name,Version,PackageFullName
-  $uwpRubbishApps = @(
+  @(
     "king.com.CandyCrushFriends",
     "Microsoft.3DBuilder",
     "Microsoft.Print3D",
@@ -29,52 +30,46 @@ function Uninstall-Bloat() {
     "Microsoft.XboxApp",
     "Fitbit.FitbitCoach",
     "4DF9E0F8.Netflix"
-  )
-
-  foreach ($uwp in $uwpRubbishApps) {
-    Get-AppxPackage -Name $uwp | Remove-AppxPackage
+  ) | ForEach-Object {
+    Get-AppxPackage -Name $_ | Remove-AppxPackage
   }
 }
 
-function Install-BasePackages() {
-  # -----------------------------------------------------------------------------
-  # Install modules and change Set-ExecutionPolicy to "RemoteSigned"
-
-  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-  Install-Module -AllowClobber Get-ChildItemColor
-  Install-Module PowerShellGet -Force
-  Install-Module PSReadLine -Force
-  Install-Module posh-git -Scope CurrentUser -Force
+function Install-BasePackages {
+  @(
+    "PowerShellGet",
+    "PSReadLine",
+    "posh-git"
+  ) | ForEach-Object {
+    Install-Module -Name $_ -Force
+  }
 }
 
-function Install-Configs() {
-  New-Item -ItemType SymbolicLink -Path "~\.ssh\config" -Target $(Resolve-Path -LiteralPath ".\configs\ssh_config") -Force
-  New-Item -ItemType SymbolicLink -Path "~\.wslconfig" -Target $(Resolve-Path -LiteralPath ".\configs\wslconfig") -Force
+function Install-Configs {
+  New-RelativeSymbolicItem -Path ~\.ssh\config -Target .\configs\ssh_config
+  New-RelativeSymbolicItem -Path ~\.wslconfig -Target .\configs\wslconfig
 
-  $rcPath = Split-Path -Parent $Profile
-  @("PowerShell", "VSCode") |
+  $ProfileDir = Split-Path -Parent $Profile
+  New-Item -Path $ProfileDir -ItemType Directory -Force -ErrorAction SilentlyContinue
+
+  # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
+  Get-ChildItem -Path .\runcoms |
   ForEach-Object {
-    New-Item -ItemType SymbolicLink -Path "${rcPath}\Microsoft.${_}_profile.ps1" `
-      -Target $(Resolve-Path -LiteralPath ".\runcoms\profile.ps1") -Force
+    New-Item -ItemType SymbolicLink -Path "${ProfileDir}\$($_.Name)" -Target $_.FullName -Force
   }
 
-  Get-ChildItem ".\configs\git\" |
+  Get-ChildItem -Path .\configs\git\ |
   ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "~\.$($_.Name)" -Target $_.FullName -Force
   }
 
-  Get-ChildItem ".\configs\gnupg\" |
+  Get-ChildItem -Path .\configs\gnupg\ |
   ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "~\.gnupg\$($_.Name)" -Target $_.FullName -Force
   }
 }
 
-function Write-Usage() {
-  Write-Output "Read install.ps1 lol"
-}
-
-function main() {
-  Uninstall-Bloat
+function main {
   Install-BasePackages
   Install-Configs
 }
