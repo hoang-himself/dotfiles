@@ -7,21 +7,6 @@ You should not clone this repo and use directly, instead create a fork or use th
 Don't blindly use my config unless you know what that entails.
 Review the code, remove things you don't want or need, and enjoy.
 
-Using the install script will overwrite your configs if the directories are duplicated.
+Using the install script might overwrite your configs.
 
 Use at your own risk!
-
-## How to install this config
-
-```bash
-./install.sh -i
-```
-
-## FAQ
-
-- What is the `/mnt/wsl` folder?
-
-It is a special folder shared between all running WSL2 machines on your PC.
-Microsoft does not have this folder documented for some reason.
-
-The content of this folder is lost if all machines are off, so use it wisely.

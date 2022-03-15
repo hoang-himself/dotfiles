@@ -88,21 +88,9 @@ function do_setup {
   sudo "$1" autoremove -y
 }
 
-function echo_usage {
-  echo "Read install.sh lol"
-}
-
-if [[ $# -lt 1 || $UID -eq 0 ]]; then
-  echo_usage
-fi
-
 # https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html
 while [[ $# -gt 0 ]]; do
   case "$1" in
-  -h | --help)
-    echo_usage
-    shift
-    ;;
   -i | --install)
     if [[ -x "$(command -v apt)" ]]; then
       do_setup apt
