@@ -24,9 +24,9 @@ function base_packages {
   sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
 }
 
-function zsh_omz {
+function install_zsh_omz {
   sudo "$1" install -y zsh
-  
+
   if [[ "$1" == dnf ]]; then
     lchsh -s "$(command -v zsh)"
   elif [[ "$1" == apt ]]; then
@@ -51,8 +51,8 @@ function link_config {
 
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
-  ln "$@" -rs ./runcom/zshenv "$HOME"/.zshenv
-  ln "$@" -rs ./runcom/p10k.zsh "$HOME"/.p10k.zsh
+  ln "$@" -rs ./runcoms/zshenv "$HOME"/.zshenv
+  ln "$@" -rs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
 
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
@@ -69,7 +69,7 @@ function link_config {
   ln -rs "$@" ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore.global
   touch "$XDG_CONFIG_HOME"/git/config.local
 
-  for rc_file in ./runcom/*; do
+  for rc_file in ./runcoms/*; do
     ln -rs "$@" "$rc_file" "${ZDOTDIR:-$HOME}/.$(basename "$rc_file")"
   done
 
@@ -80,10 +80,10 @@ function link_config {
   chmod 700 "$GNUPGHOME"
 }
 
-function do_setup {
+function main {
   update_upgrade "$@"
   base_packages "$@"
-  zsh_omz "$@"
+  install_zsh_omz "$@"
   link_config
   sudo "$1" autoremove -y
 }
@@ -93,9 +93,9 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
   -i | --install)
     if [[ -x "$(command -v apt)" ]]; then
-      do_setup apt
+      main apt
     elif [[ -x "$(command -v dnf)" ]]; then
-      do_setup dnf
+      main dnf
     fi
     shift
     ;;
