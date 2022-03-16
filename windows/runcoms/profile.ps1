@@ -1,21 +1,3 @@
-Set-Alias g git
-
-# Python
-Set-Alias vx deactivate
-function Enable-PythonVenv {
-  [Alias("va")]
-  param (
-    [String] $venv_path
-  )
-  $venv_path = if (! "$venv_path") { ".venv" }
-
-  if (!(Test-Path -LiteralPath "$venv_path")) {
-    python -m venv --upgrade-deps "$venv_path"
-    Add-Content requirements.txt $null
-    . .\"$venv_path"\Scripts\Activate.ps1
-    pip install wheel
-  }
-  else {
-    . .\"$venv_path"\Scripts\Activate.ps1
-  }
-}
+$ProfileDir = Split-Path -Parent $Profile
+. ${ProfileDir}\functions.ps1
+. ${ProfileDir}\aliases.ps1
