@@ -1,3 +1,14 @@
+# Get-PSDrive
+# Get-ChildItem -Path Env:
+
+function Assert-Elevated {
+  # Get the ID and security principal of the current user account
+  $MyIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+  $MyPrincipal = new-object System.Security.Principal.WindowsPrincipal($MyIdentity)
+  # Check to see if we are currently running "as Administrator"
+  return $MyPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
 function New-RelativeSymbolicItem {
   <#
   .PARAMETER Path
@@ -119,4 +130,33 @@ function Update-EveryModule {
       Write-Verbose "$($_.Name) is up to date"
     }
   }
+}
+
+function Install-dotNet() {
+  pwsh -NoProfile -ExecutionPolicy Unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -Channel Current"
+}
+
+function Install-OpenSSH {
+  # https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse
+  Add-WindowsCapability -Online -Name OpenSSH.Client
+  Get-Service ssh-agent | Set-Service -StartupType Automatic -PassThru | Start-Service
+
+  Add-WindowsCapability -Online -Name OpenSSH.Server
+  Get-Service sshd | Set-Service -StartupType Automatic -PassThru | Start-Service
+
+  # Confirm the Firewall rule is configured. It should be created automatically by setup
+  if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
+    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+  }
+}
+
+function Install-WSL() {
+  # Get-WindowsOptionalFeature -Online
+  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName `
+    @("VirtualMachinePlatform", "Microsoft-Windows-Subsystem-Linux") | Out-Null
+}
+
+function Set-ComputerName {
+  $ComputerName = Read-Host -Prompt "Enter New Computer Name"
+  Rename-Computer -NewName $ComputerName
 }
