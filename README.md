@@ -9,14 +9,14 @@ Review the code, remove things you don't want or need, and enjoy.
 
 Use at your own risk!
 
-## How to install this config
-
-`cd` into the folder of your OS and read the README in there
-
 ## Feedback
 
 Suggestions/improvements are [welcome and encouraged](https://github.com/Smithienious/dotfiles/issues)!
 
 ## Credits
 
-Some of these scripts are inspired by [pengwin-setup](https://github.com/WhitewaterFoundry/pengwin-setup), [ohmyzsh plugins](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins) and [Docker convenience install script](https://get.docker.com).
+Some parts of this repo were inspired and/or forked from
+
+- [pengwin-setup](https://github.com/WhitewaterFoundry/pengwin-setup)
+- [ohmyzsh plugins](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins)
+- [Jay Harris's dotfiles](https://github.com/jayharris/dotfiles-windows)
