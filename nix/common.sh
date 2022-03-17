@@ -24,6 +24,25 @@ function cleantmp {
   command sudo rm -r "$TMP_DIR"
 }
 
+function install_zsh_omz {
+  sudo "$1" install -y zsh
+
+  if [[ "$1" == dnf ]]; then
+    lchsh -s "$(command -v zsh)"
+  elif [[ "$1" == apt ]]; then
+    chsh -s "$(command -v zsh)"
+  fi
+
+  curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+
+  local extra_zsh=(ruby cowsay figlet fortune-mod)
+  sudo "$1" install -y "${extra_zsh[@]}"
+  sudo gem install lolcat
+}
+
 function install_gcc {
   local pre_req=""
   if [[ "$1" == apt ]]; then
