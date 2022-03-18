@@ -43,9 +43,7 @@ function link_config {
 
   # ln -rs "$@" ./configs/ssh_config "$XDG_CONFIG_HOME"/ssh/config
   ln -rs "$@" ./configs/ssh_config "$HOME"/.ssh/config
-  sudo ln -rs "$@" ./configs/sshd_config /etc/ssh/sshd_config
-
-  sudo ln -rs "$@" ./configs/wsl.conf /etc/wsl.conf
+  sudo ln -rsf "$@" ./configs/sshd_config /etc/ssh/sshd_config
 
   ln -rs "$@" ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
   ln -rs "$@" ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore.global
