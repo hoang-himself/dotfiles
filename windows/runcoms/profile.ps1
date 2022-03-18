@@ -1,3 +1,6 @@
-$ProfileDir = Split-Path -Parent $Profile
-. ${ProfileDir}\functions.ps1
-. ${ProfileDir}\aliases.ps1
+Import-Module oh-my-posh
+oh-my-posh prompt init pwsh --config "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/v$(oh-my-posh --version)/themes/jandedobbeleer.omp.json" | Invoke-Expression
+
+Push-Location (Split-Path -Parent $Profile)
+@('plugins', 'functions', 'aliases', 'exports', 'extra') | Where-Object { Test-Path "$_.ps1" } | ForEach-Object -Process { Invoke-Expression ". .\$_.ps1" }
+Pop-Location
