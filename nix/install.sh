@@ -24,8 +24,6 @@ function install_packages {
   sudo "$1" install -y "${pre_req[@]}"
 
   sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
-
-  install_zsh_omz "$@"
 }
 
 function link_config {
@@ -34,42 +32,35 @@ function link_config {
   mkdir -p "$HOME"/.config/{git,gnupg,ssh,zsh}
   mkdir -p "$HOME"/.ssh/sockets
 
-  # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
-  # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
-  ln "$@" -rs ./runcoms/zshenv "$HOME"/.zshenv
-  ln "$@" -rs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
-
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
   export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
   export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
   export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
-
-  export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
   export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+
+  chmod 700 "$GNUPGHOME"
 
   # ln -rs "$@" ./configs/ssh_config "$XDG_CONFIG_HOME"/ssh/config
   ln -rs "$@" ./configs/ssh_config "$HOME"/.ssh/config
-  ln -rs "$@" ./configs/sshd_config /etc/ssh/sshd_config
+  sudo ln -rs "$@" ./configs/sshd_config /etc/ssh/sshd_config
+
+  sudo ln -rs "$@" ./configs/wsl.conf /etc/wsl.conf
+
   ln -rs "$@" ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
   ln -rs "$@" ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore.global
   touch "$XDG_CONFIG_HOME"/git/config.local
 
-  for rc_file in ./runcoms/*; do
-    ln -rs "$@" "$rc_file" "${ZDOTDIR:-$HOME}/.$(basename "$rc_file")"
-  done
-
   for rc_file in ./configs/gnupg/*; do
     ln -rs "$@" "$rc_file" "${XDG_CONFIG_HOME:-$HOME}/gnupg/$(basename "$rc_file")"
   done
-
-  chmod 700 "$GNUPGHOME"
 }
 
 function main {
   update_upgrade "$@"
-  base_packages "$@"
+  install_packages "$@"
   link_config
+  install_zsh_omz "$@"
   sudo "$1" autoremove -y
 }
 

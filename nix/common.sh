@@ -33,6 +33,8 @@ function install_zsh_omz {
     chsh -s "$(command -v zsh)"
   fi
 
+  export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
@@ -41,6 +43,15 @@ function install_zsh_omz {
   local extra_zsh=(ruby cowsay figlet fortune-mod)
   sudo "$1" install -y "${extra_zsh[@]}"
   sudo gem install lolcat
+
+  # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
+  # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
+  ln "$@" -rs ./runcoms/zshenv "$HOME"/.zshenv
+  ln "$@" -rs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
+
+  for rc_file in ./runcoms/*; do
+    ln -rs "$@" "$rc_file" "${ZDOTDIR:-$HOME}/.$(basename "$rc_file")"
+  done
 }
 
 function install_gcc {
