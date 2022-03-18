@@ -47,9 +47,14 @@ function Install-Configs {
   New-Item -Path $ProfileDir -ItemType Directory -ErrorAction SilentlyContinue -Force
   New-Item -Path $PluginsDir -ItemType Directory -ErrorAction SilentlyContinue -Force
 
-  New-Item -ItemType SymbolicLink -Path "$HOME\.ssh\config" `
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.ssh\config" `
     -Target $(Resolve-Path -LiteralPath .\configs\ssh_config) -Force
-  New-Item -ItemType SymbolicLink -Path "$HOME\.wslconfig" `
+  # icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
+  New-Item -ItemType SymbolicLink -Path "$env:ProgramData\ssh\sshd_config" `
+    -Target $(Resolve-Path -LiteralPath .\configs\sshd_config) -Force
+  New-ItemProperty -Path 'HKLM:\SOFTWARE\OpenSSH' -PropertyType String `
+    -Name DefaultShell -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
     -Target $(Resolve-Path -LiteralPath .\configs\wslconfig) -Force
 
   # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
@@ -66,14 +71,14 @@ function Install-Configs {
 
   Get-ChildItem -Path '.\configs\git\' |
     ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$HOME\.$($_.Name)" `
+      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
         -Target $_.FullName -Force
     }
-  Add-Content "$HOME\.gitconfig.local" $null
+  Add-Content "$env:USERPROFILE\.gitconfig.local" $null
 
   Get-ChildItem -Path '.\configs\gnupg\' |
     ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$HOME\.gnupg\$($_.Name)" -Target $_.FullName -Force
+      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gnupg\$($_.Name)" -Target $_.FullName -Force
     }
 }
 
