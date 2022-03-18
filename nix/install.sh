@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-./common.sh
+. ./common.sh
 
 function update_upgrade {
   if [[ "$1" == dnf ]]; then
