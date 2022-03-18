@@ -7,6 +7,9 @@ function Assert-Elevated {
 }
 
 function Install-OMP {
+  $ProfileDir = Split-Path -Parent $Profile
+  $PluginsDir = Join-Path $ProfileDir 'plugins'
+
   @(
     'oh-my-posh',
     'posh-git'

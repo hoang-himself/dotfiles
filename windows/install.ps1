@@ -2,7 +2,7 @@ Import-Module -Name .\common.psm1
 
 # Self elevate administrative permissions in this script
 if (!(Assert-Elevated)) {
-  Start-Process pwsh '-NoProfile -ExecutionPolicy Bypass -File "$PSCommandPath"' -Verb 'RunAs'
+  Start-Process pwsh "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb 'RunAs'
   exit
 }
 
@@ -45,19 +45,21 @@ function Install-Packages {
 function Install-Configs {
   $ProfileDir = Split-Path -Parent $Profile
   $PluginsDir = Join-Path $ProfileDir 'plugins'
+
   New-Item -Path $ProfileDir -ItemType Directory -ErrorAction SilentlyContinue -Force
   New-Item -Path $PluginsDir -ItemType Directory -ErrorAction SilentlyContinue -Force
 
   Get-ChildItem -Path '.\configs\git\' |
     ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
+      New-Item -ItemType SymbolicLink -Path "$ProfileDir\.$($_.Name)" `
         -Target $_.FullName -Force
     }
-  Add-Content "$env:USERPROFILE\.gitconfig.local" $null
+  Add-Content "$ProfileDir\.gitconfig.local" $null
 
   Get-ChildItem -Path '.\configs\gnupg\' |
     ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gnupg\$($_.Name)" -Target $_.FullName -Force
+      New-Item -ItemType SymbolicLink -Path "$ProfileDir\.gnupg\$($_.Name)" `
+        -Target $_.FullName -Force
     }
 }
 
