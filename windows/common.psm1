@@ -6,11 +6,6 @@ function Assert-Elevated {
   return $MyPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
-function Update-Upgrade {
-  Update-Help -Force
-  Update-Module -Force
-}
-
 function Install-OMP {
   @(
     'oh-my-posh',
@@ -18,6 +13,18 @@ function Install-OMP {
   ) | ForEach-Object {
     Install-Module -Name $_ -Scope CurrentUser -Force
   }
+
+  # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
+  Get-ChildItem -Path '.\runcoms\*' -Include '*.ps1' |
+    ForEach-Object {
+      New-Item -ItemType SymbolicLink -Path "$ProfileDir\$($_.Name)" `
+        -Target $_.FullName -Force
+    }
+  Get-ChildItem -Path '.\runcoms\plugins\' |
+    ForEach-Object {
+      New-Item -ItemType SymbolicLink -Path "$PluginsDir\$($_.Name)" `
+        -Target $_.FullName -Force
+    }
 }
 
 function Install-OpenSSH {
@@ -32,12 +39,23 @@ function Install-OpenSSH {
   if (!(Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
     New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
   }
+
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.ssh\config" `
+    -Target $(Resolve-Path -LiteralPath .\configs\ssh_config) -Force
+  # icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
+  New-Item -ItemType SymbolicLink -Path "$env:ProgramData\ssh\sshd_config" `
+    -Target $(Resolve-Path -LiteralPath .\configs\sshd_config) -Force
+  New-ItemProperty -Path 'HKLM:\SOFTWARE\OpenSSH' -PropertyType String `
+    -Name DefaultShell -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
 }
 
 function Install-WSL {
   # Get-WindowsOptionalFeature -Online
   Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName `
   @('VirtualMachinePlatform', 'Microsoft-Windows-Subsystem-Linux') | Out-Null
+
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
+    -Target $(Resolve-Path -LiteralPath .\configs\wslconfig) -Force
 }
 
 function Install-dotNet {
