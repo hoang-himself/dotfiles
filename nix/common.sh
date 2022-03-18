@@ -25,6 +25,7 @@ function cleantmp {
 }
 
 function install_zsh_omz {
+  mkdir -p "$HOME"/.config/zsh
   sudo "$1" install -y zsh
 
   if [[ "$1" == dnf ]]; then
@@ -54,8 +55,25 @@ function install_zsh_omz {
   done
 }
 
+function install_openssh {
+  mkdir -p "$HOME"/.config/ssh
+  mkdir -p "$HOME"/.ssh/sockets
+
+  local pre_req=(openssh-server)
+  if [[ "$1" == apt ]]; then
+    pre_req+=(openssh-client)
+  elif [[ "$1" == dnf ]]; then
+    pre_req+=(openssh-clients)
+  fi
+  sudo "$1" install -y "${pre_req[@]}"
+
+  # ln -rs "$@" ./configs/ssh_config "$XDG_CONFIG_HOME"/ssh/config
+  ln -rs "$@" ./configs/ssh_config "$HOME"/.ssh/config
+  sudo ln -rsf "$@" ./configs/sshd_config /etc/ssh/sshd_config
+}
+
 function install_gcc {
-  local pre_req=""
+  local pre_req=("")
   if [[ "$1" == apt ]]; then
     pre_req=(build-essential clang gcc g++ gdb gdbserver rsync zip)
   elif [[ "$1" == dnf ]]; then

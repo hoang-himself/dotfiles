@@ -29,8 +29,7 @@ function install_packages {
 function link_config {
   mkdir -p "$HOME"/.{config,cache,local}
   mkdir -p "$HOME"/.local/{share,state,bin}
-  mkdir -p "$HOME"/.config/{git,gnupg,ssh,zsh}
-  mkdir -p "$HOME"/.ssh/sockets
+  mkdir -p "$HOME"/.config/{git,gnupg}
 
   export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
   export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
@@ -40,10 +39,6 @@ function link_config {
   export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 
   chmod 700 "$GNUPGHOME"
-
-  # ln -rs "$@" ./configs/ssh_config "$XDG_CONFIG_HOME"/ssh/config
-  ln -rs "$@" ./configs/ssh_config "$HOME"/.ssh/config
-  sudo ln -rsf "$@" ./configs/sshd_config /etc/ssh/sshd_config
 
   ln -rs "$@" ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
   ln -rs "$@" ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore.global
@@ -58,6 +53,7 @@ function main {
   update_upgrade "$@"
   install_packages "$@"
   link_config
+  install_openssh "$@"
   install_zsh_omz "$@"
   sudo "$1" autoremove -y
 }
