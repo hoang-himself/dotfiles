@@ -70,22 +70,22 @@ function Set-ComputerName {
   Rename-Computer -NewName $ComputerName
 }
 
-function shift {
-  # Prevent user from running this script
-  exit 1
+<#
+# View all keybindings
+Get-PSReadLineKeyHandler
+ #>
 
-  $args = $args | Select-Object -Skip 1
-}
+<#
+# Shift args
+$args = $args | Select-Object -Skip 1
+# or pass this instead
+$args[1..$args.Length]
+ #>
 
-function Get-EnvVariable {
-  # Prevent user from running this script
-  exit 1
-
-  # Env, aliases, functions and more are stored in virtual drives
-  # Use this command to get them
-  Get-PSDrive
-
-  # Get all environment variables
-  # or use `dir` because `dir` is an alias
-  Get-ChildItem -Path Env:
-}
+<#
+# Get system variables
+# PowerShell stores a lot of system variables in virtual drives
+Get-PSDrive
+# Get environment variables
+Get-ChildItem -Path Env:
+ #>
