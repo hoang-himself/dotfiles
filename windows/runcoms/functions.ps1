@@ -1,5 +1,5 @@
 # Common Editing needs
-function Edit-Hosts { Invoke-Expression "sudo $(if($null -ne $env:EDITOR) {$env:EDITOR} else { 'notepad' }) $env:windir\system32\drivers\etc\hosts" }
+function Edit-Hosts { Invoke-Expression "sudo $(if ($null -ne $env:EDITOR) {$env:EDITOR} else { 'notepad' }) $env:windir\system32\drivers\etc\hosts" }
 
 # Reload the $env object from the registry
 function Update-Environment {

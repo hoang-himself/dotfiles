@@ -39,7 +39,7 @@ function Install-OpenSSH {
   Get-Service sshd | Set-Service -StartupType Automatic -PassThru | Start-Service
 
   # Confirm the Firewall rule is configured. It should be created automatically by setup
-  if (!(Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
+  if ( -not (Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
     New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
   }
 

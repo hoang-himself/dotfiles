@@ -1,7 +1,7 @@
 Import-Module -Name .\common.psm1
 
 # Self elevate administrative permissions in this script
-if (!(Assert-Elevated)) {
+if ( -not (Assert-Elevated)) {
   Start-Process pwsh "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb 'RunAs'
   exit
 }
