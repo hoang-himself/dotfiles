@@ -113,6 +113,6 @@ source "$ZSH"/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Dotfiles (order matters)
-for DOTFILE in "${ZDOTDIR:-$HOME}"/.{zfunctions,zaliases}; do
+for DOTFILE in "${ZDOTDIR:-$HOME}"/.{zfunctions,zaliases,extra}; do
     [[ -f "$DOTFILE" ]] && source "$DOTFILE"
 done
