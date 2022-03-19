@@ -9,3 +9,4 @@ Host homepi
 
 Host 192.168.*
   ForwardAgent yes
+  ExitOnForwardFailure yes

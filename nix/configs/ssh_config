@@ -3,6 +3,8 @@
 # Include <glob(7)>
 # IgnoreUnknown [,]
 
+# IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
+
 Host homepi
   Hostname 192.168.1.191
   CanonicalizeHostname yes
@@ -11,6 +13,7 @@ Host homepi
 
 Host 192.168.*
   ForwardAgent yes
+  ExitOnForwardFailure yes
 
 Host *
   ControlMaster auto
