@@ -464,5 +464,6 @@
             "yellow": "#808000"
         }
     ],
-    "trimBlockSelection": true
+    "trimBlockSelection": true,
+    "useAcrylicInTabRow": true
 }
