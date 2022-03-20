@@ -2,25 +2,22 @@
 
 . ./common.sh
 
-function update_upgrade {
-  if [[ "$1" == dnf ]]; then
-    sudo dnf upgrade -y
-  elif [[ "$1" == apt ]]; then
-    sudo apt update
-    sudo apt full-upgrade -y
-  fi
-}
-
 function install_packages {
   local pre_req=(acl less most nano pinentry-tty man-db
     make tree curl wget rsync openssl
     dos2unix htop git git-lfs tree gnupg)
 
   if [[ "$1" == dnf ]]; then
-    pre_req+=(dnf-plugins-core crontabs ShellCheck)
+    sudo dnf install dnf-plugins-core -y
+    sudo dnf upgrade -y
+    pre_req+=(crontabs ShellCheck)
   elif [[ "$1" == apt ]]; then
-    pre_req+=(apt-utils cron shellcheck)
+    sudo apt update
+    sudo apt install apt-utils -y
+    sudo apt full-upgrade -y
+    pre_req+=(cron shellcheck)
   fi
+
   sudo "$1" install -y "${pre_req[@]}"
 
   sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
@@ -50,7 +47,6 @@ function link_config {
 }
 
 function main {
-  update_upgrade "$@"
   install_packages "$@"
   link_config
   install_openssh "$@"
