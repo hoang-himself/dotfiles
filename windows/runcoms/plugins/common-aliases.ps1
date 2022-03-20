@@ -23,9 +23,10 @@ function which($name) { Get-Command $name -ErrorAction SilentlyContinue | Select
 function touch($file) { '' | Out-File $file -Encoding ASCII }
 
 # Navigation Shortcuts
-${function:dt} = { Set-Location -Path "$HOME\Desktop" }
-${function:docs} = { Set-Location -Path "$HOME\Documents" }
-${function:dl} = { Set-Location -Path "$HOME\Downloads" }
+# https://docs.microsoft.com/en-us/dotnet/api/system.environment.specialfolder
+${function:dt} = { Set-Location -Path $([Environment]::GetFolderPath("Desktop")) }
+${function:docs} = { Set-Location -Path $([Environment]::GetFolderPath("MyDocuments")) }
+${function:dl} = { Set-Location -Path $(Get-ItemPropertyValue 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' '{7D83EE9B-2244-4E70-B1F5-5393042AF1E4}') }
 
 # Missing Bash aliases
 Set-Alias -Name 'time' -Value 'Measure-Command'
