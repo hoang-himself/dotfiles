@@ -1,15 +1,14 @@
 # Python
 Set-Alias -Name 'vx' -Value 'deactivate'
-function va($venv_path) {
-  $venv_path = if ( -not "$venv_path") { '.venv' }
-
-  if ( -not (Test-Path -LiteralPath "$venv_path")) {
-    python -m venv --upgrade-deps "$venv_path"
+function va([String] $VenvPath) {
+  if ( -not "$VenvPath") { $VenvPath = '.venv' }
+  if ( -not (Test-Path -LiteralPath "$VenvPath")) {
+    python -m venv --upgrade-deps "$VenvPath"
     Add-Content requirements.txt $null
-    & ".\$venv_path\Scripts\Activate.ps1"
+    & ".\$VenvPath\Scripts\Activate.ps1"
     pip install wheel
   }
   else {
-    & ".\$venv_path\Scripts\Activate.ps1"
+    & ".\$VenvPath\Scripts\Activate.ps1"
   }
 }
