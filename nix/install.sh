@@ -38,7 +38,7 @@ function link_config {
   chmod 700 "$GNUPGHOME"
 
   ln -rs "$@" ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
-  ln -rs "$@" ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore.global
+  ln -rs "$@" ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore
   touch "$XDG_CONFIG_HOME"/git/config.local
 
   for rc_file in ./configs/gnupg/*; do

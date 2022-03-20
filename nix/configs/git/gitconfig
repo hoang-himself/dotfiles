@@ -90,7 +90,7 @@
   untracked = cyan
 
 [core]
-  excludesfile = ~/.config/git/ignore.global
+  # excludesfile = ~/.config/git/ignore
   pager = less
   ignoreCase = false
 
