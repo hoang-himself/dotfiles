@@ -28,12 +28,10 @@ function Uninstall-Bloat {
   }
 }
 
-function Update-Upgrade {
+function Install-Packages {
   Update-Help -Force
   Update-Module -Force
-}
 
-function Install-Packages {
   @(
     'PowerShellGet',
     'PSReadLine'
@@ -65,7 +63,6 @@ function Install-Configs {
 
 function main {
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-  Update-Upgrade
   Install-Packages
   Install-Configs
   Install-OpenSSH
