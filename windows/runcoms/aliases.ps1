@@ -6,10 +6,10 @@ function va($venv_path) {
   if ( -not (Test-Path -LiteralPath "$venv_path")) {
     python -m venv --upgrade-deps "$venv_path"
     Add-Content requirements.txt $null
-    . ".\$venv_path\Scripts\Activate.ps1"
+    & ".\$venv_path\Scripts\Activate.ps1"
     pip install wheel
   }
   else {
-    . ".\$venv_path\Scripts\Activate.ps1"
+    & ".\$venv_path\Scripts\Activate.ps1"
   }
 }
