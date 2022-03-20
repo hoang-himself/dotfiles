@@ -6,6 +6,9 @@ Import-Module -Name Terminal-Icons
 oh-my-posh prompt init pwsh --config "$env:LOCALAPPDATA\oh-my-posh\themes\jandedobbeleer.omp.json" | Invoke-Expression
 oh-my-posh completion powershell | Out-String | Invoke-Expression
 
+# https://ohmyposh.dev/docs/git
+$env:POSH_GIT_ENABLED = $true
+
 # https://docs.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline
 Set-PSReadlineKeyHandler -Key Ctrl+d -Function DeleteCharOrExit
 
