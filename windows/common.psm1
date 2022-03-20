@@ -12,7 +12,8 @@ function Install-OMP {
 
   @(
     'oh-my-posh',
-    'posh-git'
+    'posh-git',
+    'Terminal-Icons'
   ) | ForEach-Object {
     Install-Module -Name $_ -Scope CurrentUser -Force
   }
