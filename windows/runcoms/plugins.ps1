@@ -1,4 +1,4 @@
 Push-Location (Join-Path (Split-Path -Parent $Profile) "plugins")
-. .\common-aliases.ps1
-. .\git.ps1
+Import-Module .\common-aliases.psm1
+Import-Module .\git.psm1
 Pop-Location

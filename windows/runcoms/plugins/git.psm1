@@ -14,7 +14,7 @@ function git_main_branch {
   }
 
   ForEach ($ref in $refs) {
-    if ( -not (git show-ref -q --verify $ref)) {
+    if (-not (git show-ref -q --verify $ref)) {
       Write-Output ($ref.Split('/')[-1])
       return
     }
@@ -26,7 +26,7 @@ function git_develop_branch {
   if (git rev-parse --git-dir 2>&1 | Out-Null) { return }
 
   ForEach ($branch in @('dev', 'devel', 'development')) {
-    if ( -not (git show-ref -q --verify "refs/heads/$branch")) {
+    if (-not (git show-ref -q --verify "refs/heads/$branch")) {
       Write-Output "$branch"
       return
     }
