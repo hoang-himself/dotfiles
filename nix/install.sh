@@ -8,7 +8,7 @@ function install_packages {
     dos2unix htop git git-lfs tree gnupg)
 
   if [[ "$1" == dnf ]]; then
-    sudo dnf install dnf-plugins-core -y
+    sudo dnf install dnf-plugins-core util-linux-user -y
     sudo dnf upgrade -y
     pre_req+=(crontabs ShellCheck)
   elif [[ "$1" == apt ]]; then
@@ -27,11 +27,7 @@ function install_zsh_omz {
   mkdir -p "$HOME"/.config/zsh
   sudo "$1" install -y zsh
 
-  if [[ "$1" == dnf ]]; then
-    lchsh -s "$(command -v zsh)"
-  elif [[ "$1" == apt ]]; then
-    chsh -s "$(command -v zsh)"
-  fi
+  chsh -s "$(command -v zsh)"
 
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
