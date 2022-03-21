@@ -21,6 +21,8 @@ function sudo() {
 # Basic commands
 function which($name) { Get-Command $name -ErrorAction SilentlyContinue | Select-Object Definition }
 function touch($file) { '' | Out-File $file -Encoding ASCII }
+function mkd($path) { New-Item -Path $path -ItemType Directory && Set-Location $path }
+function nano() { & "$(if ($null -ne $env:EDITOR) { $env:EDITOR } else { 'notepad' })" $args }
 
 # Navigation Shortcuts
 # https://docs.microsoft.com/en-us/dotnet/api/system.environment.specialfolder

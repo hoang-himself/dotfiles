@@ -199,7 +199,7 @@ ${function:gtv} = { git tag | Sort-Object }
 ${function:gtl} = { git tag --sort=-v:refname -n -l $args }
 
 ${function:gunignore} = { git update-index --no-assume-unchanged $args }
-${function:gunwip} = { if (git log -n 1 | Select-String -Pattern '--wip--') { git reset HEAD~1 }}
+${function:gunwip} = { if (git log -n 1 | Select-String -Pattern '--wip--') { git reset '@~' }}
 ${function:gup} = { git pull --rebase $args }
 ${function:gupv} = { git pull --rebase -v $args }
 ${function:gupa} = { git pull --rebase --autostash $args }

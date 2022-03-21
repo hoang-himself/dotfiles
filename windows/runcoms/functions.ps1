@@ -1,10 +1,12 @@
 # Common Editing needs
-function Edit-Hosts { Invoke-Expression "sudo $(if ($null -ne $env:EDITOR) {$env:EDITOR} else { 'notepad' }) $env:windir\system32\drivers\etc\hosts" }
+function Edit-Hosts {
+  sudo "$(if ($null -ne $env:EDITOR) { $env:EDITOR } else { 'notepad' })" "$env:windir\system32\drivers\etc\hosts"
+}
 
 # Reload the $env object from the registry
 function Update-Environment {
-  $locations = 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
-  'HKCU:\Environment'
+  $locations = @('HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
+    'HKCU:\Environment')
 
   $locations | ForEach-Object {
     $k = Get-Item $_
