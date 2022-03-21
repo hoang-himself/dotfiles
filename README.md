@@ -1,6 +1,8 @@
 # Dotfiles
 
-[![CI](https://github.com/Smithienious/dotfiles/actions/workflows/test_nix.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/test_nix.yml)
+[![Fedora and Debian](https://github.com/Smithienious/dotfiles/actions/workflows/dotfiles_nix.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/dotfiles_nix.yml)
+<!-- [![Windows](https://github.com/Smithienious/dotfiles/actions/workflows/dotfiles_windows.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/dotfiles_windows.yml) -->
+[![Development Container](https://github.com/Smithienious/dotfiles/actions/workflows/dotfiles_devcont.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/dotfiles_devcont.yml)
 
 ## Disclaimer
 

@@ -1,0 +1,21 @@
+name: 'Development Containers'
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    container: koalaman/shellcheck-alpine:stable
+    steps:
+      - name: Clone dotfiles
+        uses: actions/checkout@v3
+      - name: Check bash scripts
+        working-directory: ./devcont
+        run: |
+          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=error
+          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=style || echo "Shellcheck has some warnings"

@@ -1,7 +1,9 @@
-name: 'CI'
+name: 'Fedora and Debian'
 
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -9,16 +11,13 @@ jobs:
     name: ShellCheck
     runs-on: ubuntu-latest
     container: koalaman/shellcheck-alpine:stable
+    defaults:
+      run:
+        working-directory: ./nix
     steps:
       - name: Clone dotfiles
         uses: actions/checkout@v3
-      - name: Check nix scripts
-        working-directory: ./nix
-        run: |
-          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=error
-          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=style || echo "Shellcheck has some warnings"
-      - name: Check devcont scripts
-        working-directory: ./devcont
+      - name: Check zsh scripts
         run: |
           find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=error
           find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=style || echo "Shellcheck has some warnings"
