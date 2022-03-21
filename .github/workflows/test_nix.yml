@@ -1,4 +1,4 @@
-name: 'Test on latest Ubuntu'
+name: 'CI'
 
 on:
   push:
@@ -10,8 +10,7 @@ jobs:
     steps:
       - name: Clone dotfiles
         uses: actions/checkout@v3
-      - name: Check scripts
+      - name: Check bash scripts
         run: |
-          find . -type f -name '*.sh' | wc -l
-          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=error --source-path="${PWD}/nix"
-          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=style --source-path="${PWD}/nix" || echo "Shellcheck has some warnings"
+          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=error
+          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=style || echo "Shellcheck has some warnings"
