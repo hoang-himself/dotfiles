@@ -1,5 +1,7 @@
 # Dotfiles
 
+[![CI](https://github.com/Smithienious/dotfiles/actions/workflows/test_nix.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/test_nix.yml)
+
 ## Disclaimer
 
 You should not clone this repo and use directly, instead create a fork or use this repo as a template to create a new one. ([Comparison](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/creating-a-repository-from-a-template#about-repository-templates))
