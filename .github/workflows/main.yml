@@ -5,6 +5,7 @@ on:
 
 jobs:
   shellcheck:
+    name: ShellCheck
     runs-on: ubuntu-latest
     container: koalaman/shellcheck-alpine:stable
     steps:
