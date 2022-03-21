@@ -24,54 +24,6 @@ function cleantmp {
   command sudo rm -r "$TMP_DIR"
 }
 
-function install_zsh_omz {
-  mkdir -p "$HOME"/.config/zsh
-  sudo "$1" install -y zsh
-
-  if [[ "$1" == dnf ]]; then
-    lchsh -s "$(command -v zsh)"
-  elif [[ "$1" == apt ]]; then
-    chsh -s "$(command -v zsh)"
-  fi
-
-  export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-
-  curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
-  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-
-  local extra_zsh=(ruby cowsay figlet fortune-mod)
-  sudo "$1" install -y "${extra_zsh[@]}"
-  sudo gem install lolcat
-
-  # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
-  # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
-  ln "$@" -rs ./runcoms/zshenv "$HOME"/.zshenv
-  ln "$@" -rs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
-
-  for rc_file in ./runcoms/*; do
-    ln -rs "$@" "$rc_file" "${ZDOTDIR:-$HOME}/.$(basename "$rc_file")"
-  done
-}
-
-function install_openssh {
-  mkdir -p "$HOME"/.config/ssh
-  mkdir -p "$HOME"/.ssh/sockets
-
-  local pre_req=(openssh-server)
-  if [[ "$1" == apt ]]; then
-    pre_req+=(openssh-client)
-  elif [[ "$1" == dnf ]]; then
-    pre_req+=(openssh-clients)
-  fi
-  sudo "$1" install -y "${pre_req[@]}"
-
-  # ln -rs "$@" ./configs/ssh_config "$XDG_CONFIG_HOME"/ssh/config
-  ln -rs "$@" ./configs/ssh_config "$HOME"/.ssh/config
-  sudo ln -rsf "$@" ./configs/sshd_config /etc/ssh/sshd_config
-}
-
 function install_gcc {
   local pre_req=("")
   if [[ "$1" == apt ]]; then
