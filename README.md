@@ -19,8 +19,7 @@ Suggestions/improvements are [welcome and encouraged](https://github.com/Smithie
 
 ## Credits
 
-Some parts of this repo were inspired and/or forked from
-
 - [pengwin-setup](https://github.com/WhitewaterFoundry/pengwin-setup)
 - [ohmyzsh plugins](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins)
 - [Jay Harris's dotfiles](https://github.com/jayharris/dotfiles-windows)
+- [Sharing Git credentials with your container](https://code.visualstudio.com/docs/remote/containers#_sharing-git-credentials-with-your-container)

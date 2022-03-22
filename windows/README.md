@@ -10,3 +10,13 @@ Review the code, remove things you don't want or need, and enjoy.
 Using the install script might overwrite your configs.
 
 Use at your own risk!
+
+## Prerequisites
+
+This repository currently does not implement the installation of the following programs, thus the user must install these manually:
+
+- [git-scm](https://github.com/git-for-windows/git/releases/latest)
+- [PowerShell Core](https://github.com/PowerShell/PowerShell/releases/latest)
+- [Gpg4win](https://www.gpg4win.org/download.html)
+
+<!-- https://www.gpg4win.org/thanks-for-download.html -->
