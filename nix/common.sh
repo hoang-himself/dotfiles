@@ -139,8 +139,8 @@ function enable_passwordless_sudo {
   export USERNAME=$(whoami)
 
   # shellcheck disable=SC1004
-  sudo bash -c 'echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
-  && chmod 0440 /etc/sudoers.d/${USERNAME}'
+  sudo bash -c 'echo ${USERNAME} ALL=\(ALL:ALL\) NOPASSWD: ALL > /etc/sudoers.d/00-${USERNAME} \
+  && chmod 0440 /etc/sudoers.d/00-${USERNAME}'
 
   unset USERNAME
 }
