@@ -1,17 +1,17 @@
-#  $OpenBSD: sshd_config,v 1.104 2021/07/02 05:11:21 dtucker Exp $
+# $OpenBSD: sshd_config,v 1.104 2021/07/02 05:11:21 dtucker Exp $
 
-# This is the sshd server system-wide configuration file.  See
+# This is the sshd server system-wide configuration file. See
 # sshd_config(5) for more information.
 
 # This sshd was compiled with PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
 
 # The strategy used for options in the default sshd_config shipped with
 # OpenSSH is to specify options with their default value where
-# possible, but leave them commented.  Uncommented options override the
+# possible, but leave them commented. Uncommented options override the
 # default value.
 
-# To modify the system-wide sshd configuration, create a  *.conf  file under
-#  /etc/ssh/sshd_config.d/  which will be automatically included below
+# To modify the system-wide sshd configuration, create a *.conf file under
+# /etc/ssh/sshd_config.d/ which will be automatically included below
 Include /etc/ssh/sshd_config.d/*.conf
 
 # If you want to change the port on a SELinux system, you have to tell
@@ -39,13 +39,13 @@ Include /etc/ssh/sshd_config.d/*.conf
 #LoginGraceTime 2m
 #PermitRootLogin prohibit-password
 #StrictModes yes
-#MaxAuthTries 6
+MaxAuthTries 1
 #MaxSessions 10
 
 #PubkeyAuthentication yes
 
 # Expect .ssh/authorized_keys2 to be disregarded by default in future.
-# AuthorizedKeysFile  .ssh/authorized_keys
+AuthorizedKeysFile /etc/ssh/keys/%u/authorized_keys
 
 #AuthorizedPrincipalsFile none
 
@@ -61,7 +61,7 @@ Include /etc/ssh/sshd_config.d/*.conf
 #IgnoreRhosts yes
 
 # To disable tunneled clear text passwords, change to no here!
-#PasswordAuthentication yes
+PasswordAuthentication no
 #PermitEmptyPasswords no
 
 # Change to no to disable s/key passwords
@@ -84,7 +84,7 @@ Include /etc/ssh/sshd_config.d/*.conf
 # Set this to 'yes' to enable PAM authentication, account processing,
 # and session processing. If this is enabled, PAM authentication will
 # be allowed through the KbdInteractiveAuthentication and
-# PasswordAuthentication.  Depending on your PAM configuration,
+# PasswordAuthentication. Depending on your PAM configuration,
 # PAM authentication via KbdInteractiveAuthentication may bypass
 # the setting of "PermitRootLogin without-password".
 # If you just want the PAM account and session checks to run without
@@ -93,7 +93,6 @@ Include /etc/ssh/sshd_config.d/*.conf
 # WARNING: 'UsePAM no' is not supported in Fedora and may cause several
 # problems.
 UsePAM yes
-PasswordAuthentication no
 
 # Change to yes to enable challenge-response passwords (beware issues with
 # some PAM modules and threads)
@@ -127,11 +126,11 @@ X11Forwarding yes
 AcceptEnv LANG LC_*
 
 # override default of no subsystems
-Subsystem  sftp  /usr/libexec/openssh/sftp-server
+Subsystem sftp /usr/libexec/openssh/sftp-server
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs
-#  X11Forwarding no
-#  AllowTcpForwarding no
-#  PermitTTY no
-#  ForceCommand cvs server
+# X11Forwarding no
+# AllowTcpForwarding no
+# PermitTTY no
+# ForceCommand cvs server

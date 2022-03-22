@@ -42,6 +42,7 @@ function install_zsh_omz {
 function install_openssh {
   mkdir -p "$HOME"/.config/ssh
   mkdir -p "$HOME"/.ssh/sockets
+  sudo mkdir -p /etc/ssh/keys/${USERNAME}
 
   local pre_req=(openssh-server)
   if [[ "$1" == apt ]]; then
@@ -50,7 +51,6 @@ function install_openssh {
     pre_req+=(openssh-clients)
   fi
   sudo "$1" install -y "${pre_req[@]}"
-  # echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com' >>"$HOME/.ssh/authorized_keys"
 }
 
 function link_config {
@@ -85,9 +85,9 @@ function link_config {
     ln -rs "$@" "$file" "${ZDOTDIR:-$HOME}/.$(basename "$file")"
   done
 
-  # ln -rs "$@" ./configs/ssh_config "$XDG_CONFIG_HOME"/ssh/config
-  ln -rs "$@" ./configs/ssh_config "$HOME"/.ssh/config
-  sudo ln -rsf "$@" ./configs/sshd_config /etc/ssh/sshd_config
+  # ln -rs "$@" ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
+  ln -rs "$@" ./configs/openssh/ssh_config "$HOME"/.ssh/config
+  sudo ln -rsf "$@" ./configs/openssh/sshd_config /etc/ssh/sshd_config
 }
 
 function main {

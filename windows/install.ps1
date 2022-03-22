@@ -62,7 +62,8 @@ function Install-OpenSSH {
   if (-not (Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
     New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
   }
-  # Add-Content -Path "$HOME/.ssh/authorized_keys" -Value 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com'
+
+  New-Item -ItemType Directory -Path "$env:ProgramData\ssh\keys\$env:USERNAME" -Force
 }
 
 function Install-WSL {
@@ -104,10 +105,10 @@ function Install-Configs {
     }
 
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.ssh\config" `
-    -Target $(Resolve-Path -LiteralPath .\configs\ssh_config) -Force
+    -Target $(Resolve-Path -LiteralPath .\configs\openssh\ssh_config) -Force
   # icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
   New-Item -ItemType SymbolicLink -Path "$env:ProgramData\ssh\sshd_config" `
-    -Target $(Resolve-Path -LiteralPath .\configs\sshd_config) -Force
+    -Target $(Resolve-Path -LiteralPath .\configs\openssh\sshd_config) -Force
   New-ItemProperty -Path 'HKLM:\SOFTWARE\OpenSSH' -PropertyType String `
     -Name DefaultShell -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
 
