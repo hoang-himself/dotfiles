@@ -40,9 +40,9 @@ function install_zsh_omz {
 }
 
 function install_openssh {
-  mkdir -p "$HOME"/.config/ssh
-  mkdir -p "$HOME"/.ssh/sockets
-  sudo mkdir -p /etc/ssh/keys/${USERNAME}
+  mkdir -p "$HOME/.config/ssh"
+  mkdir -p "$HOME/.ssh/sockets"
+  sudo mkdir -p "/etc/ssh/keys/$(whoami)"
 
   local pre_req=(openssh-server)
   if [[ "$1" == apt ]]; then

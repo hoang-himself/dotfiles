@@ -131,17 +131,9 @@ function _dangerous {
     exit 1
   fi
 
-  # To get the current user, this next command must be run as the user
-  # shellcheck disable=SC2155
-  export USERNAME=$(whoami)
+  echo "$(whoami) ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/00-$(whoami)" > /dev/null
+  sudo chmod 0440 "/etc/sudoers.d/00-$(whoami)"
 
-  # shellcheck disable=SC1004
-  sudo bash -c 'echo ${USERNAME} ALL=\(ALL:ALL\) NOPASSWD: ALL > /etc/sudoers.d/00-${USERNAME} \
-    && chmod 0440 /etc/sudoers.d/00-${USERNAME}'
-
-  # shellcheck disable=SC1004
-  sudo bash -c 'echo ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com > /etc/ssh/keys/${USERNAME}/authorized_keys \
-    && chmod 0600 /etc/ssh/keys/${USERNAME}/authorized_keys'
-
-  unset USERNAME
+  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com' | sudo tee -a "/etc/ssh/keys/$(whoami)/authorized_keys" > /dev/null
+  sudo chmod 0600 "/etc/ssh/keys/$(whoami)/authorized_keys"
 }
