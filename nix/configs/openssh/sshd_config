@@ -45,7 +45,7 @@ MaxAuthTries 1
 #PubkeyAuthentication yes
 
 # Expect .ssh/authorized_keys2 to be disregarded by default in future.
-AuthorizedKeysFile /etc/ssh/keys/%u/authorized_keys
+AuthorizedKeysFile /etc/ssh/keys/%u/authorized_keys .ssh/authorized_keys
 
 #AuthorizedPrincipalsFile none
 

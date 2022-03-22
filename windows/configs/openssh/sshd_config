@@ -35,7 +35,7 @@ MaxAuthTries 1
 
 # The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
 # but this is overridden so installations will only check .ssh/authorized_keys
-AuthorizedKeysFile __PROGRAMDATA__/ssh/keys/%u/authorized_keys
+AuthorizedKeysFile __PROGRAMDATA__/ssh/keys/%u/authorized_keys .ssh/authorized_keys
 
 #AuthorizedPrincipalsFile none
 
