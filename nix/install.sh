@@ -50,6 +50,7 @@ function install_openssh {
     pre_req+=(openssh-clients)
   fi
   sudo "$1" install -y "${pre_req[@]}"
+  # echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com' >>"$HOME/.ssh/authorized_keys"
 }
 
 function link_config {
