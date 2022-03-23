@@ -23,3 +23,13 @@ Suggestions/improvements are [welcome and encouraged](https://github.com/Smithie
 - [ohmyzsh plugins](https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins)
 - [Jay Harris's dotfiles](https://github.com/jayharris/dotfiles-windows)
 - [Sharing Git credentials with your container](https://code.visualstudio.com/docs/remote/containers#_sharing-git-credentials-with-your-container)
+
+## FAQ
+
+### Q: SSH keys are not working properly
+
+A typical SSH certificate setup has a private key and a public key.
+The private key **must** have Unix line-endings.
+
+In order to achieve this, it is best to use `dos2unix`.
+You can find this package on most Linux distros, or use [Dos2Unix for Windows](https://waterlan.home.xs4all.nl/dos2unix.html).
