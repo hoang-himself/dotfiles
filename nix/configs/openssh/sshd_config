@@ -1,23 +1,17 @@
-# $OpenBSD: sshd_config,v 1.104 2021/07/02 05:11:21 dtucker Exp $
+# $OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
 
 # This is the sshd server system-wide configuration file. See
 # sshd_config(5) for more information.
 
-# This sshd was compiled with PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+# This sshd was compiled with PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 # The strategy used for options in the default sshd_config shipped with
 # OpenSSH is to specify options with their default value where
 # possible, but leave them commented. Uncommented options override the
 # default value.
 
-# To modify the system-wide sshd configuration, create a *.conf file under
-# /etc/ssh/sshd_config.d/ which will be automatically included below
 Include /etc/ssh/sshd_config.d/*.conf
 
-# If you want to change the port on a SELinux system, you have to tell
-# SELinux about this change.
-# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
-#
 #Port 22
 #AddressFamily any
 #ListenAddress 0.0.0.0
@@ -39,13 +33,13 @@ Include /etc/ssh/sshd_config.d/*.conf
 #LoginGraceTime 2m
 #PermitRootLogin prohibit-password
 #StrictModes yes
-MaxAuthTries 1
+#MaxAuthTries 6
 #MaxSessions 10
 
 #PubkeyAuthentication yes
 
 # Expect .ssh/authorized_keys2 to be disregarded by default in future.
-AuthorizedKeysFile /etc/ssh/keys/%u/authorized_keys .ssh/authorized_keys
+AuthorizedKeysFile .ssh/authorized_keys /etc/ssh/keys/%u/authorized_keys
 
 #AuthorizedPrincipalsFile none
 
@@ -64,39 +58,32 @@ AuthorizedKeysFile /etc/ssh/keys/%u/authorized_keys .ssh/authorized_keys
 PasswordAuthentication no
 #PermitEmptyPasswords no
 
-# Change to no to disable s/key passwords
-#KbdInteractiveAuthentication yes
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication no
 
 # Kerberos options
 #KerberosAuthentication no
 #KerberosOrLocalPasswd yes
 #KerberosTicketCleanup yes
 #KerberosGetAFSToken no
-#KerberosUseKuserok yes
 
 # GSSAPI options
 #GSSAPIAuthentication no
 #GSSAPICleanupCredentials yes
 #GSSAPIStrictAcceptorCheck yes
 #GSSAPIKeyExchange no
-#GSSAPIEnablek5users no
 
 # Set this to 'yes' to enable PAM authentication, account processing,
 # and session processing. If this is enabled, PAM authentication will
-# be allowed through the KbdInteractiveAuthentication and
+# be allowed through the ChallengeResponseAuthentication and
 # PasswordAuthentication. Depending on your PAM configuration,
-# PAM authentication via KbdInteractiveAuthentication may bypass
+# PAM authentication via ChallengeResponseAuthentication may bypass
 # the setting of "PermitRootLogin without-password".
 # If you just want the PAM account and session checks to run without
 # PAM authentication, then enable this but set PasswordAuthentication
-# and KbdInteractiveAuthentication to 'no'.
-# WARNING: 'UsePAM no' is not supported in Fedora and may cause several
-# problems.
+# and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
-
-# Change to yes to enable challenge-response passwords (beware issues with
-# some PAM modules and threads)
-ChallengeResponseAuthentication no
 
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
@@ -126,7 +113,7 @@ X11Forwarding yes
 AcceptEnv LANG LC_*
 
 # override default of no subsystems
-Subsystem sftp /usr/libexec/openssh/sftp-server
+Subsystem sftp /usr/lib/openssh/sftp-server
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs

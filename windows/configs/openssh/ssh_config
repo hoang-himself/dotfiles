@@ -1,8 +1,7 @@
 # Reuse connections in backlog
 # https://github.com/PowerShell/Win32-OpenSSH/wiki/Project-Scope
 
-Host homepi
-  Hostname 192.168.1.191
+Host raspberrypi.local raspberrypi
   CanonicalizeHostname yes
   User pi
   Port 22
@@ -10,3 +9,6 @@ Host homepi
 Host 192.168.*
   ForwardAgent yes
   ExitOnForwardFailure yes
+
+Host *
+  ControlMaster no
