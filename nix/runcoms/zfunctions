@@ -36,3 +36,9 @@ function fs {
     du $arg .[^.]* -- *
   fi
 }
+
+# Upgrade docker-compose
+function upgrade_compose {
+  curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
+  chmod +x ~/.docker/cli-plugins/docker-compose
+}
