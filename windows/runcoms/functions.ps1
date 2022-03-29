@@ -22,10 +22,18 @@ function Update-Environment {
 
 # Set a permanent Environment variable, and reload it into $env
 function Set-Environment([String] $variable, [String] $value) {
-  Set-ItemProperty 'HKCU:\Environment' $variable $value
+  Set-ItemProperty -Path 'HKCU:\Environment' -Name $variable -Value $value
   # Manually setting Registry entry. SetEnvironmentVariable is too slow because of blocking HWND_BROADCAST
-  #[System.Environment]::SetEnvironmentVariable("$variable", "$value","User")
-  Invoke-Expression "`$env:${variable} = `"$value`""
+  #[System.Environment]::SetEnvironmentVariable("$variable", "$value", "User")
+  Invoke-Expression -Command "`$env:${variable} = `"$value`""
+}
+
+# Remove a permanent Environment variable
+function Remove-Environment([String] $variable) {
+  Remove-ItemProperty -Path 'HKCU:\Environment' -Name $variable
+  # Manually setting Registry entry. SetEnvironmentVariable is too slow because of blocking HWND_BROADCAST
+  #[System.Environment]::SetEnvironmentVariable("$variable", $null, "User")
+  Remove-Item -Path "Env:\${variable}"
 }
 
 # Add a folder to $env:Path
