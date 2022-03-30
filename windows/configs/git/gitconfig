@@ -102,6 +102,7 @@
 
 [merge]
   autoStash = true
+  ff = false
 
 [rebase]
   autoStash = true
@@ -109,6 +110,9 @@
 [push]
   default = simple
   followTags = true
+
+[pull]
+  ff = true
 
 [rerere]
   enabled = 1
