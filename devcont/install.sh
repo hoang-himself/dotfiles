@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function link_dotfiles {
-  for rcfile in ./runcom/*; do
+  for rcfile in ./runcoms/*; do
     ln -frs "$rcfile" "$HOME/.$(basename "$rcfile")"
   done
 }
