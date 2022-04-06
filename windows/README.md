@@ -20,3 +20,37 @@ This repository currently does not implement the installation of the following p
 - [Gpg4win](https://www.gpg4win.org/download.html)
 
 <!-- https://www.gpg4win.org/thanks-for-download.html -->
+
+## FAQ/Notes for self
+
+### View all keybindings
+
+```powershell
+Get-PSReadLineKeyHandler
+```
+
+### Shift args
+
+```powershell
+$args = $args | Select-Object -Skip 1
+```
+
+or pass this instead
+
+```powershell
+$args[1..$args.Length]
+```
+
+### Get system variables
+
+PowerShell stores a lot of system objects as virtual drives
+
+```powershell
+Get-PSDrive
+```
+
+Sample: Get environment variables
+
+```powershell
+Get-ChildItem -Path Env:
+```
