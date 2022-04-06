@@ -24,12 +24,20 @@ Suggestions/improvements are [welcome and encouraged](https://github.com/Smithie
 - [Jay Harris's dotfiles](https://github.com/jayharris/dotfiles-windows)
 - [Sharing Git credentials with your container](https://code.visualstudio.com/docs/remote/containers#_sharing-git-credentials-with-your-container)
 
-## FAQ
+## FAQ/Notes to self
 
-### Q: SSH keys are not working properly
+### SSH keys are not working properly
 
 A typical SSH certificate setup has a private key and a public key.
 The private key **must** have Unix line-endings.
 
 In order to achieve this, it is best to use `dos2unix`.
 You can find this package on most Linux distros, or use [Dos2Unix for Windows](https://waterlan.home.xs4all.nl/dos2unix.html).
+
+### ssh_config global settings vs `Host *`
+
+Settings in the "top" level can’t be overridden, whereas settings in `Host *` will be overridden by any setting defined before that section (in the "top" level, or in a section matching the target host).
+
+The "top" level should be used for settings which shouldn’t be overridden, and the `Host *` section, which should come last, should be used for default settings.
+
+[Unix & Linux Stack Exchange Thread](https://unix.stackexchange.com/q/606832)

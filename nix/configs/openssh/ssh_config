@@ -1,9 +1,8 @@
 # ssh_config(5)
 
-# Include <glob(7)>
-# IgnoreUnknown [,]
-
-# IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
+#Include <glob(7)>
+#IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
+EscapeChar ~
 
 Host raspberrypi.local raspberrypi
   CanonicalizeHostname yes
