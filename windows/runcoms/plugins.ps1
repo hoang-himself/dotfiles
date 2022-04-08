@@ -1,6 +1,5 @@
 Push-Location (Join-Path (Split-Path -Parent $Profile) "plugins")
 @(
-  'common-aliases',
   'git',
   'python'
 ) | ForEach-Object {
