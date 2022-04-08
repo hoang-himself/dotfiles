@@ -62,12 +62,14 @@ ${function:gcam} = { git commit -a -m $args }
 ${function:gcsm} = { git commit -s -m $args }
 ${function:gcas} = { git commit -a -s $args }
 ${function:gcasm} = { git commit -a -s -m $args }
+Remove-Alias -Name 'gcb' -Force
 ${function:gcb} = { git checkout -b $args }
 ${function:gcf} = { git config -l $args }
 
 ${function:gcl} = { git clone --recurse-submodules $args }
 ${function:gclean} = { git clean -id $args }
 ${function:gpristine} = { git reset --hard && git clean -dffx }
+Remove-Alias -Name 'gcm' -Force
 ${function:gcm} = { git checkout $(git_main_branch) $args }
 ${function:gcd} = { git checkout $(git_develop_branch) $args }
 ${function:gcmsg} = { git commit -m $args }
@@ -128,6 +130,7 @@ ${function:glola} = { git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Crese
 ${function:glog} = { git log --oneline --decorate --graph $args }
 ${function:gloga} = { git log --oneline --decorate --graph --all $args }
 
+Remove-Alias -Name 'gm' -Force
 ${function:gm} = { git merge $args }
 ${function:gmom} = { git merge origin/$(git_main_branch) $args }
 ${function:gmum} = { git merge upstream/$(git_main_branch) $args }
