@@ -36,8 +36,16 @@ You can find this package on most Linux distros, or use [Dos2Unix for Windows](h
 
 ### ssh_config global settings vs `Host *`
 
+[Unix & Linux Stack Exchange Question](https://unix.stackexchange.com/q/606832)
+
 Settings in the "top" level can’t be overridden, whereas settings in `Host *` will be overridden by any setting defined before that section (in the "top" level, or in a section matching the target host).
 
 The "top" level should be used for settings which shouldn’t be overridden, and the `Host *` section, which should come last, should be used for default settings.
 
-[Unix & Linux Stack Exchange Thread](https://unix.stackexchange.com/q/606832)
+### How to do ssh port forwarding when already logged in with ssh?
+
+[Stack Overflow Question](https://stackoverflow.com/questions/5211561/can-i-do-ssh-port-forwarding-after-ive-already-logged-in-with-ssh)
+
+If you set your escape character with EscapeChar option in ~/.ssh/config or with the -e option you can.
+
+Assuming an escape of ~: `~C-L 8000:localhost:9000`.
