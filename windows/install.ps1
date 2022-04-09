@@ -71,6 +71,19 @@ function Install-OMP {
     }
 }
 
+function Install-Pyenv {
+  git clone --depth=1 'https://github.com/pyenv-win/pyenv-win.git' "$env:USERPROFILE\.pyenv"
+
+  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV' `
+    -Value "$env:USERPROFILE\.pyenv\pyenv-win"
+  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_ROOT' `
+    -Value "$env:USERPROFILE\.pyenv\pyenv-win"
+  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_HOME' `
+    -Value "$env:USERPROFILE\.pyenv\pyenv-win"
+  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'Path' `
+    -Value "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims;$(Get-ItemPropertyValue -Path 'HKCU:\Environment' -Name 'Path')"
+}
+
 function Install-OpenSSH {
   # https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse
   Add-WindowsCapability -Online -Name OpenSSH.Client
@@ -124,9 +137,11 @@ function main {
   New-Item -Path $env:ProfileDir -ItemType Directory -ErrorAction SilentlyContinue -Force
   New-Item -Path $env:PluginsDir -ItemType Directory -ErrorAction SilentlyContinue -Force
 
+  #Uninstall-Bloat
   Install-BasePackages
-  Install-OpenSSH
   Install-OMP
+  Install-Pyenv
+  Install-OpenSSH
   Install-WSL
   Install-Configs
 
