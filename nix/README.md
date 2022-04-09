@@ -10,3 +10,7 @@ Review the code, remove things you don't want or need, and enjoy.
 Using the install script might overwrite your configs.
 
 Use at your own risk!
+
+## Prerequisites
+
+- Git
