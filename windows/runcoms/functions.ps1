@@ -38,20 +38,31 @@ function Remove-Environment([String] $variable) {
 
 # Add a folder to $env:Path
 function Add-PrependEnvPath([String]$path) {
-  if ( $path.Equals('.') ) { $path = (Get-Location) }
+  if ($path.Equals('.')) { $path = (Get-Location) }
   if (Test-Path -LiteralPath $path) {
-    $env:PATH = "$path;" + $env:PATH
+    $env:Path = "$path;" + $env:Path
   }
   else {
     throw 'Invalid path'
   }
 }
 function Add-AppendEnvPath([String]$path) {
-  if ( $path.Equals('.') ) { $path = (Get-Location) }
+  if ($path.Equals('.')) { $path = (Get-Location) }
   if (Test-Path -LiteralPath $path) {
-    $env:PATH = "$path;" + $env:PATH
+    $env:Path = "$path;" + $env:Path
   }
   else {
     throw 'Invalid path'
   }
+}
+
+# Upgrade several stuffs
+function update_upgrade {
+  Update-Module
+  Update-Help
+
+  Push-Location
+  Set-Location -Path "$env:USERPROFILE\.pyenv"
+  git pull --all --prune --rebase --autostash
+  Pop-Location
 }

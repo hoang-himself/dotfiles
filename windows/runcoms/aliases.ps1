@@ -28,8 +28,10 @@ function nano() { & "$(if ($null -ne $env:EDITOR) { $env:EDITOR } else { 'notepa
 
 # Navigation Shortcuts
 # https://docs.microsoft.com/en-us/dotnet/api/system.environment.specialfolder
-${function:dt} = { Set-Location -Path $([Environment]::GetFolderPath("Desktop")) }
-${function:docs} = { Set-Location -Path $([Environment]::GetFolderPath("MyDocuments")) }
-${function:dl} = { Set-Location -Path $(Get-ItemPropertyValue 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' '{7D83EE9B-2244-4E70-B1F5-5393042AF1E4}') }
+${function:dt} = { Set-Location -Path $([Environment]::GetFolderPath('Desktop')) }
+${function:docs} = { Set-Location -Path $([Environment]::GetFolderPath('MyDocuments')) }
+${function:dl} = { Set-Location -Path $(Get-ItemPropertyValue `
+      -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' `
+      -Name '{7D83EE9B-2244-4E70-B1F5-5393042AF1E4}') }
 
 Set-Alias -Name 'time' -Value 'Measure-Command'
