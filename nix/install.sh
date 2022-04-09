@@ -11,7 +11,7 @@ function install_base_packages {
     pre_req+=(crontabs ShellCheck)
   elif [[ "$1" == apt ]]; then
     sudo apt update
-    sudo apt install apt-utils -y
+    sudo apt install apt-utils build-essential -y
     sudo apt full-upgrade -y
     pre_req+=(cron shellcheck)
   fi
@@ -48,6 +48,33 @@ function install_zsh_omz {
   for file in ./runcoms/*; do
     ln -rs "$@" "$file" "${ZDOTDIR:-$HOME}/.$(basename "$file")"
   done
+}
+
+function install_pyenv {
+  local pre_req=""
+  local python_target="3.10.2"
+
+  if [[ "$1" == apt ]]; then
+    pre_req=(make build-essential libssl-dev zlib1g-dev libbz2-dev
+      libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev
+      xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev)
+  elif [[ "$1" == dnf ]]; then
+    pre_req=(make gcc zlib-devel bzip2 bzip2-devel readline-devel
+      sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel)
+  fi
+
+  sudo "$1" install -y "${pre_req[@]}"
+
+  curl -SL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+
+  pyenv install -s ${python_target}
+  pyenv global ${python_target}
+
+  pip install --upgrade pip setuptools wheel
 }
 
 function install_openssh {
@@ -92,8 +119,9 @@ function main {
   export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
 
   install_base_packages "$@"
-  install_openssh "$@"
   install_zsh_omz "$@"
+  install_pyenv "$@"
+  install_openssh "$@"
   link_config
   sudo "$1" autoremove -y
 }
