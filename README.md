@@ -2,7 +2,7 @@
 
 [![Debian](https://github.com/Smithienious/dotfiles/actions/workflows/debian.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/debian.yml)
 [![Fedora](https://github.com/Smithienious/dotfiles/actions/workflows/fedora.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/fedora.yml)
-<!-- [![Windows](https://github.com/Smithienious/dotfiles/actions/workflows/windows.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/windows.yml) -->
+[![Windows](https://github.com/Smithienious/dotfiles/actions/workflows/windows.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/windows.yml)
 [![Dev Container](https://github.com/Smithienious/dotfiles/actions/workflows/devcont.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/devcont.yml)
 
 ## Disclaimer
