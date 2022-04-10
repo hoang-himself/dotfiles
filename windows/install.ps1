@@ -72,7 +72,7 @@ function Install-OMP {
 }
 
 function Install-Pyenv {
-  $python_target = '3.9.6'
+  $python_target = '3.10.4'
   git clone --depth=1 'https://github.com/pyenv-win/pyenv-win.git' "$env:USERPROFILE\.pyenv"
 
   Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV' `
