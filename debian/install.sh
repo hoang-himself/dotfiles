@@ -26,11 +26,11 @@ function install_zsh_omz {
 
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
-  ln "$@" -rs ./runcoms/zshenv "$HOME"/.zshenv
-  ln "$@" -rs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
+  ln -rs ./runcoms/zshenv "$HOME"/.zshenv
+  ln -rs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
 
   for file in ./runcoms/*; do
-    ln -rs "$@" "$file" "${ZDOTDIR:-$HOME}/.$(basename "$file")"
+    ln -rs "$file" "${ZDOTDIR:-$HOME}/.$(basename "$file")"
   done
 }
 
@@ -60,9 +60,9 @@ function install_openssh {
 
   sudo apt install -y openssh-server openssh-client
 
-  #ln -rs "$@" ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
-  ln -rs "$@" ./configs/openssh/ssh_config "$HOME"/.ssh/config
-  # sudo ln -rsf "$@" ./configs/openssh/sshd_config /etc/ssh/sshd_config
+  #ln -rs ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
+  ln -rs ./configs/openssh/ssh_config "$HOME"/.ssh/config
+  # sudo ln -rsf ./configs/openssh/sshd_config /etc/ssh/sshd_config
 }
 
 function link_config {
@@ -73,7 +73,7 @@ function link_config {
   export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
   chmod 700 "$GNUPGHOME"
   for file in ./configs/gnupg/*; do
-    ln -rs "$@" "$file" "${XDG_CONFIG_HOME:-$HOME}/gnupg/$(basename "$file")"
+    ln -rs "$file" "${XDG_CONFIG_HOME:-$HOME}/gnupg/$(basename "$file")"
   done
 }
 
@@ -96,4 +96,16 @@ function main {
   sudo apt autoremove -y
 }
 
-main
+# https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  -i | --install)
+    main
+    shift
+    ;;
+  *)
+    echo Unrecognized option \`"$1"\'
+    shift
+    ;;
+  esac
+done
