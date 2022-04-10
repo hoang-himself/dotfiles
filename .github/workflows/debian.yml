@@ -1,0 +1,23 @@
+name: 'Debian'
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    container: koalaman/shellcheck-alpine:stable
+    defaults:
+      run:
+        working-directory: ./debian
+    steps:
+      - name: Clone dotfiles
+        uses: actions/checkout@v3
+      - name: Check zsh scripts
+        run: |
+          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=error
+          find . -type f -name '*.sh' | xargs shellcheck --external-sources --severity=style || echo "Shellcheck has some warnings"
