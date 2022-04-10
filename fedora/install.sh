@@ -26,11 +26,11 @@ function install_zsh_omz {
 
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
-  ln -rs ./runcoms/zshenv "$HOME"/.zshenv
-  ln -rs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
+  ln -frs ./runcoms/zshenv "$HOME"/.zshenv
+  ln -frs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
 
   for file in ./runcoms/*; do
-    ln -rs "$file" "${ZDOTDIR:-$HOME}/.$(basename "$file")"
+    ln -frs "$file" "${ZDOTDIR:-$HOME}/.$(basename "$file")"
   done
 }
 
@@ -59,20 +59,20 @@ function install_openssh {
 
   sudo dnf install -y openssh-server openssh-clients
 
-  # ln -rs ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
-  ln -rs ./configs/openssh/ssh_config "$HOME"/.ssh/config
-  # sudo ln -rsf ./configs/openssh/sshd_config /etc/ssh/sshd_config
+  # ln -frs ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
+  ln -frs ./configs/openssh/ssh_config "$HOME"/.ssh/config
+  # sudo ln -frsf ./configs/openssh/sshd_config /etc/ssh/sshd_config
 }
 
 function link_config {
-  ln -rs ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
-  ln -rs ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore
+  ln -frs ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
+  ln -frs ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore
   # touch "$XDG_CONFIG_HOME"/git/config.local
 
   export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
   chmod 700 "$GNUPGHOME"
   for file in ./configs/gnupg/*; do
-    ln -rs "$file" "${XDG_CONFIG_HOME:-$HOME}/gnupg/$(basename "$file")"
+    ln -frs "$file" "${XDG_CONFIG_HOME:-$HOME}/gnupg/$(basename "$file")"
   done
 }
 
