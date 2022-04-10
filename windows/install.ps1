@@ -37,7 +37,6 @@ function Uninstall-Bloat {
 
 function Install-BasePackage {
   Update-Module -Force
-
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
   Get-PackageProvider | Where-Object Name -eq 'NuGet' | Install-PackageProvider -Force
   @(
@@ -47,7 +46,6 @@ function Install-BasePackage {
   ) | ForEach-Object {
     Install-Module -Name $_ -Scope CurrentUser -Force
   }
-
   Update-Help -Force
 }
 
