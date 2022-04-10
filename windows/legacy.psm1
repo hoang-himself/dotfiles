@@ -1,12 +1,3 @@
-function Set-ComputerName {
-  [CmdletBinding(SupportsShouldProcess)]
-  param(
-    [Parameter(Mandatory = $true)]
-    [string]$ComputerName
-  )
-  Rename-Computer -NewName $ComputerName
-}
-
 function Install-dotNet {
   pwsh -NoProfile -ExecutionPolicy Unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -Channel Current"
 }
