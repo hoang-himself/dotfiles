@@ -34,7 +34,7 @@ function Set-Environment {
   Set-ItemProperty -Path 'HKCU:\Environment' -Name $Variable -Value $Value
   # Manually setting Registry entry. SetEnvironmentVariable is too slow because of blocking HWND_BROADCAST
   #[System.Environment]::SetEnvironmentVariable("$Variable", "$Value", "User")
-  Invoke-Expression -Command "`$env:${Variable} = `"$Value`""
+  Set-Item -Path "Env:$Variable" -Value $Value
 }
 
 # Remove a permanent Environment variable
