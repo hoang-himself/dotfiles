@@ -25,13 +25,7 @@ function cleantmp {
 }
 
 function install_gcc {
-  local pre_req=("")
-  if [[ "$1" == apt ]]; then
-    pre_req=(build-essential clang gcc g++ gdb gdbserver rsync zip)
-  elif [[ "$1" == dnf ]]; then
-    pre_req=(make clang gcc gcc-c++ gdb gdb-gdbserver rsync zip)
-  fi
-  sudo "$1" install -y "${pre_req[@]}"
+  sudo dnf install -y make clang gcc gcc-c++ gdb gdb-gdbserver rsync zip
 }
 
 function install_static_cmake {
@@ -66,61 +60,30 @@ function install_docker_compose {
   chmod +x ~/.docker/cli-plugins/docker-compose
 }
 
-function install_dotnet {
-  local dotnet_version="6.0"
-  if [[ "$1" == apt ]]; then
-    createtmp
-    wget "https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb" -O packages-microsoft-prod.deb
-    sudo dpkg -i packages-microsoft-prod.deb
-    cleantmp
-  fi
-
-  sudo "$1" install -y dotnet-sdk-${dotnet_version} nuget
-}
-
 function install_haskell {
-  sudo "$1" install -y haskell-platform
+  sudo dnf install -y haskell-platform
 }
 
 function install_node {
-  if [[ -x "$(command -v n)" ]]; then
-    n-update -y
-  else
-    curl -SL https://git.io/n-install | bash -s -- -y
-    export N_PREFIX="$HOME/n"
-    [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-  fi
+  curl -SL https://git.io/n-install | bash -s -- -y
+  export N_PREFIX="$HOME/n"
+  [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
   n latest
   n prune
-
-  # npm install -g gitmoji-cli
 }
 
 function install_pyenv {
-  local pre_req=("")
-  local python_target="3.10.2"
+  local python_target="3.10.4"
 
-  if [[ -x "$(command -v pyenv)" ]]; then
-    pyenv update
-  else
-    if [[ "$1" == apt ]]; then
-      pre_req=(apt-utils build-essential curl libbz2-dev libffi-dev liblzma-dev
-        libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev
-        libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev)
-    elif [[ "$1" == dnf ]]; then
-      pre_req=(bzip2 bzip2-devel gcc libffi-devel make openssl-devel readline-devel
-        sqlite sqlite-devel tk-devel xz-devel zlib-devel util-linux-user)
-    fi
+  sudo dnf install -y bzip2 bzip2-devel gcc libffi-devel make openssl-devel readline-devel \
+    sqlite sqlite-devel tk-devel xz-devel zlib-devel util-linux-user
 
-    sudo "$1" install -y "${pre_req[@]}"
-
-    curl -SL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
-  fi
+  curl -SL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
 
   pyenv install -s ${python_target}
   pyenv global ${python_target}
@@ -136,9 +99,9 @@ function _dangerous {
     exit 1
   fi
 
-  echo "$(whoami) ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/00-$(whoami)" > /dev/null
+  echo "$(whoami) ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/00-$(whoami)" >/dev/null
   sudo chmod 0440 "/etc/sudoers.d/00-$(whoami)"
 
-  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com' | sudo tee -a "/etc/ssh/keys/$(whoami)/authorized_keys" > /dev/null
+  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlzVupDIQTLHJibTuOt+mcrRVY35b9yFn0SrAq5cCZ3 baauco@gmail.com' | sudo tee -a "/etc/ssh/keys/$(whoami)/authorized_keys" >/dev/null
   sudo chmod 0600 "/etc/ssh/keys/$(whoami)/authorized_keys"
 }
