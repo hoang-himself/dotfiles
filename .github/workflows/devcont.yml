@@ -2,8 +2,8 @@ name: 'Dev Containers'
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - ./devcont
   workflow_dispatch:
 
 jobs:

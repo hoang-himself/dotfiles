@@ -2,8 +2,8 @@ name: 'Fedora'
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - ./fedora
   workflow_dispatch:
 
 jobs:

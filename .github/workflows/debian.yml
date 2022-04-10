@@ -2,8 +2,8 @@ name: 'Debian'
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - ./debian
   workflow_dispatch:
 
 jobs:
