@@ -72,16 +72,32 @@ function Install-OMP {
 }
 
 function Install-Pyenv {
+  $python_target = '3.9.6'
   git clone --depth=1 'https://github.com/pyenv-win/pyenv-win.git' "$env:USERPROFILE\.pyenv"
 
   Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV' `
-    -Value "$env:USERPROFILE\.pyenv\pyenv-win"
+    -Value '%USERPROFILE%\.pyenv\pyenv-win'
   Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_ROOT' `
-    -Value "$env:USERPROFILE\.pyenv\pyenv-win"
+    -Value '%USERPROFILE%\.pyenv\pyenv-win'
   Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_HOME' `
-    -Value "$env:USERPROFILE\.pyenv\pyenv-win"
+    -Value '%USERPROFILE%\.pyenv\pyenv-win'
+
+  $raw_hkcu_path = (Get-Item -Path 'HKCU:\Environment').GetValue(
+    'Path', # the registry-value name
+    $null, # the default value to return if no such value exists.
+    'DoNotExpandEnvironmentNames' # the option that suppresses expansion
+  )
   Set-ItemProperty -Path 'HKCU:\Environment' -Name 'Path' `
-    -Value "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims;$(Get-ItemPropertyValue -Path 'HKCU:\Environment' -Name 'Path')"
+    -Value $('%USERPROFILE%\.pyenv\pyenv-win\bin;%USERPROFILE%\.pyenv\pyenv-win\shims;' `
+      + $raw_hkcu_path)
+
+  $env:PYENV_ROOT = "$HOME/.pyenv"
+  $env:Path = "$PYENV_ROOT/bin:$Path"
+
+  pyenv update
+  pyenv install -q "$python_target"
+  pyenv global "$python_target"
+  pip install --upgrade pip setuptools wheel
 }
 
 function Install-OpenSSH {
