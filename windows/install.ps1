@@ -39,9 +39,11 @@ function Install-BasePackages {
   Update-Module -Force
 
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+  Get-PackageProvider | Where-Object Name -eq 'NuGet' | Install-PackageProvider -Force
   @(
     'PowerShellGet',
-    'PSReadLine'
+    'PSReadLine',
+    'PSScriptAnalyzer'
   ) | ForEach-Object {
     Install-Module -Name $_ -Scope CurrentUser -Force
   }
