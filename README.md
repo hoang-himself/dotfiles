@@ -49,3 +49,30 @@ The "top" level should be used for settings which shouldn’t be overridden, and
 If you set your escape character with EscapeChar option in ~/.ssh/config or with the -e option you can.
 
 Assuming an escape of ~: `~C-L 8000:localhost:9000`.
+
+### Use flags in bash commands
+
+[Conditional Constructs](https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html)
+
+```bash
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  -i | --install)
+    if [[ -x "$(command -v apt)" ]]; then
+      main apt
+    elif [[ -x "$(command -v dnf)" ]]; then
+      main dnf
+    fi
+    shift
+    ;;
+  --df)
+    link_config -f
+    shift
+    ;;
+  *)
+    echo Unrecognized option \`"$1"\'
+    shift
+    ;;
+  esac
+done
+```
