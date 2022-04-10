@@ -8,7 +8,6 @@ jobs:
   shellcheck:
     name: ShellCheck
     runs-on: ubuntu-latest
-    container: koalaman/shellcheck-alpine:stable
     defaults:
       run:
         working-directory: ./windows
