@@ -1,5 +1,9 @@
 function Set-ComputerName {
-  $ComputerName = Read-Host -Prompt 'Enter New Computer Name'
+  [CmdletBinding(SupportsShouldProcess)]
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$ComputerName
+  )
   Rename-Computer -NewName $ComputerName
 }
 

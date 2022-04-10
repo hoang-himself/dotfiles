@@ -1,10 +1,12 @@
 # Common Editing needs
-function Edit-Hosts {
+function Edit-Host {
   sudo "$(if ($null -ne $env:EDITOR) { $env:EDITOR } else { 'notepad' })" "$env:windir\system32\drivers\etc\hosts"
 }
 
 # Reload the $env object from the registry
 function Update-Environment {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   $locations = @('HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
     'HKCU:\Environment')
 
@@ -21,19 +23,31 @@ function Update-Environment {
 }
 
 # Set a permanent Environment variable, and reload it into $env
-function Set-Environment([String] $variable, [String] $value) {
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name $variable -Value $value
+function Set-Environment {
+  [CmdletBinding(SupportsShouldProcess)]
+  param(
+    [Parameter(Mandatory = $true)]
+    [String]$Variable,
+    [Parameter(Mandatory = $true)]
+    [String]$Value
+  )
+  Set-ItemProperty -Path 'HKCU:\Environment' -Name $Variable -Value $Value
   # Manually setting Registry entry. SetEnvironmentVariable is too slow because of blocking HWND_BROADCAST
-  #[System.Environment]::SetEnvironmentVariable("$variable", "$value", "User")
-  Invoke-Expression -Command "`$env:${variable} = `"$value`""
+  #[System.Environment]::SetEnvironmentVariable("$Variable", "$Value", "User")
+  Invoke-Expression -Command "`$env:${Variable} = `"$Value`""
 }
 
 # Remove a permanent Environment variable
-function Remove-Environment([String] $variable) {
-  Remove-ItemProperty -Path 'HKCU:\Environment' -Name $variable
+function Remove-Environment {
+  [CmdletBinding(SupportsShouldProcess)]
+  param(
+    [Parameter(Mandatory = $true)]
+    [String]$Variable
+  )
+  Remove-ItemProperty -Path 'HKCU:\Environment' -Name $Variable
   # Manually setting Registry entry. SetEnvironmentVariable is too slow because of blocking HWND_BROADCAST
-  #[System.Environment]::SetEnvironmentVariable("$variable", $null, "User")
-  Remove-Item -Path "Env:\${variable}"
+  #[System.Environment]::SetEnvironmentVariable("$Variable", $null, "User")
+  Remove-Item -Path "Env:\${Variable}"
 }
 
 # Add a folder to $env:Path
