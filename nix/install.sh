@@ -71,9 +71,9 @@ function install_pyenv {
   eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
 
-  pyenv install -s ${python_target}
-  pyenv global ${python_target}
-
+  pyenv update
+  pyenv install -s "$python_target"
+  pyenv global "$python_target"
   pip install --upgrade pip setuptools wheel
 }
 
