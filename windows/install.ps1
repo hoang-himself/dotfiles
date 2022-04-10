@@ -35,7 +35,7 @@ function Uninstall-Bloat {
   }
 }
 
-function Install-BasePackages {
+function Install-BasePackage {
   Update-Module -Force
 
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
@@ -134,7 +134,7 @@ function Install-WSL {
     -Target $(Resolve-Path -LiteralPath .\configs\wslconfig) -Force
 }
 
-function Install-Configs {
+function Install-Config {
   Get-ChildItem -Path '.\configs\git\' |
     ForEach-Object {
       New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\.$($_.Name)" `
@@ -156,12 +156,12 @@ function main {
   New-Item -Path $env:PluginsDir -ItemType Directory -ErrorAction SilentlyContinue -Force
 
   #Uninstall-Bloat
-  Install-BasePackages
+  Install-BasePackage
   Install-OMP
   Install-Pyenv
   Install-OpenSSH
   Install-WSL
-  Install-Configs
+  Install-Config
 
   Remove-Item -Path 'Env:ProfileDir'
   Remove-Item -Path 'Env:PluginsDir'
