@@ -13,6 +13,20 @@ Review the code, remove things you don't want or need, and enjoy.
 
 Use at your own risk!
 
+## Prerequisites
+
+### *nix
+
+- Git-SCM
+
+### Windows only
+
+- [Git for Windows](https://github.com/git-for-windows/git/releases/latest)
+- [PowerShell Core](https://github.com/PowerShell/PowerShell/releases/latest)
+- [Gpg4win](https://www.gpg4win.org/download.html)
+
+<!-- https://www.gpg4win.org/thanks-for-download.html -->
+
 ## Feedback
 
 Suggestions/improvements are [welcome and encouraged](https://github.com/Smithienious/dotfiles/issues)!
@@ -54,6 +68,8 @@ Assuming an escape of ~: `~C-L 8000:localhost:9000`.
 
 [Conditional Constructs](https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html)
 
+Sample code:
+
 ```bash
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -75,4 +91,40 @@ while [[ $# -gt 0 ]]; do
     ;;
   esac
 done
+```
+
+### View all keybindings
+
+Sample code:
+
+```powershell
+Get-PSReadLineKeyHandler
+```
+
+### Shift args
+
+Sample code:
+
+```powershell
+$args = $args | Select-Object -Skip 1
+```
+
+or use this instead
+
+```powershell
+$args[1..$args.Length]
+```
+
+### Get system variables
+
+PowerShell stores a lot of system objects as virtual drives
+
+```powershell
+Get-PSDrive
+```
+
+Sample code: Get environment variables
+
+```powershell
+Get-ChildItem -Path Env:
 ```
