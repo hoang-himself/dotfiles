@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function install_base_packages {
+function install_base_package {
   sudo apt update
   sudo apt install -y apt-utils build-essential
   sudo apt full-upgrade -y
@@ -88,7 +88,7 @@ function main {
   export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
   export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
 
-  install_base_packages
+  install_base_package
   install_zsh_omz
   install_pyenv
   install_openssh

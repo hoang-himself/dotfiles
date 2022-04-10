@@ -1,0 +1,23 @@
+name: 'Windows'
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    container: koalaman/shellcheck-alpine:stable
+    defaults:
+      run:
+        working-directory: ./windows
+    steps:
+      - name: Clone dotfiles
+        uses: actions/checkout@v3
+      - name: Lint
+        uses: devblackops/github-action-psscriptanalyzer@master
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}

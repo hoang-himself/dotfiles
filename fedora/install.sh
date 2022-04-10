@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function install_base_packages {
+function install_base_package {
   sudo dnf install dnf-plugins-core util-linux-user -y
   sudo dnf upgrade -y
   sudo dnf install -y git git-lfs less most nano pinentry-tty man-db \
@@ -87,7 +87,7 @@ function main {
   export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
   export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
 
-  install_base_packages
+  install_base_package
   install_zsh_omz
   install_pyenv
   install_openssh
