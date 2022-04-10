@@ -2,8 +2,6 @@ name: 'Fedora'
 
 on:
   push:
-    paths:
-      - './fedora'
   workflow_dispatch:
 
 jobs:
