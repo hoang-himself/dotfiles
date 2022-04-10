@@ -3,7 +3,7 @@ name: 'Dev Containers'
 on:
   push:
     paths:
-      - ./devcont
+      - './devcont'
   workflow_dispatch:
 
 jobs:
