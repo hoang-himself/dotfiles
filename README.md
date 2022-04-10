@@ -57,7 +57,7 @@ Settings in the "top" level can’t be overridden, whereas settings in `Host *` 
 
 The "top" level should be used for settings which shouldn’t be overridden, and the `Host *` section, which should come last, should be used for default settings.
 
-### How to do ssh port forwarding when already logged in with ssh?
+### Forward SSH port while connected
 
 [Stack Overflow Question](https://stackoverflow.com/questions/5211561/can-i-do-ssh-port-forwarding-after-ive-already-logged-in-with-ssh)
 
