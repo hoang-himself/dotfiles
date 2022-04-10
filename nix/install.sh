@@ -52,7 +52,7 @@ function install_zsh_omz {
 
 function install_pyenv {
   local pre_req=""
-  local python_target="3.10.2"
+  local python_target="3.10.4"
 
   if [[ "$1" == apt ]]; then
     pre_req=(make build-essential libssl-dev zlib1g-dev libbz2-dev
