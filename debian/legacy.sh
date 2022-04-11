@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 function get_distro {
-  local lsb_dist=""
   if [ -r /etc/os-release ]; then
-    lsb_dist="$(. /etc/os-release && echo "$ID")"
+    # Parentheses are needed to run in subshell
+    # to avoid polluting the environment
+    (. /etc/os-release && echo "$ID")
   fi
-  echo "$lsb_dist"
 }
 
 function createtmp {
