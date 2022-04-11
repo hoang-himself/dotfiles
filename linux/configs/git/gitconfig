@@ -90,7 +90,7 @@
   untracked = cyan
 
 [core]
-  # excludesfile = ~/.config/git/ignore
+  #excludesfile = ~/.config/git/ignore
   pager = less
   ignoreCase = false
 
@@ -126,5 +126,5 @@
   process = git-lfs filter-process
   required = true
 
-# [include]
-#   path = ~/.config/git/config.local
+#[include]
+#  path = ~/.config/git/config.local

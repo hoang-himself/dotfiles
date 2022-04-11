@@ -35,8 +35,6 @@ function install_zsh_omz {
 }
 
 function install_pyenv {
-  local python_target="3.10.4"
-
   sudo dnf install -y dnf install make gcc zlib-devel bzip2 bzip2-devel \
     readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
 
@@ -47,8 +45,8 @@ function install_pyenv {
   eval "$(pyenv init -)"
 
   pyenv update
-  pyenv install -s "$python_target"
-  pyenv global "$python_target"
+  pyenv install -s "$_PYTHON_TARGET"
+  pyenv global "$_PYTHON_TARGET"
   pip install --upgrade pip setuptools wheel
 }
 
@@ -61,7 +59,43 @@ function install_openssh {
 
   # ln -frs ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
   ln -frs ./configs/openssh/ssh_config "$HOME"/.ssh/config
-  # sudo ln -frsf ./configs/openssh/sshd_config /etc/ssh/sshd_config
+  # sudo ln -frs ./configs/openssh/sshd_config /etc/ssh/sshd_config
+}
+
+function install_gcc {
+  sudo dnf install -y make clang gcc gcc-c++ gdb gdb-gdbserver rsync zip
+}
+
+function install_docker_compose {
+  # Install Docker Engine: https://docs.docker.com/engine/install/
+  #curl -fSL https://get.docker.com | bash
+
+  # Run Dockerd as non-root: https://docs.docker.com/engine/security/rootless/
+  #sudo "$1" install -y uidmap
+  #dockerd-rootless-setuptool.sh install
+
+  # Manage Dockerd as non-root: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+  #sudo usermod -aG docker $(whoami)
+
+  # local compose_version=$(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
+  #curl -fSL "https://github.com/docker/compose/releases/download/${compose_version}/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
+
+  mkdir -p ~/.docker/cli-plugins
+  curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
+  chmod +x ~/.docker/cli-plugins/docker-compose
+}
+
+function install_haskell {
+  sudo dnf install -y haskell-platform
+}
+
+function install_node {
+  curl -SL https://git.io/n-install | bash -s -- -y
+  export N_PREFIX="$HOME/n"
+  [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+  n latest
+  n prune
 }
 
 function link_config {
@@ -77,16 +111,6 @@ function link_config {
 }
 
 function main {
-  mkdir -p "$HOME"/.{config,cache,local}
-  mkdir -p "$HOME"/.local/{share,state,bin}
-  mkdir -p "$HOME"/.config/{git,gnupg}
-
-  export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-  export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-  export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
-  export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
-  export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
-
   install_base_package
   install_zsh_omz
   install_pyenv
