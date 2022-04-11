@@ -1,0 +1,33 @@
+#
+# Aliases.
+#
+
+# ls
+alias l='ls -lFh --group-directories-first'      # size,show type,human readable
+alias la='ls -lAFh --group-directories-first'    # long list,show almost all,show type,human readable
+alias lr='ls -tRFh --group-directories-first'    # sorted by date,recursive,show type,human readable
+alias lt='ls -ltFh --group-directories-first'    # long list,sorted by date,show type,human readable
+alias ll='ls -l --group-directories-first'       # long list
+alias ldot='ls -ld .* --group-directories-first' # folders and dotfiles
+
+# Other
+alias rr='rm -rf'
+alias now='date +"%T"'
+alias week='date +%V'
+
+# Python venv
+alias vx='deactivate'
+function va {
+  local VENV_PATH
+  # [[ -n "$*" ]] && VENV_PATH="${*: -1:1}" || VENV_PATH=".venv"
+  [[ -n "$*" ]] && VENV_PATH="$1" || VENV_PATH=".venv"
+
+  if [[ ! -d "$VENV_PATH" && ! -L "$VENV_PATH" ]]; then
+    python -m venv --upgrade-deps "$VENV_PATH"
+    touch requirements.txt
+    . ./"$VENV_PATH"/bin/activate
+    pip install wheel
+  else
+    . ./"$VENV_PATH"/bin/activate
+  fi
+}

@@ -1,0 +1,44 @@
+#
+# Functions.
+#
+
+function createtmp {
+  echo "Saving current directory as \$CURDIR"
+  CURDIR=$(pwd)
+  TMPDIR=$(mktemp -d)
+  echo "Going to \$TMPDIR: $TMPDIR"
+  # shellcheck disable=SC2164
+  cd "$TMPDIR"
+}
+
+function cleantmp {
+  echo "Returning to $CURDIR"
+  # shellcheck disable=SC2164
+  cd "$CURDIR"
+  echo "Cleaning up $TMPDIR"
+  command rm -rf $TMPDIR
+}
+
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+function tre {
+  tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+}
+
+# Determine size of a file or total size of a directory
+function fs {
+  local arg=-sbh
+  if [[ -n "$*" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg .[^.]* -- *
+  fi
+}
+
+# Upgrade docker-compose
+function upgrade_compose {
+  curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
+  chmod +x ~/.docker/cli-plugins/docker-compose
+}

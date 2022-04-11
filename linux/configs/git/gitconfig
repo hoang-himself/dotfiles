@@ -1,0 +1,130 @@
+[user]
+  signingkey = 234A3C6CCF8846FC15991C1AB5A08FDB1282D170
+  name = Hoang NGUYEN
+  email = baauco@gmail.com
+
+[commit]
+  gpgSign = true
+
+[tag]
+  gpgSign = true
+
+[alias]
+  a = add
+  aa = add --all
+
+  b = branch
+  ba = branch -a
+  bd = branch -d
+  bD = branch -D
+  br = branch --remote
+
+  c = commit -v
+  ca = commit -v -a
+  cam = commit -a -m
+  cmsg = commit -m
+
+  cb = checkout -b
+  co = checkout
+  cor = checkout --recurse-submodules
+  cl = clone --recurse-submodules
+  clean = clean -id
+
+  lol = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  lola = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all
+  lols = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --stat
+  ign = ls-files -o -i --exclude-standard
+
+  f = fetch
+  fa = fetch --all --prune
+  up = pull --rebase
+  upv = pull --rebase -v
+  upa = pull --rebase --autostash
+  upav = pull --rebase --autostash -v
+  p = push
+  pf = push --force-with-lease
+
+  rb = rebase
+  rbi = rebase -i
+
+  st = status
+  sw = switch
+
+  wdiff = diff -w --word-diff=color
+  whatadded = log --diff-filter=A
+
+  wt = worktree
+  wta = worktree add
+  wtls = worktree list
+  wtlo = worktree lock
+  wtmv = worktree move
+  wtpr = worktree prune
+  wtrm = worktree remove
+  wtulo = worktree unlock
+
+[branch]
+  autosetuprebase = always
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = true
+  pager = true
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old = red
+  new = green
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[core]
+  #excludesfile = ~/.config/git/ignore
+  pager = less
+  ignoreCase = false
+
+[init]
+  defaultBranch = main
+
+[help]
+  autocorrect = 30 # tenths of a second
+
+[merge]
+  autoStash = true
+  ff = false
+
+[rebase]
+  autoStash = true
+
+[push]
+  default = simple
+  followTags = true
+
+[pull]
+  ff = true
+
+[rerere]
+  enabled = 1
+
+[status]
+  submoduleSummary = 1
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+#[include]
+#  path = ~/.config/git/config.local
