@@ -69,14 +69,3 @@ function Add-AppendEnvPath([String]$path) {
     throw 'Invalid path'
   }
 }
-
-# Upgrade several stuffs
-function update_upgrade {
-  Update-Module
-  Update-Help
-
-  Push-Location
-  Set-Location -Path "$env:USERPROFILE\.pyenv"
-  git pull --all --prune --rebase --autostash
-  Pop-Location
-}
