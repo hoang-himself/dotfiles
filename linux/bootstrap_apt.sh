@@ -14,6 +14,7 @@ function install_zsh_omz {
   mkdir -p "$HOME"/.config/zsh
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+  sudo apt install -y zsh
   chsh -s "$(command -v zsh)"
 
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash

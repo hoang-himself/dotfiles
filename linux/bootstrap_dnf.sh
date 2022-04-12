@@ -14,7 +14,9 @@ function install_zsh_omz {
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
   sudo dnf install -y zsh
-  lchsh -s "$(command -v zsh)"
+  sudo lchsh $USER <<EOF
+$(command -v zsh)
+EOF
 
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
@@ -35,7 +37,7 @@ function install_zsh_omz {
 }
 
 function install_pyenv {
-  sudo dnf install -y dnf install make gcc zlib-devel bzip2 bzip2-devel \
+  sudo dnf install -y make gcc zlib-devel bzip2 bzip2-devel \
     readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
 
   curl -SL https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
