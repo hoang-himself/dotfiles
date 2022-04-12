@@ -1,4 +1,4 @@
-name: 'Fedora'
+name: 'Linux'
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     container: koalaman/shellcheck-alpine:stable
     defaults:
       run:
-        working-directory: ./fedora
+        working-directory: ./linux
     steps:
       - name: Clone dotfiles
         uses: actions/checkout@v3
