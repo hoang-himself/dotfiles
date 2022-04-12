@@ -1,4 +1,8 @@
 $ssh_hostname = {
+  # TODO Select all host lines
+  # TODO Split hosts in one line
+  # TODO Filter abstract hosts
+
   @('raspberrypi',
     'raspberrypi.local'
   ) | ForEach-Object {
