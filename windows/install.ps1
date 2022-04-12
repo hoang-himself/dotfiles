@@ -165,6 +165,7 @@ function main {
   Remove-Item -Path 'Env:PluginsDir'
 }
 
+# TODO Use while and switch case
 if ($args[0] -eq '-i' || $args[0] -eq '--install') {
   main
 }
