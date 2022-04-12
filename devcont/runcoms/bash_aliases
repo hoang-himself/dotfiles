@@ -11,14 +11,7 @@ function __git_prompt_git() {
 # Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
 # it's not a symbolic ref, but in a Git repo.
 function git_current_branch() {
-  local ref
-  ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2>/dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return # no git repo.
-    ref=$(__git_prompt_git rev-parse --short HEAD 2>/dev/null) || return
-  fi
-  echo ${ref#refs/heads/}
+  git branch --show-current
 }
 
 # Warn if the current branch is a WIP
@@ -70,6 +63,7 @@ alias gbD='git branch -D'
 alias gbl='git blame -b -w'
 alias gbnm='git branch --no-merged'
 alias gbr='git branch --remote'
+
 alias gbs='git bisect'
 alias gbsb='git bisect bad'
 alias gbsg='git bisect good'
@@ -121,6 +115,9 @@ alias gfo='git fetch origin'
 
 alias gfg='git ls-files | grep'
 
+alias gg='git gui citool'
+alias gga='git gui citool --amend'
+
 alias ggpull='git pull origin "$(git_current_branch)"'
 alias ggpush='git push origin "$(git_current_branch)"'
 
@@ -131,6 +128,9 @@ alias ghh='git help'
 
 alias gignore='git update-index --assume-unchanged'
 alias gignored='git ls-files -v | grep "^[[:lower:]]"'
+
+alias gk='gitk --all --branches'
+alias gke='gitk --all $(git log -g --pretty=%h)'
 
 alias gl='git pull'
 alias glg='git log --stat'
@@ -213,6 +213,7 @@ alias gswd='git switch $(git_develop_branch)'
 
 alias gts='git tag -s'
 alias gtv='git tag | sort -V'
+alias gtl='git tag --sort=-v:refname -n -l'
 
 alias gunignore='git update-index --no-assume-unchanged'
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'

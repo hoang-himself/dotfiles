@@ -1,7 +1,22 @@
+# We wrap in a local function instead of exporting the variable directly in
+# order to avoid interfering with manually-run git commands by the user.
+function __git_prompt_git {
+  $tmp = $env:GIT_OPTIONAL_LOCKS
+  $env:GIT_OPTIONAL_LOCKS = 0
+  git $args
+  $env:GIT_OPTIONAL_LOCKS = $tmp
+}
+
 function git_current_branch {
   git branch --show-current
 }
 
+# Warn if the current branch is a WIP
+function work_in_progress {
+  if (git -c log.showSignature=false log -n 1 | Select-String -Pattern '--wip--' -Quiet) { Write-Output 'WIP!!' }
+}
+
+# Check if main exists and use instead of master
 function git_main_branch {
   if (git rev-parse --git-dir 2>&1 | Out-Null) { return }
 
@@ -22,6 +37,7 @@ function git_main_branch {
   Write-Output 'master'
 }
 
+# Check for develop and similarly named branches
 function git_develop_branch {
   if (git rev-parse --git-dir 2>&1 | Out-Null) { return }
 
@@ -51,6 +67,12 @@ ${function:gbl} = { git blame -b -w $args }
 ${function:gbnm} = { git branch --no-merged $args }
 ${function:gbr} = { git branch --remote $args }
 
+${function:gbs} = { git bisect $args }
+${function:gbsb} = { git bisect bad $args }
+${function:gbsg} = { git bisect good $args }
+${function:gbsr} = { git bisect reset $args }
+${function:gbss} = { git bisect start $args }
+
 ${function:gc} = { git commit -v $args }
 ${function:gc!} = { git commit -v --amend $args }
 ${function:gcn!} = { git commit -v --no-edit --amend $args }
@@ -77,7 +99,7 @@ ${function:gco} = { git checkout $args }
 ${function:gcor} = { git checkout --recurse-submodules $args }
 ${function:gcount} = { git shortlog -sn $args }
 ${function:gcp} = { git cherry-pick $args }
-${function:gcpa} = { git cherry-pick --abort}
+${function:gcpa} = { git cherry-pick --abort }
 ${function:gcpc} = { git cherry-pick --continue }
 ${function:gcs} = { git commit -S $args }
 ${function:gcss} = { git commit -S -s $args }
@@ -202,7 +224,7 @@ ${function:gtv} = { git tag | Sort-Object }
 ${function:gtl} = { git tag --sort=-v:refname -n -l $args }
 
 ${function:gunignore} = { git update-index --no-assume-unchanged $args }
-${function:gunwip} = { if (git log -n 1 | Select-String -Pattern '--wip--') { git reset '@~' }}
+${function:gunwip} = { if (git log -n 1 | Select-String -Pattern '--wip--') { git reset '@~' } }
 ${function:gup} = { git pull --rebase $args }
 ${function:gupv} = { git pull --rebase -v $args }
 ${function:gupa} = { git pull --rebase --autostash $args }
@@ -211,3 +233,23 @@ ${function:glum} = { git pull upstream $(git_main_branch) $args }
 
 ${function:gwch} = { git whatchanged -p --abbrev-commit --pretty=medium $args }
 ${function:gwip} = { git add -A; git rm $(git ls-files --deleted) 2>&1 | Out-Null; git commit --no-verify --no-gpg-sign -m '--wip-- [skip ci]' }
+
+${function:gam} = { git am $args }
+${function:gamc} = { git am --continue $args }
+${function:gams} = { git am --skip $args }
+${function:gama} = { git am --abort $args }
+${function:gamscp} = { git am --show-current-patch $args }
+
+function grename {
+  if (-not ([bool]$args[0] && [bool]$args[1])) {
+    Write-Output "Usage: $((Get-PSCallStack).FunctionName[0]) old_branch new_branch"
+    return 1
+  }
+
+  # Rename branch locally
+  git branch -m $args[0] $args[1]
+  # Rename branch in origin remote
+  if (git push origin :$args[1]) {
+    git push --set-upstream origin $args[1]
+  }
+}
