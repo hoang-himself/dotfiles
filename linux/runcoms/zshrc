@@ -90,8 +90,9 @@ autoload -Uz compinit && compinit -i
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 
 # Enable cache to speed up
+# Have no effect due to p10k
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompcache"
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/.zcompcache-$USER"
 
 # Highlight the current autocomplete option
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
