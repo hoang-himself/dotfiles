@@ -1,6 +1,8 @@
 # Reuse connections in backlog
 # https://github.com/PowerShell/Win32-OpenSSH/wiki/Project-Scope
 
+#Include <glob(7)>
+#IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 EscapeChar ~
 
 Host raspberrypi.local raspberrypi
