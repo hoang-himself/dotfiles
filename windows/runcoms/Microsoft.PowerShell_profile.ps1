@@ -1,3 +1,6 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '')]
+param()
+
 function Get-SSHHost($sshConfigPath) {
   Get-Content -Path $sshConfigPath `
   | Select-String -Pattern '^Host ' `
