@@ -170,5 +170,5 @@ if ($args[0] -eq '-i' || $args[0] -eq '--install') {
   main
 }
 else {
-  Write-Host "Unrecognized option $($args[0])"
+  Write-Output "Unrecognized option $($args[0])"
 }
