@@ -62,11 +62,9 @@ The "top" level should be used for settings which shouldn’t be overridden, and
 
 If you set your escape character with EscapeChar option in ~/.ssh/config or with the -e option you can.
 
-Assuming an escape of ~: `~C-L 8000:localhost:9000`.
+Assuming an escape of `~`: `~C-L 8000:localhost:9000`.
 
 ### View all keybindings
-
-Sample code:
 
 ```powershell
 Get-PSReadLineKeyHandler
@@ -74,28 +72,10 @@ Get-PSReadLineKeyHandler
 
 ### Shift args
 
-Sample code:
-
 ```powershell
 $args = $args | Select-Object -Skip 1
-```
 
-or use this instead
+# or
 
-```powershell
 $args[1..$args.Length]
-```
-
-### Get system variables
-
-PowerShell stores a lot of system objects as virtual drives
-
-```powershell
-Get-PSDrive
-```
-
-Sample code: Get environment variables
-
-```powershell
-Get-ChildItem -Path Env:
 ```
