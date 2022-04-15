@@ -15,9 +15,9 @@ Use at your own risk!
 
 ## Prerequisites
 
-### *nix
+### Linux
 
-- Git-SCM
+- `git`
 
 ### Windows only
 
@@ -99,3 +99,7 @@ Sample code: Get environment variables
 ```powershell
 Get-ChildItem -Path Env:
 ```
+
+### Access special Windows folders using shell
+
+Look up `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\`
