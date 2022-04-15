@@ -4,6 +4,7 @@
 
 # Make aliases work with sudo
 alias sudo='sudo '
+alias ls='ls --color=auto --group-directories-first -v'
 
 # Set tty to input password for GnuPG
 export GPG_TTY=$(tty)
@@ -97,13 +98,36 @@ zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/.zcompcache-$
 # Highlight the current autocomplete option
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
+# TODO
+#h=()
+#if [[ -r ~/.ssh/config ]]; then
+#  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+#fi
+#if [[ -r ~/.ssh/known_hosts ]]; then
+#  h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+#fi
+#if [[ $#h -gt 0 ]]; then
+#  zstyle ':completion:*:ssh:*' hosts $h
+#  zstyle ':completion:*:slogin:*' hosts $h
+#fi
+
+# $PREFIX is the part of the current word that's to the left of the cursor.
+# $SUFFIX is the part of the current word that's to the right of the cursor.
+# Let's ignore all host completions that don't explicitly match what we've typed,
+# but allow for additional characters at the cursor position and at the end of what
+# we've typed. This makes the matching case sensitive.
+# `(b)` escapes characters that are significant to globbing.
+#zstyle -e ':completion:*:hosts' ignored-patterns 'reply=(
+#  "^(${(b)PREFIX}*${(b)SUFFIX}*)"
+#)'
+
+# But if that would lead to no results, then offer the ignored completions anyway.
+#zstyle ':completion:*' completer _expand _complete _ignored
+
 # Better SSH/Rsync/SCP Autocomplete
-#zstyle ':completion:*:(scp|rsync):*' tag-order ' hosts:-ipaddr:ip\ address hosts:-host:host files'
-#zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
-#zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
-# TODO This still reads hostnames from ~/.ssh/config
-zstyle ':completion:*:(ssh|scp|ftp|sftp):*' hosts $hosts
-zstyle ':completion:*:(ssh|scp|ftp|sftp):*' users $users
+#grep '^Host' ~/.ssh/config 2>/dev/null | grep -v '[?*]' | cut -d ' ' -f 2-
+#zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat ~/.ssh/config(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+#zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 # Allow for autocomplete to be case insensitive
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \

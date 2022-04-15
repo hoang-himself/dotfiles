@@ -15,9 +15,9 @@ Use at your own risk!
 
 ## Prerequisites
 
-### *nix
+### Linux
 
-- Git-SCM
+- `git`
 
 ### Windows only
 
@@ -79,3 +79,21 @@ $args = $args | Select-Object -Skip 1
 
 $args[1..$args.Length]
 ```
+
+### Get system variables
+
+PowerShell stores a lot of system objects as virtual drives
+
+```powershell
+Get-PSDrive
+```
+
+Sample code: Get environment variables
+
+```powershell
+Get-ChildItem -Path Env:
+```
+
+### Access special Windows folders using shell
+
+Look up `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\`
