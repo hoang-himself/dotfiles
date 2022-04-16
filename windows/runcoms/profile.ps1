@@ -16,9 +16,10 @@ Invoke-Command -ScriptBlock $([ScriptBlock]::Create(
 $env:POSH_GIT_ENABLED = $true
 
 # https://docs.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline
-Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteCharOrExit
-Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
-Set-PSReadlineOption -ShowToolTips
+Set-PSReadLineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
+Set-PSReadLineKeyHandler -Chord Tab -Function MenuComplete
+Set-PSReadLineOption -ShowToolTips
+Set-PSReadLineOption -PredictionSource History -PredictionViewStyle InlineView
 
 Push-Location (Split-Path -Parent $Profile)
 @('plugins', 'functions', 'aliases', 'exports', 'extra') | Where-Object { Test-Path "$_.ps1" } | ForEach-Object -Process { . ".\$_.ps1" }
