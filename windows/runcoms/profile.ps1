@@ -12,15 +12,6 @@ Invoke-Command -ScriptBlock $([ScriptBlock]::Create(
     $(oh-my-posh completion powershell)
   ))
 
-# https://ohmyposh.dev/docs/git
-$env:POSH_GIT_ENABLED = $true
-
-# https://docs.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline
-Set-PSReadLineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
-Set-PSReadLineKeyHandler -Chord Tab -Function MenuComplete
-Set-PSReadLineOption -ShowToolTips
-Set-PSReadLineOption -PredictionSource History -PredictionViewStyle InlineView
-
 Push-Location (Split-Path -Parent $Profile)
-@('plugins', 'functions', 'aliases', 'exports', 'extra') | Where-Object { Test-Path "$_.ps1" } | ForEach-Object -Process { . ".\$_.ps1" }
+@('exports', 'plugins', 'functions', 'aliases', 'extra') | Where-Object { Test-Path "$_.ps1" } | ForEach-Object -Process { . ".\$_.ps1" }
 Pop-Location
