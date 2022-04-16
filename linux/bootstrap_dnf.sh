@@ -14,7 +14,7 @@ function install_zsh_omz {
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
   sudo dnf install -y zsh
-  sudo lchsh $USER <<EOF
+  sudo lchsh "$USER" <<EOF
 $(command -v zsh)
 EOF
 
