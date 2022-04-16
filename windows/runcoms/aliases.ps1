@@ -21,9 +21,12 @@ function sudo() {
 }
 
 # Basic commands
-function which($name) { Get-Command -Name $name -ErrorAction SilentlyContinue | Select-Object Definition }
+function which($name) {
+  Get-Command -Name $name -ErrorAction SilentlyContinue `
+  | Select-Object -ExpandProperty Definition -ErrorAction SilentlyContinue
+}
 function touch($file) { '' | Out-File -FilePath $file -Encoding ASCII }
-function mkd($path) { New-Item -Path $path -ItemType Directory && Set-Location -Path $path }
+function mkcd($path) { New-Item -Path $path -ItemType Directory && Set-Location -Path $path }
 function nano() { & "$(if ($null -ne $env:EDITOR) { $env:EDITOR } else { 'notepad' })" $args }
 
 # Navigation Shortcuts
