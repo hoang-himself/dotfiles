@@ -4,7 +4,6 @@
 
 # Make aliases work with sudo
 alias sudo='sudo '
-alias ls='ls --color=auto --group-directories-first -v'
 
 # Set tty to input password for GnuPG
 export GPG_TTY=$(tty)
