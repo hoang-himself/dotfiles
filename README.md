@@ -64,12 +64,6 @@ If you set your escape character with EscapeChar option in ~/.ssh/config or with
 
 Assuming an escape of `~`: `~C-L 8000:localhost:9000`.
 
-### View all keybindings
-
-```powershell
-Get-PSReadLineKeyHandler
-```
-
 ### Shift args
 
 ```powershell
@@ -78,20 +72,6 @@ $args = $args | Select-Object -Skip 1
 # or
 
 $args[1..$args.Length]
-```
-
-### Get system variables
-
-PowerShell stores a lot of system objects as virtual drives
-
-```powershell
-Get-PSDrive
-```
-
-Sample code: Get environment variables
-
-```powershell
-Get-ChildItem -Path Env:
 ```
 
 ### Access special Windows folders using shell
