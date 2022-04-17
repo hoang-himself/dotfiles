@@ -13,5 +13,16 @@ Invoke-Command -ScriptBlock $([ScriptBlock]::Create(
   ))
 
 Push-Location (Split-Path -Parent $Profile)
-@('exports', 'plugins', 'functions', 'aliases', 'extra') | Where-Object { Test-Path "$_.ps1" } | ForEach-Object -Process { . ".\$_.ps1" }
+@(
+  'exports',
+  'plugins',
+  'functions',
+  'bindings',
+  'aliases',
+  'extra'
+) | Where-Object {
+  Test-Path "$_.ps1"
+} | ForEach-Object -Process {
+  . ".\$_.ps1"
+}
 Pop-Location

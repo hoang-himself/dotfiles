@@ -38,6 +38,3 @@ ${function:dl} = { Set-Location -Path $(Get-ItemPropertyValue `
       -Name '{7D83EE9B-2244-4E70-B1F5-5393042AF1E4}') }
 
 Set-Alias -Name 'time' -Value 'Measure-Command'
-
-Set-PSReadLineKeyHandler -Chord Ctrl+d -Function DeleteCharOrExit
-Set-PSReadLineKeyHandler -Chord Tab -Function MenuComplete
