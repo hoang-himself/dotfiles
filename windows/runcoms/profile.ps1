@@ -11,6 +11,8 @@ Invoke-Command -ScriptBlock $([ScriptBlock]::Create(
 Invoke-Command -ScriptBlock $([ScriptBlock]::Create(
     $(oh-my-posh completion powershell)
   ))
+$MaximumHistoryCount = 512
+Set-PSReadLineOption -MaximumHistoryCount 1024
 
 Push-Location (Split-Path -Parent $Profile)
 @(
