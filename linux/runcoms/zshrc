@@ -2,9 +2,6 @@
 # Executes commands at the start of an interactive session.
 #
 
-# Make aliases work with sudo
-alias sudo='sudo '
-
 # Set tty to input password for GnuPG
 export GPG_TTY=$(tty)
 
@@ -97,7 +94,6 @@ zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/.zcompcache-$
 # Highlight the current autocomplete option
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
-# TODO
 #h=()
 #if [[ -r ~/.ssh/config ]]; then
 #  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
