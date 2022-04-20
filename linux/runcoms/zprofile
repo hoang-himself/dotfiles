@@ -2,6 +2,15 @@
 # Executes commands at login pre-zshrc.
 #
 
+export XDG_CONFIG_HOME
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
+
+# Enable colors
+export CLICOLOR=1
+
 #
 # Editors
 #
@@ -57,3 +66,9 @@ eval "$(pyenv init --path)"
 
 # Docker BuildKit
 export DOCKER_BUILDKIT=1
+
+# Custom GnuPG path
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+
+# No official support, will workaround
+#export SSHHOME="$XDG_CONFIG_HOME/ssh"
