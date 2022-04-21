@@ -2,15 +2,6 @@
 # Aliases.
 #
 
-# Make aliases work with sudo
-alias sudo='sudo '
-
-# Other
-alias ls='ls --color=auto --group-directories-first -v'
-alias rr='rm -rf'
-alias now='date +"%T"'
-alias week='date +%V'
-
 # Python venv
 alias vx='deactivate'
 function va {
@@ -27,3 +18,22 @@ function va {
     . ./"$VENV_PATH"/bin/activate
   fi
 }
+
+# Git worktree
+alias gwt='git worktree'
+alias gwta='git worktree add'
+alias gwtls='git worktree list'
+alias gwtlo='git worktree lock'
+alias gwtmv='git worktree move'
+alias gwtpr='git worktree prune'
+alias gwtrm='git worktree remove'
+alias gwtulo='git worktree unlock'
+
+# Make aliases work with sudo
+alias sudo='sudo '
+
+# Other
+alias ls='ls --color=auto --group-directories-first -v'
+alias rr='rm -rf'
+alias now='date +"%T"'
+alias week='date +%V'

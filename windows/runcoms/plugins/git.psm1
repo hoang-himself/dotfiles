@@ -253,3 +253,12 @@ function grename {
     git push --set-upstream origin $args[1]
   }
 }
+
+${function:gwt} = { git worktree $args }
+${function:gwta} = { git worktree add $args }
+${function:gwtls} = { git worktree list $args }
+${function:gwtlo} = { git worktree lock $args }
+${function:gwtmv} = { git worktree move $args }
+${function:gwtpr} = { git worktree prune $args }
+${function:gwtrm} = { git worktree remove $args }
+${function:gwtulo} = { git worktree unlock $args }
