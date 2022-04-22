@@ -38,7 +38,7 @@ function Uninstall-Bloat {
 function Install-BasePackage {
   Update-Module -Force
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-  Get-PackageProvider | Where-Object Name -EQ 'NuGet' | Install-PackageProvider -Force
+  Get-PackageProvider | Where-Object -Property Name -EQ 'NuGet' | Install-PackageProvider -Force
   @(
     'PowerShellGet',
     'PSReadLine',
