@@ -10,57 +10,9 @@
   gpgSign = true
 
 [alias]
-  a = add
-  aa = add --all
-
-  b = branch
-  ba = branch -a
-  bd = branch -d
-  bD = branch -D
-  br = branch --remote
-
-  c = commit -v
-  ca = commit -v -a
-  cam = commit -a -m
-  cmsg = commit -m
-
-  cb = checkout -b
-  co = checkout
-  cor = checkout --recurse-submodules
-  cl = clone --recurse-submodules
-  clean = clean -id
-
-  lol = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-  lola = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --all
-  lols = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --stat
   ign = ls-files -o -i --exclude-standard
-
-  f = fetch
-  fa = fetch --all --prune
-  up = pull --rebase
-  upv = pull --rebase -v
-  upa = pull --rebase --autostash
-  upav = pull --rebase --autostash -v
-  p = push
-  pf = push --force-with-lease
-
-  rb = rebase
-  rbi = rebase -i
-
-  st = status
-  sw = switch
-
   wdiff = diff -w --word-diff=color
   whatadded = log --diff-filter=A
-
-  wt = worktree
-  wta = worktree add
-  wtls = worktree list
-  wtlo = worktree lock
-  wtmv = worktree move
-  wtpr = worktree prune
-  wtrm = worktree remove
-  wtulo = worktree unlock
 
 [branch]
   autosetuprebase = always
