@@ -1,82 +1,86 @@
 [user]
-  signingkey = 234A3C6CCF8846FC15991C1AB5A08FDB1282D170
-  name = Hoang NGUYEN
-  email = baauco@gmail.com
+signingkey = 234A3C6CCF8846FC15991C1AB5A08FDB1282D170
+name = Hoang NGUYEN
+email = baauco@gmail.com
 
 [commit]
-  gpgSign = true
+gpgSign = true
 
 [tag]
-  gpgSign = true
+gpgSign = true
 
 [alias]
-  ign = ls-files -o -i --exclude-standard
-  wdiff = diff -w --word-diff=color
-  whatadded = log --diff-filter=A
-
-[branch]
-  autosetuprebase = always
-
-[color]
-  branch = auto
-  diff = auto
-  interactive = auto
-  status = auto
-  ui = true
-  pager = true
-
-[color "branch"]
-  current = yellow reverse
-  local = yellow
-  remote = green
-
-[color "diff"]
-  meta = yellow
-  frag = magenta
-  old = red
-  new = green
-
-[color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+ign = ls-files -o -i --exclude-standard
+wdiff = diff -w --word-diff=color
+whatadded = log --diff-filter=A
 
 [core]
-  #excludesfile = ~/.config/git/ignore
-  pager = less
-  ignoreCase = false
+#excludesfile = ~/.config/git/ignore
+pager = less
+ignoreCase = false
 
 [init]
-  defaultBranch = main
+defaultBranch = main
+
+[extensions]
+worktreeConfig = true
 
 [help]
-  autocorrect = 30 # tenths of a second
+autocorrect = 30 # tenths of a second
 
 [merge]
-  autoStash = true
-  ff = false
-
-[rebase]
-  autoStash = true
-
-[push]
-  default = simple
-  followTags = true
+autoStash = true
+ff = false
 
 [pull]
-  ff = true
+ff = true
 
-[rerere]
-  enabled = 1
+[rebase]
+autoStash = true
+
+[push]
+default = simple
+followTags = true
 
 [status]
-  submoduleSummary = 1
+submoduleSummary = 1
+
+[branch]
+autosetuprebase = always
+
+[rerere]
+enabled = 1
+autoupdate = 1
+
+[color]
+branch = auto
+diff = auto
+interactive = auto
+status = auto
+ui = true
+pager = true
+
+[color "branch"]
+current = yellow reverse
+local = yellow
+remote = green
+
+[color "diff"]
+meta = yellow
+frag = magenta
+old = red
+new = green
+
+[color "status"]
+added = yellow
+changed = green
+untracked = cyan
 
 [filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
 
 #[include]
 #  path = ~/.config/git/config.local
