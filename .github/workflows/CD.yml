@@ -1,0 +1,13 @@
+name: 'CD'
+
+on:
+  push:
+    tags: # Match against refs/tags, regex works too
+      - '*' # Match any except /
+      - '**' # Match all
+  workflow_dispatch:
+
+jobs:
+  deliver_on_tag:
+    name: Deliver on tag
+    runs-on: ubuntu-latest
