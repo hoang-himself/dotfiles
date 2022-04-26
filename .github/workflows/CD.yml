@@ -11,3 +11,6 @@ jobs:
   deliver_on_tag:
     name: Deliver on tag
     runs-on: ubuntu-latest
+    steps:
+      - name: Clone dotfiles
+        uses: actions/checkout@v3
