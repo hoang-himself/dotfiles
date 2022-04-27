@@ -7,7 +7,6 @@ ${function:....} = { Set-Location -Path '..\..\..' }
 ${function:.....} = { Set-Location -Path '..\..\..\..' }
 ${function:......} = { Set-Location -Path '..\..\..\..\..' }
 
-# sudo
 function sudo() {
   if ($args.Length -eq 0) {
     Start-Process 'pwsh' -Verb 'RunAs'
@@ -20,7 +19,6 @@ function sudo() {
   }
 }
 
-# Basic commands
 function which($name) {
   Get-Command -Name $name -ErrorAction SilentlyContinue `
   | Select-Object -ExpandProperty Definition -ErrorAction SilentlyContinue
