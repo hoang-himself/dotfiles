@@ -6,7 +6,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Dev container lint
     runs-on: ubuntu-latest
     container: koalaman/shellcheck-alpine:stable
     defaults:

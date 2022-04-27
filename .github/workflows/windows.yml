@@ -6,7 +6,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Windows lint
     runs-on: ubuntu-latest
     defaults:
       run:

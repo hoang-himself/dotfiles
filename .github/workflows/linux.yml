@@ -6,7 +6,7 @@ on:
 
 jobs:
   lint:
-    name: Lint
+    name: Linux lint
     runs-on: ubuntu-latest
     container: koalaman/shellcheck-alpine:stable
     defaults:
