@@ -1,3 +1,15 @@
+function New-TemporaryFolder {
+  $TMPDIR = "$($env:TMP)\tmp$([Convert]::ToString((Get-Random 65535),16).padleft(4,'0')).tmp"
+  New-Item -ItemType Directory -Path $TMPDIR
+  Push-Location
+  Set-Location -Path $TMPDIR
+}
+
+function Remove-TemporaryFolder {
+  Pop-Location
+  Remove-Item -Path $TMPDIR -Recurse -Force
+}
+
 # Common Editing needs
 function Edit-Host {
   sudo "$(if ($null -ne $env:EDITOR) { $env:EDITOR } else { 'notepad' })" "$env:windir\system32\drivers\etc\hosts"
