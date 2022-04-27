@@ -1,4 +1,6 @@
 function New-TemporaryFolder {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   $TMPDIR = "$($env:TMP)\tmp$([Convert]::ToString((Get-Random 65535),16).padleft(4,'0')).tmp"
   New-Item -ItemType Directory -Path $TMPDIR
   Push-Location
@@ -6,6 +8,8 @@ function New-TemporaryFolder {
 }
 
 function Remove-TemporaryFolder {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   Pop-Location
   Remove-Item -Path $TMPDIR -Recurse -Force
 }
