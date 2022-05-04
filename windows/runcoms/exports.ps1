@@ -1,6 +1,4 @@
 $env:EDITOR = 'C:\Program Files\Notepad++\notepad++.exe'
-
-# https://ohmyposh.dev/docs/git
 $env:POSH_GIT_ENABLED = $true
 
 Set-PSReadLineOption -ShowToolTips
