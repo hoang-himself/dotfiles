@@ -91,8 +91,8 @@ function Install-Pyenv {
     -Value $('%USERPROFILE%\.pyenv\pyenv-win\bin;%USERPROFILE%\.pyenv\pyenv-win\shims;' `
       + $raw_hkcu_path)
 
-  $env:PYENV_ROOT = "$HOME/.pyenv"
-  $env:Path = "$PYENV_ROOT/bin:$Path"
+  $env:PYENV_ROOT = "$HOME\.pyenv"
+  $env:Path = "$env:PYENV_ROOT\bin;$env:Path"
 
   pyenv update
   pyenv install -q "$python_target"
