@@ -18,8 +18,9 @@ Push-Location (Split-Path -Parent $Profile)
 @(
   'exports',
   'plugins',
-  'functions',
   'bindings',
+  'completions',
+  'functions',
   'aliases',
   'extra'
 ) | Where-Object {
