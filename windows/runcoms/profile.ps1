@@ -1,6 +1,9 @@
 Import-Module -Name 'posh-git'
 Import-Module -Name 'Terminal-Icons'
 
+$env:Path = "$env:LOCALAPPDATA\starship;$env:Path"
+Invoke-Expression (&starship init powershell)
+
 $MaximumHistoryCount = 1024
 Set-PSReadLineOption -MaximumHistoryCount 1024
 
