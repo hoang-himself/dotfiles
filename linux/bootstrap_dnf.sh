@@ -9,7 +9,7 @@ function install_base_package {
   sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
 }
 
-function install_zsh_omz {
+function install_prompt {
   mkdir -p "$HOME"/.config/zsh
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
@@ -19,7 +19,7 @@ $(command -v zsh)
 EOF
 
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+  curl -SL https://starship.rs/install.sh | sh -s -- -f
   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 
@@ -92,15 +92,6 @@ function install_haskell {
   sudo dnf install -y haskell-platform
 }
 
-function install_node {
-  curl -SL https://git.io/n-install | bash -s -- -y
-  export N_PREFIX="$HOME/n"
-  [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-
-  n latest
-  n prune
-}
-
 function link_config {
   ln -frs ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
   ln -frs ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore
@@ -115,7 +106,7 @@ function link_config {
 
 function main {
   install_base_package
-  install_zsh_omz
+  install_prompt
   install_pyenv
   install_openssh
   link_config
