@@ -19,7 +19,7 @@ Use at your own risk!
 
 - `git`
 
-### Windows only
+### Windows
 
 - [Git for Windows](https://github.com/git-for-windows/git/releases/latest)
 - [PowerShell Core](https://github.com/PowerShell/PowerShell/releases/latest)
