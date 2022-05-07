@@ -3,15 +3,15 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": [
         {
-            "command": "paste",
-            "keys": "ctrl+v"
-        },
-        {
             "command": {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
         },
         {
             "command": "find",
@@ -34,12 +34,12 @@
             "antialiasingMode": "cleartype",
             "backgroundImageOpacity": 0.10000000000000001,
             "bellStyle": "none",
-            "colorScheme": "Material Ocean",
+            "colorScheme": "Fedora Remix for WSL",
             "cursorShape": "filledBox",
             "font": {
                 "face": "MesloLGS NF"
             },
-            "opacity": 40,
+            "opacity": 75,
             "useAcrylic": true
         },
         "list": [
@@ -84,6 +84,12 @@
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{43bc384b-e99b-50c0-9482-6fb1f3dbc45f}",
+                "hidden": false,
+                "name": "Fedora Remix for WSL (SystemD)",
+                "source": "WhitewaterFoundryLtd.Co.FedoraRemixforWSL_kd1vv0z0vy70w"
             }
         ]
     },
