@@ -154,6 +154,15 @@ function Install-Config {
       New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\.gnupg\$($_.Name)" `
         -Target $_.FullName -Force
     }
+
+  # Retard mode enabled here
+  @(
+    @('', ''),
+    @('Preview', '_preview')
+  ) | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal$($_[0])_8wekyb3d8bbwe\LocalState\settings.json" `
+      -Target $(Resolve-Path -LiteralPath ".\configs\wt_profile$($_[1]).json") -Force
+  }
 }
 
 function main {
