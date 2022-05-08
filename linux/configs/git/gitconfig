@@ -86,5 +86,8 @@ required = true
 pushInsteadOf = https://github.com/
 pushInsteadOf = git://github.com/
 
+[url "git@github.com:Smithienious/"]
+insteadOf = gh:
+
 #[include]
 #path = ~/.config/git/config.local
