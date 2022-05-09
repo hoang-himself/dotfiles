@@ -4,7 +4,8 @@ function install_base_package {
   sudo dnf install dnf-plugins-core util-linux-user -y
   sudo dnf upgrade -y
   sudo dnf install -y git git-lfs less most nano pinentry-tty man-db \
-    make curl wget rsync openssl acl gnupg dos2unix htop tree crontabs ShellCheck
+    make curl wget rsync openssl acl gnupg dos2unix htop tree crontabs \
+    ShellCheck tldr
 
   sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
 }
