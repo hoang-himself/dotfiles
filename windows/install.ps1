@@ -144,14 +144,14 @@ function Install-WSL {
 function Install-Config {
   Get-ChildItem -Path '.\configs\git\' |
     ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\.$($_.Name)" `
+      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
         -Target $_.FullName -Force
     }
   # Add-Content "$env:ProfileDir\.gitconfig.local" $null
 
   Get-ChildItem -Path '.\configs\gnupg\' |
     ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\.gnupg\$($_.Name)" `
+      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gnupg\$($_.Name)" `
         -Target $_.FullName -Force
     }
 
