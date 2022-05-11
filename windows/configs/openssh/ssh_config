@@ -1,6 +1,9 @@
 # Reuse connections in backlog
 # https://github.com/PowerShell/Win32-OpenSSH/wiki/Project-Scope
 
+# RemoteForward blocked by upstream
+# https://github.com/PowerShell/Win32-OpenSSH/issues/1564
+
 #Include <glob(7)>
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 EscapeChar ~
