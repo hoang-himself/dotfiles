@@ -2,6 +2,15 @@
 # Functions.
 #
 
+function update_prompt {
+  curl -SL https://starship.rs/install.sh | sh -s -- -f
+}
+
+function update_compose {
+  curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
+  chmod +x ~/.docker/cli-plugins/docker-compose
+}
+
 function createtmp {
   echo "Saving current directory as \$CURDIR"
   CURDIR=$(pwd)
@@ -35,10 +44,4 @@ function fs {
   else
     du $arg .[^.]* -- *
   fi
-}
-
-# Upgrade docker-compose
-function upgrade_compose {
-  curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
-  chmod +x ~/.docker/cli-plugins/docker-compose
 }
