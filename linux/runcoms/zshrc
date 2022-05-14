@@ -7,7 +7,7 @@ export GPG_TTY=$(tty)
 
 # Pyenv
 if [[ -z "$VIRTUAL_ENV" ]]; then
-    eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -110,8 +110,6 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # ssh-agent plugin
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
-zstyle :omz:plugins:ssh-agent quiet yes
-zstyle :omz:plugins:ssh-agent ssh-add-args -q
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -137,5 +135,5 @@ eval "$(starship init zsh)"
 
 # Dotfiles (order matters)
 for DOTFILE in "${ZDOTDIR:-$HOME}"/.{zfunctions,zbindings,zaliases,extra}; do
-    [[ -f "$DOTFILE" ]] && source "$DOTFILE"
+  [[ -f "$DOTFILE" ]] && source "$DOTFILE"
 done
