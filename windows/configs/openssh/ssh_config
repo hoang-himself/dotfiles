@@ -8,14 +8,15 @@
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 EscapeChar ~
 
-Host raspberrypi.local raspberrypi
-  CanonicalizeHostname yes
+Host rpi
+  HostName raspberrypi.local
   User pi
   Port 22
+  ForwardX11 yes
 
 Host 192.168.*
   ForwardAgent yes
-  ExitOnForwardFailure yes
 
 Host *
+  ExitOnForwardFailure yes
   ControlMaster no
