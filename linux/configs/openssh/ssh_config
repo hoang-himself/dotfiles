@@ -2,9 +2,12 @@ EscapeChar ~
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 Include ~/.ssh/config.d/*
 
+Host *.local
+  AddKeysToAgent yes
+  ForwardAgent yes
+
 Host *
   ExitOnForwardFailure yes
   ControlMaster auto
-  # %C = %r@%h-%p
   ControlPath ${HOME}/.ssh/sockets/%C
   ControlPersist 600

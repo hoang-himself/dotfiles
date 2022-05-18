@@ -2,6 +2,10 @@ EscapeChar ~
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 Include ~/.ssh/config.d/*
 
+Host *.local
+  AddKeysToAgent yes
+  ForwardAgent yes
+
 Host *
   ExitOnForwardFailure yes
   # Reuse connections in backlog
