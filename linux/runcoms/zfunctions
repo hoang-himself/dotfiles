@@ -11,6 +11,60 @@ function update-compose {
   chmod +x ~/.docker/cli-plugins/docker-compose
 }
 
+function ssh-hostgen {
+  if [[ $# -ne 5 ]]; then
+    echo 'ssh-hostgen <algorithm> <host> <hostname> <port> <user>'
+    echo ''
+    echo '            algorithm: ed25519, ecdsa, dsa, rsa'
+    echo '            host:      alias that you use to access this host'
+    echo '            hostname:  hostname of the host'
+    echo '            port:      port of the host, usually 22'
+    echo '            user:      user to login to the host'
+    return 0
+  fi
+
+  local algorithm="$1"
+  case "$algorithm" in
+  ed25519)
+    algorithm='ed25519'
+    ;;
+  ecdsa)
+    algorithm='ecdsa -b 521'
+    ;;
+  dsa)
+    algorithm='dsa'
+    ;;
+  rsa)
+    algorithm='rsa -b 4096'
+    ;;
+  *)
+    echo 'algorithm must be one of ed25519, ecdsa, dsa, rsa'
+    return 1
+    ;;
+  esac
+  local h="$2"
+  local hostname="$3"
+  local p="$4"
+  if ! [[ $p =~ ^[0-9]+$ ]]; then
+    echo "port must be an integer" >&2
+    return 1
+  fi
+  local u="$5"
+
+  ssh-keygen -t "$algorithm" -f "$HOME/.ssh/id_$1_$h" -C "$u@$hostname"
+
+  cat <<EOF >>"$HOME/.ssh/config.d/$hostname"
+Host $h
+  HostName $hostname
+  CanonicalizeHostname yes
+  Port $p
+  User $u
+  IdentityFile ~/.ssh/id_$1_$h.pub
+  IdentitiesOnly yes
+
+EOF
+}
+
 function createtmp {
   echo "Saving current directory as \$CURDIR"
   CURDIR=$(pwd)
