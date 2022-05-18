@@ -1,21 +1,10 @@
-# ssh_config(5)
-
-Include ~/.ssh/config.d/*
-#IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 EscapeChar ~
-
-Host rpi
-  HostName raspberrypi.local
-  User pi
-  Port 22
-  ForwardX11 yes
-
-Host 192.168.*
-  ForwardAgent yes
+#IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
+Include ~/.ssh/config.d/*
 
 Host *
   ExitOnForwardFailure yes
   ControlMaster auto
-  # %C == %r@%h-%p
+  # %C = %r@%h-%p
   ControlPath ${HOME}/.ssh/sockets/%C
   ControlPersist 600

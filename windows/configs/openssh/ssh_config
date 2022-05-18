@@ -1,22 +1,9 @@
-# Reuse connections in backlog
-# https://github.com/PowerShell/Win32-OpenSSH/wiki/Project-Scope
-
-# RemoteForward blocked by upstream
-# https://github.com/PowerShell/Win32-OpenSSH/issues/1564
-
-Include ~/.ssh/config.d/*
-#IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 EscapeChar ~
-
-Host rpi
-  HostName raspberrypi.local
-  User pi
-  Port 22
-  ForwardX11 yes
-
-Host 192.168.*
-  ForwardAgent yes
+#IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
+Include ~/.ssh/config.d/*
 
 Host *
   ExitOnForwardFailure yes
+  # Reuse connections in backlog
+  # https://github.com/PowerShell/Win32-OpenSSH/wiki/Project-Scope
   ControlMaster no
