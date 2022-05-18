@@ -4,7 +4,7 @@
 # RemoteForward blocked by upstream
 # https://github.com/PowerShell/Win32-OpenSSH/issues/1564
 
-#Include <glob(7)>
+Include ~/.ssh/config.d/*
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 EscapeChar ~
 

@@ -1,6 +1,6 @@
 # ssh_config(5)
 
-#Include <glob(7)>
+Include ~/.ssh/config.d/*
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 EscapeChar ~
 
