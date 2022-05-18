@@ -1,3 +1,50 @@
+function ssh-hostgen {
+  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseApprovedVerbs', '')]
+  param()
+  # Urban myth
+  # Throw is used to terminate an inner block of code and return to the calling block
+  if ($args.Length -ne 5) {
+    Write-Output 'ssh-hostgen <algorithm> <host> <hostname> <port> <user>'
+    Write-Output ''
+    Write-Output '    algorithm: ed25519, ecdsa, dsa, rsa'
+    Write-Output '    host:      alias that you use to access this host'
+    Write-Output '    hostname:  hostname of the host'
+    Write-Output '    port:      port of the host, usually 22'
+    Write-Output '    user:      user to login to the host'
+    return
+  }
+
+  $algorithm = switch ($args[0]) {
+    'ed25519' { @('ed25519', '') }
+    'ecdsa' { @('ecdsa', '-b 521') }
+    'dsa' { @('dsa', '') }
+    'rsa' { @('rsa', '-b 4096') }
+    default {
+      throw [System.ArgumentException] 'algorithm must be one of ed25519, ecdsa, dsa, rsa'
+    }
+  }
+  $h = $args[1]
+  $hostname = $args[2]
+  $p = if ($args[3] -is [int]) {
+    $args[3]
+  }
+  else {
+    throw [System.ArgumentException] 'port must be an integer'
+  }
+  $u = $args[4]
+
+  & 'ssh-keygen' -t @algorithm -f "$HOME/.ssh/id_$($args[0])_$h" -C "$u@$hostname"
+
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "Host $h"
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  HostName $hostname"
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  CanonicalizeHostname yes"
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  Port $p"
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  User $u"
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  IdentityFile ~/.ssh/id_$($args[0])_$h.pub"
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  IdentitiesOnly yes"
+  Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value ""
+}
+
 function Update-Prompt {
   [CmdletBinding(SupportsShouldProcess)]
   param()

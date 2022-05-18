@@ -54,7 +54,8 @@ function install_pyenv {
 }
 
 function install_openssh {
-  mkdir -p "$HOME/.config/ssh"
+  #mkdir -p "$HOME/.config/ssh"
+  mkdir -p "$HOME/.ssh/config.d"
   mkdir -p "$HOME/.ssh/sockets"
   sudo mkdir -p "/etc/ssh/keys/$(whoami)"
 

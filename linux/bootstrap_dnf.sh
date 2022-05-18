@@ -15,6 +15,8 @@ function install_prompt {
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
   sudo dnf install -y zsh
+
+  # Use heredoc to automatically press enter on confirmation
   sudo lchsh "$USER" <<EOF
 $(command -v zsh)
 EOF
@@ -54,15 +56,16 @@ function install_pyenv {
 }
 
 function install_openssh {
-  mkdir -p "$HOME/.config/ssh"
+  #mkdir -p "$HOME/.config/ssh"
+  mkdir -p "$HOME/.ssh/config.d"
   mkdir -p "$HOME/.ssh/sockets"
   sudo mkdir -p "/etc/ssh/keys/$(whoami)"
 
   sudo dnf install -y openssh-server openssh-clients
 
-  # ln -frs ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
+  #ln -frs ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
   ln -frs ./configs/openssh/ssh_config "$HOME"/.ssh/config
-  # sudo ln -frs ./configs/openssh/sshd_config /etc/ssh/sshd_config
+  #sudo ln -frs ./configs/openssh/sshd_config /etc/ssh/sshd_config
 }
 
 function install_gcc {
