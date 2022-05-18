@@ -114,7 +114,6 @@ function main {
   sudo dnf autoremove -y
 }
 
-# https://www.gnu.org/software/bash/manual/html_node/Conditional-Constructs.html
 while [[ $# -gt 0 ]]; do
   case "$1" in
   -i | --install)

@@ -183,10 +183,9 @@ function main {
   Remove-Item -Path 'Env:PluginsDir'
 }
 
-# TODO Use while and switch case
-if ($args[0] -eq '-i' || $args[0] -eq '--install') {
-  main
-}
-else {
-  Write-Output "Unrecognized option $($args[0])"
+switch ($args) {
+  { $_ -in @('-i', '--install') } { main }
+  #'-i' { main }
+  #'--install' { main }
+  default { Write-Output "Unrecognized option $_" }
 }

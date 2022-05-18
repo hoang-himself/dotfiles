@@ -2,11 +2,11 @@
 # Functions.
 #
 
-function update_prompt {
+function update-prompt {
   curl -SL https://starship.rs/install.sh | sh -s -- -f
 }
 
-function update_compose {
+function update-compose {
   curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
   chmod +x ~/.docker/cli-plugins/docker-compose
 }
