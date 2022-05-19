@@ -43,6 +43,11 @@ function ssh-hostgen {
   Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  IdentityFile ~/.ssh/id_$($args[0])_$h.pub"
   Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value "  IdentitiesOnly yes"
   Add-Content -Path "$HOME/.ssh/config.d/$hostname" -Value ""
+
+  Write-Host ''
+  Write-Host 'Add your new public key to the authorized_keys file of the host if possible'
+  Write-Host ''
+  Write-Host "Get-Content $HOME/.ssh/id_$($args[0])_$h.pub | ssh $h 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'"
 }
 
 function Update-Prompt {
