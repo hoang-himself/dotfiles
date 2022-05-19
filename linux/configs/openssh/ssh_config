@@ -1,6 +1,6 @@
 EscapeChar ~
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
-Include ~/.ssh/config.d/*
+Include ~/.ssh/config.d/*.conf
 
 Host *.local
   AddKeysToAgent yes
