@@ -41,7 +41,7 @@ Host $h
   CanonicalizeHostname yes
   Port $p
   User $u
-  IdentityFile ~/.ssh/id_$($args[0])_$h.pub
+  IdentityFile ~/.ssh/id_$($args[0])_$h
   IdentitiesOnly yes
 
 "@
