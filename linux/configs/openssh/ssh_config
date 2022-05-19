@@ -5,9 +5,9 @@ Include ~/.ssh/config.d/*
 Host *.local
   AddKeysToAgent yes
   ForwardAgent yes
-
-Host *
-  ExitOnForwardFailure yes
   ControlMaster auto
   ControlPath ${HOME}/.ssh/sockets/%C
   ControlPersist 600
+
+Host *
+  ExitOnForwardFailure yes
