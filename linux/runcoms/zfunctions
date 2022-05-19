@@ -53,7 +53,7 @@ function ssh-hostgen {
 
   ssh-keygen -t "$algorithm" -f "$HOME/.ssh/id_$1_$h" -C "$u@$hostname"
 
-  cat <<EOF >>"$HOME/.ssh/config.d/$hostname"
+  cat <<EOF >>"$HOME/.ssh/config.d/$hostname.conf"
 Host $h
   HostName $hostname
   CanonicalizeHostname yes
