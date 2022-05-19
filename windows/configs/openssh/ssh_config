@@ -1,13 +1,13 @@
 EscapeChar ~
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
-Include ~/.ssh/config.d/*
+Include ~/.ssh/config.d/*.conf
 
 Host *.local
   AddKeysToAgent yes
   ForwardAgent yes
-
-Host *
-  ExitOnForwardFailure yes
   # Reuse connections in backlog
   # https://github.com/PowerShell/Win32-OpenSSH/wiki/Project-Scope
   ControlMaster no
+
+Host *
+  ExitOnForwardFailure yes

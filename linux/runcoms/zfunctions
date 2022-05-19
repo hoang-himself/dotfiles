@@ -53,16 +53,21 @@ function ssh-hostgen {
 
   ssh-keygen -t "$algorithm" -f "$HOME/.ssh/id_$1_$h" -C "$u@$hostname"
 
-  cat <<EOF >>"$HOME/.ssh/config.d/$hostname"
+  cat <<EOF >>"$HOME/.ssh/config.d/$hostname.conf"
 Host $h
   HostName $hostname
   CanonicalizeHostname yes
   Port $p
   User $u
-  IdentityFile ~/.ssh/id_$1_$h.pub
+  IdentityFile ~/.ssh/id_$1_$h
   IdentitiesOnly yes
 
 EOF
+
+  echo ''
+  echo 'Add your new public key to the authorized_keys file of the host if possible'
+  echo ''
+  echo "cat $HOME/.ssh/id_$1_$h.pub | ssh $h 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'"
 }
 
 function createtmp {
