@@ -2,9 +2,6 @@
 # Executes commands at the start of an interactive session.
 #
 
-# Set tty to input password for GnuPG
-export GPG_TTY=$(tty)
-
 # Pyenv
 if [[ -z "$VIRTUAL_ENV" ]]; then
   eval "$(pyenv init -)"
