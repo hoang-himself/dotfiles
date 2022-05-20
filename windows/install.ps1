@@ -149,7 +149,7 @@ function Install-Config {
       New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
         -Target $_.FullName -Force
     }
-  #Add-Content "$env:ProfileDir\.gitconfig.local" $null
+  Add-Content "$env:USERPROFILE\.gitconfig.local" $null
 
   Get-ChildItem -Path '.\configs\gnupg\' |
     ForEach-Object {

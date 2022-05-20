@@ -98,7 +98,7 @@ function link_config {
   ln -frs ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
   ln -frs ./configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore
   ln -frs ./configs/git/gitmessage "$HOME"/.gitmessage
-  # touch "$HOME"/.gitconfig.local
+  touch "$HOME"/.gitconfig.local
 
   export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
   chmod 700 "$GNUPGHOME"
