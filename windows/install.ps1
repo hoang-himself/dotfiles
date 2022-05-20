@@ -144,7 +144,9 @@ function Install-WSL {
 }
 
 function Install-Config {
-  Get-ChildItem -Path '.\configs\git\' |
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gitconfig" `
+    -Target $(Resolve-Path -LiteralPath .\configs\git\gitconfig) -Force
+  Get-ChildItem -Path '..\global\configs\git\' |
     ForEach-Object {
       New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
         -Target $_.FullName -Force
