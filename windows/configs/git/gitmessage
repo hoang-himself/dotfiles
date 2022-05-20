@@ -1,0 +1,67 @@
+##################################################
+# <type>[(<optional scope>)][!]: <subject>
+# The header
+#   - MUST be prefixed with a type (see below)
+#   - OPTIONAL scope, OPTIONAL !
+#   - REQUIRED terminal colon and space
+# The subject
+#   - MUST use the imperative present tense
+#     ("change" not "changed" nor "changes")
+#   - don't capitalize the first letter
+#   - no punctuation at the end
+# Use 50 char maximum, which is this line's width.
+##################################################
+add your header here
+
+########################################################################
+# The body should include the motivation for the change and
+# contrast this with previous behavior. Use as many lines as you like.
+# For every line, use 72 char maximum width, which is this line's width.
+########################################################################
+add your body here
+
+########################################################################
+#
+# Type must be one of the following:
+#   - build: Changes that affect the build system or external dependencies
+#            (example scopes: gulp, broccoli, npm)
+#   - ci: Changes to our CI configuration files and scripts
+#         (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+#   - docs: Documentation only changes
+#   - feat: A new feature
+#   - fix: A bug fix
+#   - perf: A code change that improves performance
+#   - refactor: A code change that neither fixes a bug nor adds a feature
+#   - style: Changes that do not affect the meaning of the code
+#            (example: white-space, formatting, missing semi-colons, etc)
+#   - test: Adding missing tests or correcting existing tests
+#   - revert: Reverting a previous commit, followed by the header of the
+#             reverted commit. In the body it should say:
+#             "This reverts commit <hash>."
+#             where the hash is the SHA of the commit being reverted
+#   - BREAKING CHANGE: A commit that has a footer BREAKING CHANGE, or appends
+#                      a ! after the type/scope, introduces a breaking API change.
+#                      A BREAKING CHANGE can be part of commits of any type.
+#                      BREAKING-CHANGE can also be used as a token in footer.
+#
+########################################################################
+
+### GIT TRAILERS -- THESE MUST BE LAST IN THE COMMIT MESSAGE ###
+
+# Git trailers are optional. Use them if you want, how you want.
+# The trailers below are provided as examples that you can customize.
+
+# For example, you can add any relevant links to a blog post, or graphic
+# design images, or industry publications, specifications, tickets, etc.
+#See: Description <https://example.com/...>
+#See: Description <https://example.com/...>
+
+# If the commit is written by multiple people, then use the git trailers
+# to thank each person as a co-author; various git tools can track this.
+#Co-authored-by: Name <name@example.com>
+#Co-authored-by: Name <name@example.com>
+
+# If the commit is sponsored by a person or company, then add them here.
+# This kind of trailer is more-frequent in open source funding projects.
+#Sponsored-by: Name <name@example.com>
+#Sponsored-by: Name <name@example.com>

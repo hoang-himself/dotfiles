@@ -5,6 +5,7 @@ email = baauco@gmail.com
 
 [commit]
 gpgSign = true
+template = ~/.gitmessage
 
 [tag]
 gpgSign = true
@@ -89,5 +90,5 @@ pushInsteadOf = git://github.com/
 [url "git@github.com:Smithienious/"]
 insteadOf = gh:
 
-#[include]
-#path = ~/.gitconfig.local
+[include]
+path = ~/.gitconfig.local
