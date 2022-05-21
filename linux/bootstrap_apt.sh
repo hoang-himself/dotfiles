@@ -54,14 +54,12 @@ function install_pyenv {
 }
 
 function install_openssh {
-  #mkdir -p "$HOME/.config/ssh"
   mkdir -p "$HOME/.ssh/config.d"
   mkdir -p "$HOME/.ssh/sockets"
   sudo mkdir -p "/etc/ssh/keys/$(whoami)"
 
   sudo apt install -y openssh-server openssh-client
 
-  #ln -frs ./configs/openssh/ssh_config "$XDG_CONFIG_HOME"/ssh/config
   ln -frs ./configs/openssh/ssh_config "$HOME"/.ssh/config
   # sudo ln -frs ./configs/openssh/sshd_config /etc/ssh/sshd_config
 }
