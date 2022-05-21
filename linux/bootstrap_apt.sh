@@ -4,11 +4,9 @@ function install_base_package {
   sudo apt update
   sudo apt install -y apt-utils build-essential
   sudo apt full-upgrade -y
-  sudo apt install -y git git-lfs less most nano pinentry-tty man-db \
+  sudo apt install -y git git-lfs less most nano man-db \
     make curl wget rsync openssl acl gnupg dos2unix htop tree cron \
     shellcheck tldr
-
-  sudo update-alternatives --set pinentry "$(command -v pinentry-tty)"
 }
 
 function install_prompt {
