@@ -99,10 +99,10 @@ function link_config {
   ln -frs '../global/configs/git/gitmessage' "$HOME/.gitmessage"
   touch "$HOME/.gitconfig.local"
 
-  export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
-  chmod 700 "$GNUPGHOME"
+  mkdir -p "$HOME/.gnupg"
+  chmod 700 "$HOME/.gnupg"
   for file in ./configs/gnupg/*; do
-    ln -frs "$file" "$GNUPGHOME/gnupg/$(basename "$file")"
+    ln -frs "$file" "$HOME/.gnupg/$(basename "$file")"
   done
 }
 

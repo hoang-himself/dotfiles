@@ -66,6 +66,3 @@ eval "$(pyenv init --path)"
 
 # Docker BuildKit
 export DOCKER_BUILDKIT=1
-
-# Custom GnuPG path
-export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
