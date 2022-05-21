@@ -33,6 +33,9 @@ autocorrect = 30 # tenths of a second
 autoStash = true
 ff = false
 
+[fetch]
+prune = true
+
 [pull]
 ff = true
 
