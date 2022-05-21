@@ -56,14 +56,15 @@ function install_pyenv {
 }
 
 function install_openssh {
-  mkdir -p "$HOME/.ssh/config.d"
-  mkdir -p "$HOME/.ssh/sockets"
-  sudo mkdir -p "/etc/ssh/keys/$(whoami)"
-
   sudo dnf install -y openssh-server openssh-clients
 
+  sudo mkdir -p /etc/ssh/sshd_config.d
+  sudo mkdir -p "/etc/ssh/keys/$(whoami)"
+  mkdir -p "$HOME/.ssh/config.d"
+  mkdir -p "$HOME/.ssh/sockets"
+
+  sudo ln -frs ./configs/openssh/sshd_config /etc/ssh/sshd_config
   ln -frs ./configs/openssh/ssh_config "$HOME"/.ssh/config
-  #sudo ln -frs ./configs/openssh/sshd_config /etc/ssh/sshd_config
 }
 
 function install_gcc {

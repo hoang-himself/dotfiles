@@ -6,6 +6,8 @@
 # possible, but leave them commented. Uncommented options override the
 # default value.
 
+Include __PROGRAMDATA__/ssh/sshd_config.d/*.conf
+
 #Port 22
 #AddressFamily any
 #ListenAddress 0.0.0.0

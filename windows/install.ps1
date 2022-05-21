@@ -122,14 +122,17 @@ function Install-OpenSSH {
     New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
   }
 
+  New-Item -ItemType Directory -Path "$env:ProgramData\ssh\sshd_config.d" -Force
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\keys\$env:USERNAME" -Force
   #icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
   New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh\config.d" -Force
   New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh\sockets" -Force
-  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.ssh\config" `
-    -Target $(Resolve-Path -LiteralPath .\configs\openssh\ssh_config) -Force
+
   New-Item -ItemType SymbolicLink -Path "$env:ProgramData\ssh\sshd_config" `
     -Target $(Resolve-Path -LiteralPath .\configs\openssh\sshd_config) -Force
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.ssh\config" `
+    -Target $(Resolve-Path -LiteralPath .\configs\openssh\ssh_config) -Force
+
   New-ItemProperty -Path 'HKLM:\SOFTWARE\OpenSSH' -PropertyType String `
     -Name DefaultShell -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
 }
