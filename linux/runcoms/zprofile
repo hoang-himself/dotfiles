@@ -69,6 +69,3 @@ export DOCKER_BUILDKIT=1
 
 # Custom GnuPG path
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
-
-# No official support, will workaround
-#export SSHHOME="$XDG_CONFIG_HOME/ssh"

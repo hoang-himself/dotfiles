@@ -33,8 +33,9 @@ EOF
   ln -frs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
 
   for file in ./runcoms/*; do
-    ln -frs "$file" "${ZDOTDIR:-$HOME}/.$(basename "$file")"
+    ln -frs "$file" "$ZDOTDIR/.$(basename "$file")"
   done
+  touch "$ZDOTDIR/.zextra"
 }
 
 function install_pyenv {
@@ -61,8 +62,8 @@ function install_openssh {
   mkdir -p "$HOME/.ssh/config.d"
   mkdir -p "$HOME/.ssh/sockets"
 
-  sudo ln -frs ./configs/openssh/sshd_config /etc/ssh/sshd_config
-  ln -frs ./configs/openssh/ssh_config "$HOME"/.ssh/config
+  sudo ln -frs './configs/openssh/sshd_config' '/etc/ssh/sshd_config'
+  ln -frs './configs/openssh/ssh_config' "$HOME/.ssh/config"
 }
 
 function install_gcc {
@@ -81,12 +82,13 @@ function install_docker_engine {
   sudo usermod -aG docker "$(whoami)"
 }
 
-function install_compose_v2 {
+function install_docker_compose {
   #local compose_version=$(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
   #curl -fSL "https://github.com/docker/compose/releases/download/${compose_version}/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
-  mkdir -p ~/.docker/cli-plugins
-  curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o ~/.docker/cli-plugins/docker-compose
-  chmod +x ~/.docker/cli-plugins/docker-compose
+  mkdir -p "$HOME/.docker/cli-plugins"
+  curl -fSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" \
+    -o "$HOME/.docker/cli-plugins/docker-compose"
+  chmod +x "$HOME/.docker/cli-plugins/docker-compose"
 }
 
 function install_haskell {
@@ -94,15 +96,15 @@ function install_haskell {
 }
 
 function link_config {
-  ln -frs ./configs/git/gitconfig "$XDG_CONFIG_HOME"/git/config
-  ln -frs ../global/configs/git/gitignore.global "$XDG_CONFIG_HOME"/git/ignore
-  ln -frs ../global/configs/git/gitmessage "$HOME"/.gitmessage
-  touch "$HOME"/.gitconfig.local
+  ln -frs './configs/git/gitconfig' "$XDG_CONFIG_HOME/git/config"
+  ln -frs '../global/configs/git/gitignore.global' "$XDG_CONFIG_HOME/git/ignore"
+  ln -frs '../global/configs/git/gitmessage' "$HOME/.gitmessage"
+  touch "$HOME/.gitconfig.local"
 
   export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
   chmod 700 "$GNUPGHOME"
   for file in ./configs/gnupg/*; do
-    ln -frs "$file" "${XDG_CONFIG_HOME:-$HOME}/gnupg/$(basename "$file")"
+    ln -frs "$file" "$GNUPGHOME/gnupg/$(basename "$file")"
   done
 }
 

@@ -128,11 +128,11 @@ plugins=(
   zsh-syntax-highlighting # Must be placed at last
 )
 
-source "$ZSH"/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 eval "$(starship init zsh)"
 
 # Dotfiles (order matters)
-for DOTFILE in "${ZDOTDIR:-$HOME}"/.{zfunctions,zbindings,zaliases,extra}; do
+for DOTFILE in "${ZDOTDIR:-$HOME}"/.z{functions,bindings,aliases,extra}; do
   [[ -f "$DOTFILE" ]] && source "$DOTFILE"
 done

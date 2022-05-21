@@ -5,17 +5,17 @@
 # Python venv
 alias vx='deactivate'
 function va {
-  local VENV_PATH
-  # [[ -n "$*" ]] && VENV_PATH="${*: -1:1}" || VENV_PATH=".venv"
-  [[ -n "$*" ]] && VENV_PATH="$1" || VENV_PATH=".venv"
+  local venv_path
+  # [[ -n "$*" ]] && venv_path="${*: -1:1}" || venv_path=".venv"
+  [[ -n "$*" ]] && venv_path="$1" || venv_path=".venv"
 
-  if [[ ! -d "$VENV_PATH" && ! -L "$VENV_PATH" ]]; then
-    python -m venv --upgrade-deps "$VENV_PATH"
+  if [[ ! -d "$venv_path" && ! -L "$venv_path" ]]; then
+    python -m venv --upgrade-deps "$venv_path"
     touch requirements.txt
-    . ./"$VENV_PATH"/bin/activate
+    . ./"$venv_path"/bin/activate
     pip install wheel
   else
-    . ./"$VENV_PATH"/bin/activate
+    . ./"$venv_path"/bin/activate
   fi
 }
 
