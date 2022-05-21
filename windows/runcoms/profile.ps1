@@ -18,9 +18,6 @@ Push-Location (Split-Path -Parent $Profile)
   'functions',
   'aliases',
   'extra'
-) | Where-Object {
-  Test-Path "$_.ps1"
-} | ForEach-Object -Process {
-  . ".\$_.ps1"
-}
+) | Where-Object { Test-Path "$_.ps1" } `
+  | ForEach-Object -Process { . ".\$_.ps1" }
 Pop-Location
