@@ -68,12 +68,6 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
-                "hidden": false,
-                "name": "Git Bash",
-                "source": "Git"
-            },
-            {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
                 "hidden": false,
                 "name": "Azure Cloud Shell",
@@ -90,6 +84,18 @@
                 "hidden": false,
                 "name": "Fedora Remix for WSL (SystemD)",
                 "source": "WhitewaterFoundryLtd.Co.FedoraRemixforWSL_kd1vv0z0vy70w"
+            },
+            {
+                "guid": "{64547043-67b2-5dae-b443-500e3cc4fedc}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{12d79ffc-ee61-5ef4-971f-fe4b0d49bc1b}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
