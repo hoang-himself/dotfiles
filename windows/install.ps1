@@ -112,14 +112,15 @@ function Install-Pyenv {
 function Install-OpenSSH {
   # https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse
   Add-WindowsCapability -Online -Name OpenSSH.Client
-  Get-Service ssh-agent | Set-Service -StartupType Automatic -PassThru | Start-Service
+  Get-Service -Name 'ssh-agent' | Set-Service -StartupType Automatic -PassThru | Start-Service
 
   Add-WindowsCapability -Online -Name OpenSSH.Server
-  Get-Service sshd | Set-Service -StartupType Automatic -PassThru | Start-Service
+  Get-Service -Name 'sshd' | Set-Service -StartupType Automatic -PassThru | Start-Service
 
   # Confirm the Firewall rule is configured. It should be created automatically by setup
   if (-not (Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
-    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' `
+      -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
   }
 
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\sshd_config.d" -Force
@@ -156,11 +157,11 @@ function Install-Config {
     }
   Add-Content "$env:USERPROFILE\.gitconfig.local" $null
 
-  Get-ChildItem -Path '.\configs\gnupg\' |
-    ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gnupg\$($_.Name)" `
-        -Target $_.FullName -Force
-    }
+  Get-ChildItem -Path '.\configs\gnupg\' `
+  | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gnupg\$($_.Name)" `
+      -Target $_.FullName -Force
+  }
 
   # Good luck
   @(
