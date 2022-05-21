@@ -61,6 +61,7 @@ Host $h
   User $u
   IdentityFile ~/.ssh/id_$1_$h
   IdentitiesOnly yes
+  #RemoteForward /run/user/1000/gnupg/S.gpg-agent $HOME/.gnupg/S.gpg-agent.extra
 
 EOF
 
