@@ -56,7 +56,7 @@ Settings in the "top" level can’t be overridden, whereas settings in `Host *` 
 
 The "top" level should be used for settings which shouldn’t be overridden, and the `Host *` section, which should come last, should be used for default settings.
 
-### Forward SSH port while connected
+### Forward SSH ports while connected
 
 [Stack Overflow Question](https://stackoverflow.com/questions/5211561/can-i-do-ssh-port-forwarding-after-ive-already-logged-in-with-ssh)
 
@@ -64,15 +64,16 @@ If you set your escape character with EscapeChar option in ~/.ssh/config or with
 
 Assuming an escape of `~`: `~C-L 8000:localhost:9000`.
 
-### Shift args
+### `git commit --gpg-sign` raises `gpg: No secret key` on Windows
 
-```powershell
-$args = $args | Select-Object -Skip 1
+Git for Windows comes with its own `gpg`, meaning that it does not use Gpg4win by default.
 
-# or
+You can:
 
-$args[1..$args.Length]
-```
+- Import your keys from within `git bash`
+- Set `gpg.program` to the one used by Gpg4win
+
+This repo requires Gpg4win because it is required to sign commits in remote containers.
 
 ### Access special Windows folders using shell
 
