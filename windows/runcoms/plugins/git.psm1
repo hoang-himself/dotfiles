@@ -29,7 +29,7 @@ function git_main_branch {
   }
 
   ForEach ($ref in $refs) {
-    if (-not (git show-ref -q --verify $ref)) {
+    if (git show-ref -q --verify $ref) {
       Write-Output ($ref.Split('/')[-1])
       return
     }
