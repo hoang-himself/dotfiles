@@ -13,5 +13,5 @@ insert_final_newline = true
 indent_size = 4
 insert_final_newline = false
 
-[*.{bat,cmd,ps1,psm1}]
+[*.{bat,cmd}]
 end_of_line = crlf

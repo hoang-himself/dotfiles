@@ -169,13 +169,12 @@ function Install-Config {
       -Target $_.FullName -Force
   }
 
-  # Good luck
   @(
     @('', ''),
     @('Preview', '_preview')
   ) | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal$($_[0])_8wekyb3d8bbwe\LocalState\settings.json" `
-      -Target $(Resolve-Path -LiteralPath ".\configs\wt_profile$($_[1]).json") -Force
+      -Target $(Resolve-Path -LiteralPath ".\configs\wt\profile$($_[1]).json") -Force
   }
 }
 

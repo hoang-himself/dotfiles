@@ -69,6 +69,13 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
+                "commandline": "C:\\Program Files\\Git\\bin\\bash.exe -l -i",
+                "guid": "{ec6b39df-d5d5-457a-a67b-25f18f601582}",
+                "hidden": false,
+                "name": "Git Bash",
+                "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico"
+            },
+            {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
                 "hidden": false,
                 "name": "Azure Cloud Shell",
