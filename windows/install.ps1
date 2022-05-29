@@ -30,9 +30,7 @@ function Uninstall-Bloat {
     'Microsoft.XboxApp',
     'Fitbit.FitbitCoach',
     '4DF9E0F8.Netflix'
-  ) | ForEach-Object {
-    Get-AppxPackage -Name $_ | Remove-AppxPackage
-  }
+  ) | ForEach-Object { Get-AppxPackage -Name $_ | Remove-AppxPackage }
 }
 
 function Install-BasePackage {
@@ -43,9 +41,7 @@ function Install-BasePackage {
     'PowerShellGet',
     'PSReadLine',
     'PSScriptAnalyzer'
-  ) | ForEach-Object {
-    Install-Module -Name $_ -Scope CurrentUser -Force
-  }
+  ) | ForEach-Object { Install-Module -Name $_ -Scope CurrentUser -Force }
   Update-Help -Force
 }
 
@@ -53,9 +49,7 @@ function Install-Prompt {
   @(
     'posh-git',
     'Terminal-Icons'
-  ) | ForEach-Object {
-    Install-Module -Name $_ -Scope CurrentUser -Force
-  }
+  ) | ForEach-Object { Install-Module -Name $_ -Scope CurrentUser -Force }
 
   $STARSHIP_ROOT = "$env:LOCALAPPDATA\starship"
   New-Item -ItemType Directory -Path "$STARSHIP_ROOT"
@@ -68,16 +62,14 @@ function Install-Prompt {
   Remove-Item -Path "$STARSHIP_ROOT\starship-x86_64-pc-windows-msvc.zip"
 
   # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
-  Get-ChildItem -Path '.\runcoms\*' -Include '*.ps1' |
-    ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\$($_.Name)" `
-        -Target $_.FullName -Force
-    }
-  Get-ChildItem -Path '.\runcoms\plugins\' |
-    ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:PluginsDir\$($_.Name)" `
-        -Target $_.FullName -Force
-    }
+  Get-ChildItem -Path '.\runcoms\*' -Include '*.ps1' | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\$($_.Name)" `
+      -Target $_.FullName -Force
+  }
+  Get-ChildItem -Path '.\runcoms\plugins\' | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:PluginsDir\$($_.Name)" `
+      -Target $_.FullName -Force
+  }
 }
 
 function Install-Pyenv {
@@ -148,21 +140,21 @@ function Install-WSL {
 }
 
 function Install-Config {
-  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gitconfig" `
-    -Target $(Resolve-Path -LiteralPath .\configs\git\gitconfig) -Force
-  Get-ChildItem -Path '..\global\configs\git\' |
-    ForEach-Object {
-      New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
-        -Target $_.FullName -Force
-    }
+  Get-ChildItem -Path '..\global\configs\git\' | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
+      -Target $_.FullName -Force
+  }
+  Get-ChildItem -Path '.\configs\git\' | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
+      -Target $_.FullName -Force
+  }
   Add-Content "$env:USERPROFILE\.gitconfig.local" $null
 
   # Apparently, git-for-windows includes its own gpg
   # Normally, typing `gpg` in any shell will invoke Gpg4win or GnuPG
   # But git signs commits with its own gpg, so usually we need to set the path
   # Remember to import your key with git bash or git won't sign your commits
-  Get-ChildItem -Path '.\configs\gnupg\' `
-  | ForEach-Object {
+  Get-ChildItem -Path '.\configs\gnupg\' | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gnupg\$($_.Name)" `
       -Target $_.FullName -Force
     New-Item -ItemType SymbolicLink -Path "$env:APPDATA\gnupg\$($_.Name)" `
@@ -173,7 +165,8 @@ function Install-Config {
     @('', ''),
     @('Preview', '_preview')
   ) | ForEach-Object {
-    New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal$($_[0])_8wekyb3d8bbwe\LocalState\settings.json" `
+    New-Item -ItemType SymbolicLink `
+      -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal$($_[0])_8wekyb3d8bbwe\LocalState\settings.json" `
       -Target $(Resolve-Path -LiteralPath ".\configs\wt\profile$($_[1]).json") -Force
   }
 }
@@ -197,8 +190,8 @@ function main {
 }
 
 switch ($args) {
-  { $_ -in @('-i', '--install') } { main }
   #'-i' { main }
   #'--install' { main }
+  { $_ -in @('-i', '--install') } { main }
   default { Write-Output "Unrecognized option $_" }
 }
