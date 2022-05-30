@@ -10,7 +10,7 @@ function install_base_package {
 }
 
 function install_prompt {
-  mkdir -p "$HOME"/.config/zsh
+  mkdir -p "$HOME/.config/zsh"
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
   sudo apt install -y zsh
@@ -18,21 +18,21 @@ function install_prompt {
 
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
   curl -SL https://starship.rs/install.sh | sh -s -- -f
-  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
   sudo apt install -y ruby cowsay figlet fortune-mod
   sudo gem install lolcat
 
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
-  ln -frs ./runcoms/zshenv "$HOME"/.zshenv
-  ln -frs ./runcoms/p10k.zsh "$HOME"/.p10k.zsh
+  ln -frs './runcoms/zshenv' "$HOME/.zshenv"
+  ln -frs './runcoms/p10k.zsh' "$HOME/.p10k.zsh"
 
   for file in ./runcoms/*; do
     ln -frs "$file" "$ZDOTDIR/.$(basename "$file")"
   done
-  touch "$ZDOTDIR/.zextra"
+  mkdir -p "$ZDOTDIR/.zshrc.d"
 }
 
 function install_pyenv {
@@ -55,7 +55,7 @@ function install_pyenv {
 function install_openssh {
   sudo apt install -y openssh-server openssh-client
 
-  sudo mkdir -p /etc/ssh/sshd_config.d
+  sudo mkdir -p '/etc/ssh/sshd_config.d'
   sudo mkdir -p "/etc/ssh/keys/$(whoami)"
   mkdir -p "$HOME/.ssh/config.d"
   mkdir -p "$HOME/.ssh/sockets"

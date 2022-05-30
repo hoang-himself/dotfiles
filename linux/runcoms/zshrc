@@ -133,6 +133,9 @@ source "$ZSH/oh-my-zsh.sh"
 eval "$(starship init zsh)"
 
 # Dotfiles (order matters)
-for DOTFILE in "${ZDOTDIR:-$HOME}"/.z{functions,bindings,aliases,extra}; do
-  [[ -f "$DOTFILE" ]] && source "$DOTFILE"
+for rc in "${ZDOTDIR:-$HOME}"/.z{functions,bindings,aliases}; do
+  [[ -f "$rc" ]] && source "$rc"
+done
+for rc in "${ZDOTDIR:-$HOME}"/.zshrc.d/*; do
+  [[ -f "$rc" ]] && source "$rc"
 done
