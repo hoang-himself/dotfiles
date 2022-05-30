@@ -32,3 +32,7 @@ if [[ -n "$SSH_AUTH_SOCK" && ! -L "$SSH_AUTH_SOCK" ]]; then
 else
   _start_ssh_agent
 fi
+
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
