@@ -136,6 +136,7 @@ eval "$(starship init zsh)"
 for rc in "${ZDOTDIR:-$HOME}"/.z{functions,bindings,aliases}; do
   [[ -f "$rc" ]] && source "$rc"
 done
-for rc in "${ZDOTDIR:-$HOME}"/.zshrc.d/*; do
+# https://zsh.sourceforge.io/Doc/Release/Expansion.html#Glob-Qualifiers
+for rc in "${ZDOTDIR:-$HOME}"/.zshrc.d/*(N); do
   [[ -f "$rc" ]] && source "$rc"
 done
