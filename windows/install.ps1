@@ -70,6 +70,7 @@ function Install-Prompt {
     New-Item -ItemType SymbolicLink -Path "$env:PluginsDir\$($_.Name)" `
       -Target $_.FullName -Force
   }
+  New-Item -ItemType Directory -Path "$env:ProfileDir\profile.d" -Force
 }
 
 function Install-Pyenv {

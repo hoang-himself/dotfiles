@@ -16,8 +16,10 @@ Push-Location (Split-Path -Parent $Profile)
   'bindings',
   'completions',
   'functions',
-  'aliases',
-  'extra'
+  'aliases'
 ) | Where-Object { Test-Path "$_.ps1" } `
-  | ForEach-Object -Process { . ".\$_.ps1" }
+| ForEach-Object -Process { . ".\$_.ps1" }
+
+Get-ChildItem -Path '.\profile.d\*' -Include '*.ps1' `
+| ForEach-Object -Process { . "$_" }
 Pop-Location
