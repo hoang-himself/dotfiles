@@ -21,6 +21,11 @@ function _start_ssh_agent {
   . "$ssh_env_cache" >/dev/null
 }
 
+function s-agent {
+  rm "$SSH_AUTH_SOCK"
+  _start_ssh_agent
+}
+
 # Add a nifty symlink for screen/tmux if agent forwarding is enabled
 if [[ -n "$SSH_AUTH_SOCK" && ! -L "$SSH_AUTH_SOCK" ]]; then
   ln -sf "$SSH_AUTH_SOCK" "$TMPDIR/ssh-agent-$USERNAME-screen"
