@@ -150,10 +150,10 @@ function Install-Config {
   }
   Add-Content "$env:USERPROFILE\.gitconfig.local" $null
 
-  # Apparently, git-for-windows includes its own gpg
+  # Apparently, Git for Windows includes its own gpg
   # Normally, typing `gpg` in any shell will invoke Gpg4win or GnuPG
-  # But git signs commits with its own gpg, so usually we need to set the path
-  # Remember to import your key with git bash or git won't sign your commits
+  # But Git signs with its own GPG, so usually we need to set the path
+  # Remember to import your key with Git Bash or Git won't sign your commits
   Get-ChildItem -Path '.\configs\gnupg\' | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.gnupg\$($_.Name)" `
       -Target $_.FullName -Force
