@@ -1,0 +1,11 @@
+{
+    "theme":{
+        "file": "/ventoy/theme/Tela/theme.txt"
+    },
+    "injection":[
+        {
+            "image": "/iso/Win11_English_x64v1.iso",
+            "archive": "/injection/windows.zip"
+        }
+    ]
+}
