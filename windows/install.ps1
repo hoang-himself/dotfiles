@@ -110,11 +110,10 @@ function Install-OpenSSH {
   Add-WindowsCapability -Online -Name OpenSSH.Server
   Get-Service -Name 'sshd' | Set-Service -StartupType Automatic -PassThru | Start-Service
 
-  # Confirm the Firewall rule is configured. It should be created automatically by setup
-  if (-not (Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
-    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' `
-      -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
-  }
+  # Remove default rule as we use a different port
+  Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Remove-NetFirewallRule
+  New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' `
+    -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 2255
 
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\sshd_config.d" -Force
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\keys\$env:USERNAME" -Force
