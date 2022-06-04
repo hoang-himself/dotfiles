@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-function install_base_package {
+function install_base {
   sudo apt update
   sudo apt install -y apt-utils build-essential
   sudo apt full-upgrade -y
   sudo apt install -y git git-lfs less most nano man-db \
     make curl wget rsync openssl acl gnupg dos2unix htop tree cron \
     shellcheck tldr
+  sudo apt autoremove -y
 }
 
 function install_prompt {
@@ -16,23 +17,8 @@ function install_prompt {
   sudo apt install -y zsh
   chsh -s "$(command -v zsh)"
 
-  curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
-  curl -SL https://starship.rs/install.sh | sh -s -- -f
-  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-
   sudo apt install -y ruby cowsay figlet fortune-mod
   sudo gem install lolcat
-
-  # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
-  # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
-  ln -frs './runcoms/zshenv' "$HOME/.zshenv"
-  ln -frs './runcoms/p10k.zsh' "$HOME/.p10k.zsh"
-
-  for file in ./runcoms/*; do
-    ln -frs "$file" "$ZDOTDIR/.$(basename "$file")"
-  done
-  mkdir -p "$ZDOTDIR/.zshrc.d"
 }
 
 function install_pyenv {
@@ -45,23 +31,10 @@ function install_pyenv {
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
-
-  pyenv update
-  pyenv install -s "$_PYTHON_TARGET"
-  pyenv global "$_PYTHON_TARGET"
-  pip install --upgrade pip setuptools wheel
 }
 
 function install_openssh {
   sudo apt install -y openssh-server openssh-client
-
-  sudo mkdir -p '/etc/ssh/sshd_config.d'
-  sudo mkdir -p "/etc/ssh/keys/$(whoami)"
-  mkdir -p "$HOME/.ssh/config.d"
-  mkdir -p "$HOME/.ssh/sockets"
-
-  sudo ln -frs './configs/openssh/sshd_config' '/etc/ssh/sshd_config'
-  ln -frs './configs/openssh/ssh_config' "$HOME/.ssh/config"
 }
 
 function install_gcc {
@@ -92,38 +65,3 @@ function install_docker_compose {
 function install_haskell {
   sudo apt install -y haskell-platform
 }
-
-function link_config {
-  ln -frs './configs/git/gitconfig' "$XDG_CONFIG_HOME/git/config"
-  ln -frs '../global/configs/git/gitignore.global' "$XDG_CONFIG_HOME/git/ignore"
-  ln -frs '../global/configs/git/gitmessage' "$HOME/.gitmessage"
-  touch "$HOME/.gitconfig.local"
-
-  mkdir -p "$HOME/.gnupg"
-  chmod 700 "$HOME/.gnupg"
-  for file in ./configs/gnupg/*; do
-    ln -frs "$file" "$HOME/.gnupg/$(basename "$file")"
-  done
-}
-
-function main {
-  install_base_package
-  install_prompt
-  install_pyenv
-  install_openssh
-  link_config
-  sudo apt autoremove -y
-}
-
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-  -i | --install)
-    main
-    shift
-    ;;
-  *)
-    echo Unrecognized option \`"$1"\'
-    shift
-    ;;
-  esac
-done
