@@ -11,9 +11,9 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
 
 if [[ -x "$(command -v apt)" ]]; then
-  . bootstrap_apt.sh
+  . ./bootstrap_apt.sh
 elif [[ -x "$(command -v dnf)" ]]; then
-  . bootstrap_dnf.sh
+  . ./bootstrap_dnf.sh
 fi
 
 function set_prompt {
@@ -79,7 +79,7 @@ while [[ $# -gt 0 ]]; do
     shift
     ;;
   *)
-    echo Unrecognized option \`"$1"\'
+    echo "Unrecognized option \"$1\""
     shift
     ;;
   esac
