@@ -8,7 +8,7 @@ function Assert-Elevated {
 
 # Self elevate administrative permissions in this script
 if (-not (Assert-Elevated)) {
-  Start-Process pwsh "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb 'RunAs'
+  Start-Process pwsh "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" `"$args`"" -Verb 'RunAs'
   exit
 }
 
