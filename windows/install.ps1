@@ -12,45 +12,14 @@ if (-not (Assert-Elevated)) {
   exit
 }
 
-#----------#
-function Uninstall-Bloat {
-  # Get-AppxPackage | Format-Table -Property Name,Version,PackageFullName
-  @(
-    'king.com.CandyCrushFriends',
-    'Microsoft.3DBuilder',
-    'Microsoft.Print3D',
-    'Microsoft.BingNews',
-    'Microsoft.OneConnect',
-    'Microsoft.Microsoft3DViewer',
-    'HolographicFirstRun',
-    'Microsoft.MixedReality.Portal'
-    'Microsoft.MicrosoftSolitaireCollection',
-    'Microsoft.Getstarted',
-    'Microsoft.WindowsFeedbackHub',
-    'Microsoft.XboxApp',
-    'Fitbit.FitbitCoach',
-    '4DF9E0F8.Netflix'
-  ) | ForEach-Object { Get-AppxPackage -Name $_ | Remove-AppxPackage }
-}
+$env:ProfileDir = Split-Path -Parent $Profile
+$env:PluginsDir = Join-Path $env:ProfileDir 'plugins'
+New-Item -Path $env:ProfileDir -ItemType Directory -ErrorAction SilentlyContinue -Force
+New-Item -Path $env:PluginsDir -ItemType Directory -ErrorAction SilentlyContinue -Force
 
-function Install-BasePackage {
-  Update-Module -Force
-  Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
-  Get-PackageProvider | Where-Object -Property Name -EQ 'NuGet' | Install-PackageProvider -Force
-  @(
-    'PowerShellGet',
-    'PSReadLine',
-    'PSScriptAnalyzer'
-  ) | ForEach-Object { Install-Module -Name $_ -Scope CurrentUser -Force }
-  Update-Help -Force
-}
+. .\bootstrap.ps1
 
-function Install-Prompt {
-  @(
-    'posh-git',
-    'Terminal-Icons'
-  ) | ForEach-Object { Install-Module -Name $_ -Scope CurrentUser -Force }
-
+function Set-Prompt {
   $STARSHIP_ROOT = "$env:LOCALAPPDATA\starship"
   New-Item -ItemType Directory -Path "$STARSHIP_ROOT"
   # No way to check for architecture yet, so just assume it's AMD64
@@ -73,48 +42,15 @@ function Install-Prompt {
   New-Item -ItemType Directory -Path "$env:ProfileDir\profile.d" -Force
 }
 
-function Install-Pyenv {
-  $python_target = '3.10.4'
-  git clone --depth=1 'https://github.com/pyenv-win/pyenv-win.git' "$env:USERPROFILE\.pyenv"
-
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV' `
-    -Value '%USERPROFILE%\.pyenv\pyenv-win'
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_ROOT' `
-    -Value '%USERPROFILE%\.pyenv\pyenv-win'
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_HOME' `
-    -Value '%USERPROFILE%\.pyenv\pyenv-win'
-
-  $raw_hkcu_path = (Get-Item -Path 'HKCU:\Environment').GetValue(
-    'Path', # the registry-value name
-    $null, # the default value to return if no such value exists.
-    'DoNotExpandEnvironmentNames' # the option that suppresses expansion
-  )
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'Path' `
-    -Value $('%USERPROFILE%\.pyenv\pyenv-win\bin;%USERPROFILE%\.pyenv\pyenv-win\shims;' `
-      + $raw_hkcu_path)
-
-  $env:PYENV_ROOT = "$HOME\.pyenv"
-  $env:Path = "$env:PYENV_ROOT\bin;$env:Path"
-
+function Set-Pyenv {
   pyenv update
+  $python_target = '3.10.4'
   pyenv install -q "$python_target"
   pyenv global "$python_target"
   pip install --upgrade pip setuptools wheel
 }
 
-function Install-OpenSSH {
-  # https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse
-  Add-WindowsCapability -Online -Name OpenSSH.Client
-  Get-Service -Name 'ssh-agent' | Set-Service -StartupType Automatic -PassThru | Start-Service
-
-  Add-WindowsCapability -Online -Name OpenSSH.Server
-  Get-Service -Name 'sshd' | Set-Service -StartupType Automatic -PassThru | Start-Service
-
-  # Remove default rule as we use a different port
-  Get-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -ErrorAction SilentlyContinue | Remove-NetFirewallRule
-  New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' `
-    -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 2255
-
+function Set-OpenSSH {
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\sshd_config.d" -Force
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\keys\$env:USERNAME" -Force
   #icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
@@ -130,16 +66,12 @@ function Install-OpenSSH {
     -Name DefaultShell -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
 }
 
-function Install-WSL {
-  # Get-WindowsOptionalFeature -Online
-  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName `
-  @('VirtualMachinePlatform', 'Microsoft-Windows-Subsystem-Linux') | Out-Null
-
+function Set-WSL {
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
     -Target $(Resolve-Path -LiteralPath .\configs\wslconfig) -Force
 }
 
-function Install-Config {
+function Set-Config {
   Get-ChildItem -Path '..\global\configs\git\' | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
       -Target $_.FullName -Force
@@ -172,26 +104,20 @@ function Install-Config {
 }
 
 function main {
-  $env:ProfileDir = Split-Path -Parent $Profile
-  $env:PluginsDir = Join-Path $env:ProfileDir 'plugins'
-  New-Item -Path $env:ProfileDir -ItemType Directory -ErrorAction SilentlyContinue -Force
-  New-Item -Path $env:PluginsDir -ItemType Directory -ErrorAction SilentlyContinue -Force
-
   #Uninstall-Bloat
-  Install-BasePackage
-  Install-Prompt
-  Install-Pyenv
-  Install-OpenSSH
-  Install-WSL
-  Install-Config
-
-  Remove-Item -Path 'Env:ProfileDir'
-  Remove-Item -Path 'Env:PluginsDir'
+  Install-Base
+  Install-Prompt && Set-Prompt
+  Install-Pyenv && Set-Pyenv
+  Install-OpenSSH && Set-OpenSSH
+  Install-WSL && Set-WSL
+  Set-Config
 }
 
-switch ($args) {
-  #'-i' { main }
-  #'--install' { main }
-  { $_ -in @('-i', '--install') } { main }
-  default { Write-Output "Unrecognized option $_" }
+$args | ForEach-Object {
+  switch ($_) {
+    #'-i' { main }
+    #'--install' { main }
+    { $_ -in @('-i', '--install') } { main }
+    default { Write-Output "Unrecognized option `"$_`"" }
+  }
 }
