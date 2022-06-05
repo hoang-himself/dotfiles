@@ -20,6 +20,8 @@ New-Item -Path $env:PluginsDir -ItemType Directory -ErrorAction SilentlyContinue
 . .\bootstrap.ps1
 
 function Set-Prompt {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   $STARSHIP_ROOT = "$env:LOCALAPPDATA\starship"
   New-Item -ItemType Directory -Path "$STARSHIP_ROOT"
   # No way to check for architecture yet, so just assume it's AMD64
@@ -43,6 +45,8 @@ function Set-Prompt {
 }
 
 function Set-Pyenv {
+  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
+  param()
   pyenv update
   $python_target = '3.10.4'
   pyenv install -q "$python_target"
@@ -51,6 +55,8 @@ function Set-Pyenv {
 }
 
 function Set-OpenSSH {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\sshd_config.d" -Force
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\keys\$env:USERNAME" -Force
   #icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
@@ -67,11 +73,15 @@ function Set-OpenSSH {
 }
 
 function Set-WSL {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
     -Target $(Resolve-Path -LiteralPath .\configs\wslconfig) -Force
 }
 
 function Set-Config {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   Get-ChildItem -Path '..\global\configs\git\' | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
       -Target $_.FullName -Force
