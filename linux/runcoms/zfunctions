@@ -60,7 +60,6 @@ Host $h
   Port $p
   User $u
   IdentityFile ~/.ssh/id_$1_$h
-  IdentitiesOnly yes
 
 EOF
 

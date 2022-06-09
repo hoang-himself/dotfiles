@@ -42,7 +42,6 @@ Host $h
   Port $p
   User $u
   IdentityFile ~/.ssh/id_$($args[0])_$h
-  IdentitiesOnly yes
 
 "@
 
