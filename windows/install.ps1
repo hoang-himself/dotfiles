@@ -14,8 +14,9 @@ if (-not (Assert-Elevated)) {
 
 $env:ProfileDir = Split-Path -Parent $Profile
 $env:PluginsDir = Join-Path $env:ProfileDir 'plugins'
-New-Item -Path $env:ProfileDir -ItemType Directory -ErrorAction SilentlyContinue -Force
-New-Item -Path $env:PluginsDir -ItemType Directory -ErrorAction SilentlyContinue -Force
+New-Item -Path "$env:ProfileDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
+New-Item -Path "$env:PluginsDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
+New-Item -Path "$env:USERPROFILE\.config" -ItemType Directory -ErrorAction SilentlyContinue -Force
 
 . .\bootstrap.ps1
 
@@ -41,6 +42,8 @@ function Set-Prompt {
     New-Item -ItemType SymbolicLink -Path "$env:PluginsDir\$($_.Name)" `
       -Target $_.FullName -Force
   }
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\starship.toml" `
+    -Target $(Resolve-Path -LiteralPath '..\global\runcoms\starship.toml') -Force
   New-Item -ItemType Directory -Path "$env:ProfileDir\profile.d" -Force
 }
 
@@ -64,9 +67,9 @@ function Set-OpenSSH {
   New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh\sockets" -Force
 
   New-Item -ItemType SymbolicLink -Path "$env:ProgramData\ssh\sshd_config" `
-    -Target $(Resolve-Path -LiteralPath .\configs\openssh\sshd_config) -Force
+    -Target $(Resolve-Path -LiteralPath '.\configs\openssh\sshd_config') -Force
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.ssh\config" `
-    -Target $(Resolve-Path -LiteralPath .\configs\openssh\ssh_config) -Force
+    -Target $(Resolve-Path -LiteralPath '.\configs\openssh\ssh_config') -Force
 
   New-ItemProperty -Path 'HKLM:\SOFTWARE\OpenSSH' -PropertyType String `
     -Name DefaultShell -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
@@ -76,7 +79,7 @@ function Set-WSL {
   [CmdletBinding(SupportsShouldProcess)]
   param()
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
-    -Target $(Resolve-Path -LiteralPath .\configs\wslconfig) -Force
+    -Target $(Resolve-Path -LiteralPath '.\configs\wslconfig') -Force
 }
 
 function Set-Config {

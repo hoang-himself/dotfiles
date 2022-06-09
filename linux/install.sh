@@ -25,11 +25,11 @@ function set_prompt {
   # ~/.pam_environment deprecated: https://github.com/linux-pam/linux-pam/releases/tag/v1.5.0
   # cat ./configs/pam_env | sudo tee -a /etc/security/pam_env.conf > /dev/null
   ln -frs './runcoms/zshenv' "$HOME/.zshenv"
-  ln -frs './runcoms/p10k.zsh' "$HOME/.p10k.zsh"
 
   for file in ./runcoms/*; do
     ln -frs "$file" "$ZDOTDIR/.$(basename "$file")"
   done
+  ln -frs '../global/runcoms/starship.toml' "$XDG_CONFIG_HOME/starship.toml"
   mkdir -p "$ZDOTDIR/.zshrc.d"
 }
 
