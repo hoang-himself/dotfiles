@@ -90,7 +90,7 @@ required = true
 pushInsteadOf = https://github.com/
 pushInsteadOf = git://github.com/
 
-[url "git@github.com:Smithienious/"]
+[url "git@github.com:hoang-himself/"]
 insteadOf = gh:
 
 [include]

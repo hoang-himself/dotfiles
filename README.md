@@ -1,8 +1,8 @@
 # Dotfiles
 
-[![Linux](https://github.com/Smithienious/dotfiles/actions/workflows/linux.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/linux.yml)
-[![Windows](https://github.com/Smithienious/dotfiles/actions/workflows/windows.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/windows.yml)
-[![Dev Container](https://github.com/Smithienious/dotfiles/actions/workflows/devcont.yml/badge.svg)](https://github.com/Smithienious/dotfiles/actions/workflows/devcont.yml)
+[![Linux](https://github.com/hoang-himself/dotfiles/actions/workflows/linux.yml/badge.svg)](https://github.com/hoang-himself/dotfiles/actions/workflows/linux.yml)
+[![Windows](https://github.com/hoang-himself/dotfiles/actions/workflows/windows.yml/badge.svg)](https://github.com/hoang-himself/dotfiles/actions/workflows/windows.yml)
+[![Dev Container](https://github.com/hoang-himself/dotfiles/actions/workflows/devcont.yml/badge.svg)](https://github.com/hoang-himself/dotfiles/actions/workflows/devcont.yml)
 
 ## Disclaimer
 
@@ -29,7 +29,7 @@ Use at your own risk!
 
 ## Feedback
 
-Suggestions/improvements are [welcome and encouraged](https://github.com/Smithienious/dotfiles/issues)!
+Suggestions/improvements are [welcome and encouraged](https://github.com/hoang-himself/dotfiles/issues)!
 
 ## Credits
 
