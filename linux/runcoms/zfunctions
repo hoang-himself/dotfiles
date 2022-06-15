@@ -56,7 +56,6 @@ function ssh-hostgen {
   cat <<EOF >>"$HOME/.ssh/config.d/$hostname.conf"
 Host $h
   HostName $hostname
-  CanonicalizeHostname yes
   Port $p
   User $u
   IdentityFile ~/.ssh/id_$1_$h

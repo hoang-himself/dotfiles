@@ -38,7 +38,6 @@ function ssh-hostgen {
   Add-Content -Path "$HOME/.ssh/config.d/$hostname.conf" -Value @"
 Host $h
   HostName $hostname
-  CanonicalizeHostname yes
   Port $p
   User $u
   IdentityFile ~/.ssh/id_$($args[0])_$h
