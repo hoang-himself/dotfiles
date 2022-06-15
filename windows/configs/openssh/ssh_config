@@ -5,11 +5,11 @@ Include ~/.ssh/config.d/*.conf
 Host *.local
   AddKeysToAgent yes
   ForwardAgent yes
+
+Host *
   # Reuse connections in backlog
   # https://github.com/PowerShell/Win32-OpenSSH/wiki/Project-Scope
   ControlMaster no
-
-Host *
   IdentitiesOnly yes
   ExitOnForwardFailure yes
   Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
