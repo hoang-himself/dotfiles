@@ -52,12 +52,11 @@ function set_openssh {
 }
 
 function set_config {
-  ln -frs './configs/git/gitconfig' "$XDG_CONFIG_HOME/git/config"
-  for conf in "{attributes,ignore}; do
+  ln -frs './configs/git/config' "$XDG_CONFIG_HOME/git/config"
+  for conf in "{attributes,ignore,message}; do
     ln -frs "../.git$conf" "$XDG_CONFIG_HOME/git/$conf"
   done
-  ln -frs '../.gitmessage' "$HOME/.gitmessage"
-  touch "$HOME/.gitconfig.local"
+  #touch "$HOME/.gitconfig.local"
 
   mkdir -p "$HOME/.gnupg"
   chmod 700 "$HOME/.gnupg"
