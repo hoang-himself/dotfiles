@@ -43,7 +43,7 @@ function Set-Prompt {
       -Target $_.FullName -Force
   }
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\starship.toml" `
-    -Target $(Resolve-Path -LiteralPath '..\global\runcoms\starship.toml') -Force
+    -Target $(Resolve-Path -LiteralPath '..\starship.toml') -Force
   New-Item -ItemType Directory -Path "$env:ProfileDir\profile.d" -Force
 }
 
@@ -85,6 +85,15 @@ function Set-WSL {
 function Set-Config {
   [CmdletBinding(SupportsShouldProcess)]
   param()
+  @(
+    '.gitattributes',
+    '.gitignore.global',
+    '.gitmessage'
+  ) | ForEach-Object {
+    New-Item -ItemType SymbolicLink `
+      -Path "$env:USERPROFILE\$_" `
+      -Target $(Resolve-Path -LiteralPath "..\$_") -Force
+  }
   Get-ChildItem -Path '..\global\configs\git\' | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
       -Target $_.FullName -Force

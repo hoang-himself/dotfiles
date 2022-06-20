@@ -16,7 +16,6 @@ wdiff = diff -w --word-diff=color
 whatadded = log --diff-filter=A
 
 [core]
-#excludesfile = ~/.config/git/ignore
 pager = less
 ignoreCase = false
 
