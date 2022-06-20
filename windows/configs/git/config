@@ -5,7 +5,7 @@ email = baauco@gmail.com
 
 [commit]
 gpgSign = true
-template = ~/.gitmessage
+template = ~/.config/git/message
 
 [tag]
 gpgSign = true
@@ -16,7 +16,6 @@ wdiff = diff -w --word-diff=color
 whatadded = log --diff-filter=A
 
 [core]
-#excludesfile = ~/.config/git/ignore
 pager = less
 ignoreCase = false
 
@@ -47,7 +46,7 @@ default = simple
 followTags = true
 
 [status]
-submoduleSummary = 1
+submodulesummary = 1
 
 [branch]
 autosetuprebase = always
@@ -93,5 +92,5 @@ pushInsteadOf = git://github.com/
 [url "git@github.com:hoang-himself/"]
 insteadOf = gh:
 
-[include]
-path = ~/.gitconfig.local
+#[include]
+#path = ~/.gitconfig.local

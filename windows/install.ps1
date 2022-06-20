@@ -18,6 +18,10 @@ New-Item -Path "$env:ProfileDir" -ItemType Directory -ErrorAction SilentlyContin
 New-Item -Path "$env:PluginsDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
 New-Item -Path "$env:USERPROFILE\.config" -ItemType Directory -ErrorAction SilentlyContinue -Force
 
+Set-ItemProperty -Path 'HKCU:\Environment' -Name 'XDG_CONFIG_HOME' `
+  -Value '%USERPROFILE%\.config'
+$env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
+
 . .\bootstrap.ps1
 
 function Set-Prompt {
@@ -43,7 +47,7 @@ function Set-Prompt {
       -Target $_.FullName -Force
   }
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\starship.toml" `
-    -Target $(Resolve-Path -LiteralPath '..\global\runcoms\starship.toml') -Force
+    -Target $(Resolve-Path -LiteralPath '..\starship.toml') -Force
   New-Item -ItemType Directory -Path "$env:ProfileDir\profile.d" -Force
 }
 
@@ -85,15 +89,22 @@ function Set-WSL {
 function Set-Config {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  Get-ChildItem -Path '..\global\configs\git\' | ForEach-Object {
+  New-Item -ItemType SymbolicLink -Path "$env:XDG_CONFIG_HOME\git\config" `
+    -Target $(Resolve-Path -LiteralPath '.\configs\git\config') -Force
+  @(
+    'attributes',
+    'ignore',
+    'message'
+  ) | ForEach-Object {
+    New-Item -ItemType SymbolicLink `
+      -Path "$env:XDG_CONFIG_HOME\git\$_" `
+      -Target $(Resolve-Path -LiteralPath "..\.git$_") -Force
+  }
+  Get-ChildItem -Path '.\configs\git\bash' | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
       -Target $_.FullName -Force
   }
-  Get-ChildItem -Path '.\configs\git\' | ForEach-Object {
-    New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.$($_.Name)" `
-      -Target $_.FullName -Force
-  }
-  Add-Content "$env:USERPROFILE\.gitconfig.local" $null
+  #Add-Content "$env:USERPROFILE\.gitconfig.local" $null
 
   # Apparently, Git for Windows includes its own gpg
   # Normally, typing `gpg` in any shell will invoke Gpg4win or GnuPG

@@ -29,7 +29,7 @@ function set_prompt {
   for file in ./runcoms/*; do
     ln -frs "$file" "$ZDOTDIR/.$(basename "$file")"
   done
-  ln -frs '../global/runcoms/starship.toml' "$XDG_CONFIG_HOME/starship.toml"
+  ln -frs '../starship.toml' "$XDG_CONFIG_HOME/starship.toml"
   mkdir -p "$ZDOTDIR/.zshrc.d"
 }
 
@@ -52,10 +52,11 @@ function set_openssh {
 }
 
 function set_config {
-  ln -frs './configs/git/gitconfig' "$XDG_CONFIG_HOME/git/config"
-  ln -frs '../global/configs/git/gitignore.global' "$XDG_CONFIG_HOME/git/ignore"
-  ln -frs '../global/configs/git/gitmessage' "$HOME/.gitmessage"
-  touch "$HOME/.gitconfig.local"
+  ln -frs './configs/git/config' "$XDG_CONFIG_HOME/git/config"
+  for conf in 'attributes' 'ignore' 'message'; do
+    ln -frs "../.git$conf" "$XDG_CONFIG_HOME/git/$conf"
+  done
+  #touch "$HOME/.gitconfig.local"
 
   mkdir -p "$HOME/.gnupg"
   chmod 700 "$HOME/.gnupg"
