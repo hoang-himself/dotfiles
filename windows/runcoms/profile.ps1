@@ -1,7 +1,7 @@
 Import-Module -Name 'posh-git'
 Import-Module -Name 'Terminal-Icons'
 
-$env:Path = "$env:LOCALAPPDATA\starship;$env:Path"
+$env:Path = "$env:ProgramFiles\starship\bin;$env:Path"
 Invoke-Command -ScriptBlock $([ScriptBlock]::Create(
     $(starship init powershell)
   ))

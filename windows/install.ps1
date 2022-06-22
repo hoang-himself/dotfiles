@@ -27,15 +27,7 @@ $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
 function Set-Prompt {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  $STARSHIP_ROOT = "$env:LOCALAPPDATA\starship"
-  New-Item -ItemType Directory -Path "$STARSHIP_ROOT"
-  # No way to check for architecture yet, so just assume it's AMD64
-  # https://docs.microsoft.com/en-us/windows/win32/winprog64/wow64-implementation-details#environment-variables
-  Invoke-WebRequest -Uri 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-pc-windows-msvc.zip' `
-    -OutFile "$STARSHIP_ROOT\starship-x86_64-pc-windows-msvc.zip"
-  Expand-Archive -Path "$STARSHIP_ROOT\starship-x86_64-pc-windows-msvc.zip" `
-    -DestinationPath "$STARSHIP_ROOT"
-  Remove-Item -Path "$STARSHIP_ROOT\starship-x86_64-pc-windows-msvc.zip"
+  winget install --id Starship.Starship
 
   # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
   Get-ChildItem -Path '.\runcoms\*' -Include '*.ps1' | ForEach-Object {
