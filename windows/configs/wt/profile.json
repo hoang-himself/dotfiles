@@ -1,9 +1,11 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [
+    "actions":
+    [
         {
-            "command": {
+            "command":
+            {
                 "action": "copy",
                 "singleLine": false
             },
@@ -18,7 +20,8 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": {
+            "command":
+            {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -29,20 +32,24 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "profiles": {
-        "defaults": {
+    "profiles":
+    {
+        "defaults":
+        {
             "antialiasingMode": "cleartype",
             "backgroundImageOpacity": 0.10000000000000001,
             "bellStyle": "none",
             "colorScheme": "Fedora Remix for WSL",
             "cursorShape": "filledBox",
-            "font": {
+            "font":
+            {
                 "face": "MesloLGS NF"
             },
             "opacity": 75,
             "useAcrylic": true
         },
-        "list": [
+        "list":
+        [
             {
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
@@ -84,22 +91,11 @@
                 "hidden": false,
                 "name": "Fedora Remix for WSL (SystemD)",
                 "source": "WhitewaterFoundryLtd.Co.FedoraRemixforWSL_kd1vv0z0vy70w"
-            },
-            {
-                "guid": "{64547043-67b2-5dae-b443-500e3cc4fedc}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{12d79ffc-ee61-5ef4-971f-fe4b0d49bc1b}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
-    "schemes": [
+    "schemes":
+    [
         {
             "background": "#0C0C0C",
             "black": "#0C0C0C",

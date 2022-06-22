@@ -4,16 +4,16 @@
     "actions":
     [
         {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
             "command":
             {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
-        },
-        {
-            "command": "paste",
-            "keys": "ctrl+v"
         },
         {
             "command": "find",
@@ -96,16 +96,9 @@
                 "source": "WhitewaterFoundryLtd.Co.FedoraRemixforWSL_kd1vv0z0vy70w"
             },
             {
-                "guid": "{12d79ffc-ee61-5ef4-971f-fe4b0d49bc1b}",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{64547043-67b2-5dae-b443-500e3cc4fedc}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
+                "name": "Windows PowerShell"
             }
         ]
     },
