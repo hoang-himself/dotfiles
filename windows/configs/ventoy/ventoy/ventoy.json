@@ -4,7 +4,7 @@
     },
     "injection":[
         {
-            "image": "/iso/Win11_English_x64v1.iso",
+            "parent": "/iso/WinNT10",
             "archive": "/injection/windows.zip"
         }
     ]
