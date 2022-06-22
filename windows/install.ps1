@@ -18,10 +18,6 @@ New-Item -Path "$env:ProfileDir" -ItemType Directory -ErrorAction SilentlyContin
 New-Item -Path "$env:PluginsDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
 New-Item -Path "$env:USERPROFILE\.config" -ItemType Directory -ErrorAction SilentlyContinue -Force
 
-Set-ItemProperty -Path 'HKCU:\Environment' -Name 'XDG_CONFIG_HOME' `
-  -Value '%USERPROFILE%\.config'
-$env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
-
 . .\bootstrap.ps1
 
 function Set-Prompt {
@@ -81,7 +77,7 @@ function Set-WSL {
 function Set-Config {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  New-Item -ItemType SymbolicLink -Path "$env:XDG_CONFIG_HOME\git\config" `
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\git\config" `
     -Target $(Resolve-Path -LiteralPath '.\configs\git\config') -Force
   @(
     'attributes',
@@ -89,7 +85,7 @@ function Set-Config {
     'message'
   ) | ForEach-Object {
     New-Item -ItemType SymbolicLink `
-      -Path "$env:XDG_CONFIG_HOME\git\$_" `
+      -Path "$env:USERPROFILE\.config\git\$_" `
       -Target $(Resolve-Path -LiteralPath "..\.git$_") -Force
   }
   Get-ChildItem -Path '.\configs\git\bash' | ForEach-Object {
