@@ -36,6 +36,8 @@ function Install-Prompt {
     'posh-git',
     'Terminal-Icons'
   ) | ForEach-Object { Install-Module -Name $_ -Scope CurrentUser -Force }
+
+  winget install --id Starship.Starship
 }
 
 function Install-Pyenv {
@@ -59,6 +61,14 @@ function Install-Pyenv {
 
   $env:PYENV_ROOT = "$HOME\.pyenv"
   $env:Path = "$env:PYENV_ROOT\bin;$env:Path"
+  pyenv update
+}
+
+function Install-Python {
+  $python_target = '3.10.4'
+  pyenv install -q "$python_target"
+  pyenv global "$python_target"
+  pip install --upgrade pip setuptools wheel
 }
 
 function Install-OpenSSH {

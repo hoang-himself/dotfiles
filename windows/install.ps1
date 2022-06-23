@@ -23,8 +23,6 @@ New-Item -Path "$env:USERPROFILE\.config" -ItemType Directory -ErrorAction Silen
 function Set-Prompt {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  winget install --id Starship.Starship
-
   # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
   Get-ChildItem -Path '.\runcoms\*' -Include '*.ps1' | ForEach-Object {
     New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\$($_.Name)" `
@@ -37,16 +35,6 @@ function Set-Prompt {
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\starship.toml" `
     -Target $(Resolve-Path -LiteralPath '..\starship.toml') -Force
   New-Item -ItemType Directory -Path "$env:ProfileDir\profile.d" -Force
-}
-
-function Set-Pyenv {
-  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
-  param()
-  pyenv update
-  $python_target = '3.10.4'
-  pyenv install -q "$python_target"
-  pyenv global "$python_target"
-  pip install --upgrade pip setuptools wheel
 }
 
 function Set-OpenSSH {
@@ -119,7 +107,7 @@ function main {
   #Uninstall-Bloat
   Install-Base
   Install-Prompt && Set-Prompt
-  Install-Pyenv && Set-Pyenv
+  Install-Pyenv && Install-Python
   Install-OpenSSH && Set-OpenSSH
   Install-WSL && Set-WSL
   Set-Config
