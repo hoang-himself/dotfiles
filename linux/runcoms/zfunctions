@@ -2,6 +2,12 @@
 # Functions.
 #
 
+function gen-passwd {
+  local len=$1
+  [ "$len" == "" ] && len=20
+  tr -dc A-Za-z0-9_ </dev/urandom | head -c ${len} | xargs
+}
+
 function update-prompt {
   curl -SL https://starship.rs/install.sh | sh -s -- -f
 }
