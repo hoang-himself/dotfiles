@@ -3,4 +3,4 @@
 #
 
 # Clean tmp folder
-[[ -n "$TMPDIR" ]] && cleantmp
+[[ -n "$TMPDIR" ]] && clean-tmp

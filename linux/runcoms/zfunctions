@@ -74,7 +74,7 @@ EOF
   echo "cat $HOME/.ssh/id_$1_$h.pub | ssh $h 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'"
 }
 
-function createtmp {
+function create-tmp {
   echo "Saving current directory as \$CURDIR"
   CURDIR=$(pwd)
   TMPDIR=$(mktemp -d)
@@ -83,7 +83,7 @@ function createtmp {
   cd "$TMPDIR"
 }
 
-function cleantmp {
+function clean-tmp {
   echo "Returning to $CURDIR"
   # shellcheck disable=SC2164
   cd "$CURDIR"
