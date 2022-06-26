@@ -7,10 +7,14 @@ Current Ventoy partition directory tree:
 ```text
 /
 ├───ventoy
+│   │   ventoy.json
+│   │
 │   └───theme
 │       └───Tela
-│           └───icons
+│
 ├───injection
+│       windows.zip
+│
 └───iso
     └───WinNT10
 ```
