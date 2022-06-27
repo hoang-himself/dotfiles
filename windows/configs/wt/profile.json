@@ -45,6 +45,7 @@
             {
                 "face": "MesloLGS NF"
             },
+            "historySize": 9001,
             "opacity": 75,
             "useAcrylic": true
         },
