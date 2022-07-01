@@ -51,14 +51,9 @@ Host $h
 }
 
 function Update-Prompt {
-  [CmdletBinding(SupportsShouldProcess)]
+  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
   param()
-  $STARSHIP_ROOT = "$env:LOCALAPPDATA\starship"
-  Invoke-WebRequest -Uri 'https://github.com/starship/starship/releases/latest/download/starship-x86_64-pc-windows-msvc.zip' `
-    -OutFile "$STARSHIP_ROOT\starship-x86_64-pc-windows-msvc.zip"
-  Expand-Archive -Path "$STARSHIP_ROOT\starship-x86_64-pc-windows-msvc.zip" `
-    -DestinationPath "$STARSHIP_ROOT" -Force
-  Remove-Item -Path "$STARSHIP_ROOT\starship-x86_64-pc-windows-msvc.zip"
+  winget upgrade --id Starship.starship
 }
 
 function New-TemporaryFolder {
