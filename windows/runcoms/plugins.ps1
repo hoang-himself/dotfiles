@@ -1,4 +1,4 @@
-Push-Location (Join-Path (Split-Path -Parent $Profile) "plugins")
+Push-Location (Join-Path (Split-Path -Parent $Profile) 'plugin.d')
 @(
   'git',
   'python'

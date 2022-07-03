@@ -13,9 +13,9 @@ if (-not (Assert-Elevated)) {
 }
 
 $env:ProfileDir = Split-Path -Parent $Profile
-$env:PluginsDir = Join-Path $env:ProfileDir 'plugins'
+$env:PluginDir = Join-Path $env:ProfileDir 'plugin.d'
 New-Item -Path "$env:ProfileDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
-New-Item -Path "$env:PluginsDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
+New-Item -Path "$env:PluginDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
 New-Item -Path "$env:USERPROFILE\.config" -ItemType Directory -ErrorAction SilentlyContinue -Force
 
 . .\bootstrap.ps1
@@ -28,8 +28,8 @@ function Set-Prompt {
     New-Item -ItemType SymbolicLink -Path "$env:ProfileDir\$($_.Name)" `
       -Target $_.FullName -Force
   }
-  Get-ChildItem -Path '.\runcoms\plugins\' | ForEach-Object {
-    New-Item -ItemType SymbolicLink -Path "$env:PluginsDir\$($_.Name)" `
+  Get-ChildItem -Path '.\runcoms\plugin.d\' | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:PluginDir\$($_.Name)" `
       -Target $_.FullName -Force
   }
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\starship.toml" `
