@@ -29,25 +29,20 @@ function ssh-hostgen {
     $args[3]
   }
   else {
-    throw [System.ArgumentException] 'port must be an integer'
+    throw [System.ArgumentException] 'invalid port'
   }
   $u = $args[4]
 
-  & 'ssh-keygen' -t @algorithm -f "$HOME/.ssh/id_$($args[0])_$h" -C "$u@$hostname"
+  & 'ssh-keygen' -t @algorithm -f "$HOME/.ssh/id.d/$($args[0])_$h" -C "$u@$hostname"
 
   Add-Content -Path "$HOME/.ssh/config.d/$hostname.conf" -Value @"
 Host $h
   HostName $hostname
   Port $p
   User $u
-  IdentityFile ~/.ssh/id_$($args[0])_$h
+  IdentityFile ~/.ssh/id.d/$($args[0])_$h
 
 "@
-
-  Write-Output ''
-  Write-Output 'Add your new public key to the authorized_keys file of the host if possible'
-  Write-Output ''
-  Write-Output "Get-Content $HOME/.ssh/id_$($args[0])_$h.pub | ssh $h 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'"
 }
 
 function Update-Prompt {

@@ -44,6 +44,7 @@ function Set-OpenSSH {
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\keys\$env:USERNAME" -Force
   #icacls.exe "C:\ProgramData\ssh\administrators_authorized_keys" /inheritance:r /grant "Administrators:F" /grant "SYSTEM:F"
   New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh\config.d" -Force
+  New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh\id.d" -Force
   New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh\sockets" -Force
 
   New-Item -ItemType SymbolicLink -Path "$env:ProgramData\ssh\sshd_config" `

@@ -52,26 +52,21 @@ function ssh-hostgen {
   local hostname="$3"
   local p="$4"
   if ! [[ $p =~ ^[0-9]+$ ]]; then
-    echo "port must be an integer" >&2
+    echo 'invalid port' >&2
     return 1
   fi
   local u="$5"
 
-  ssh-keygen -t "$algorithm" -f "$HOME/.ssh/id_$1_$h" -C "$u@$hostname"
+  ssh-keygen -t "$algorithm" -f "$HOME/.ssh/id.d/$1_$h" -C "$u@$hostname"
 
   cat <<EOF >>"$HOME/.ssh/config.d/$hostname.conf"
 Host $h
   HostName $hostname
   Port $p
   User $u
-  IdentityFile ~/.ssh/id_$1_$h
+  IdentityFile ~/.ssh/id.d/$1_$h
 
 EOF
-
-  echo ''
-  echo 'Add your new public key to the authorized_keys file of the host if possible'
-  echo ''
-  echo "cat $HOME/.ssh/id_$1_$h.pub | ssh $h 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'"
 }
 
 function create-tmp {

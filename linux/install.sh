@@ -45,6 +45,7 @@ function set_openssh {
   sudo mkdir -p '/etc/ssh/sshd_config.d'
   sudo mkdir -p "/etc/ssh/keys/$(whoami)"
   mkdir -p "$HOME/.ssh/config.d"
+  mkdir -p "$HOME/.ssh/id.d"
   mkdir -p "$HOME/.ssh/sockets"
 
   sudo ln -frs './configs/openssh/sshd_config' '/etc/ssh/sshd_config'
