@@ -52,16 +52,25 @@ function set_openssh {
   ln -frs './configs/openssh/ssh_config' "$HOME/.ssh/config"
 }
 
-function set_config {
+function set_docker {
+  mkdir -p "$HOME/.docker"
+  for file in ./configs/docker/*.json; do
+    ln -frs "$file" "$HOME/.docker/$(basename "$file")"
+  done
+}
+
+function set_git {
   ln -frs './configs/git/config' "$XDG_CONFIG_HOME/git/config"
   for conf in 'attributes' 'ignore' 'message'; do
     ln -frs "../.git$conf" "$XDG_CONFIG_HOME/git/$conf"
   done
   #touch "$HOME/.gitconfig.local"
+}
 
+function set_gnupg {
   mkdir -p "$HOME/.gnupg"
   chmod 700 "$HOME/.gnupg"
-  for file in ./configs/gnupg/*; do
+  for file in ./configs/gnupg/*.conf; do
     ln -frs "$file" "$HOME/.gnupg/$(basename "$file")"
   done
 }
@@ -71,7 +80,8 @@ function main {
   install_prompt && set_prompt
   install_pyenv && set_pyenv
   install_openssh && set_openssh
-  set_config
+  set_git
+  set_gnupg
 }
 
 while [[ $# -gt 0 ]]; do

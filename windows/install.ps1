@@ -16,7 +16,6 @@ $env:ProfileDir = Split-Path -Parent $Profile
 $env:PluginDir = Join-Path $env:ProfileDir 'plugin.d'
 New-Item -Path "$env:ProfileDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
 New-Item -Path "$env:PluginDir" -ItemType Directory -ErrorAction SilentlyContinue -Force
-New-Item -Path "$env:USERPROFILE\.config" -ItemType Directory -ErrorAction SilentlyContinue -Force
 
 . .\bootstrap.ps1
 
@@ -63,7 +62,17 @@ function Set-WSL {
     -Target $(Resolve-Path -LiteralPath '.\configs\wslconfig') -Force
 }
 
-function Set-Config {
+function Set-Docker {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
+  New-Item -Path "$env:USERPROFILE\.docker" -ItemType Directory -ErrorAction SilentlyContinue -Force
+  Get-ChildItem -Path '.\configs\docker\*' -Include '*.json' | ForEach-Object {
+    New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.docker\$($_.Name)" `
+      -Target $_.FullName -Force
+  }
+}
+
+function Set-Git {
   [CmdletBinding(SupportsShouldProcess)]
   param()
   New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\git\config" `
@@ -82,7 +91,11 @@ function Set-Config {
       -Target $_.FullName -Force
   }
   #Add-Content "$env:USERPROFILE\.gitconfig.local" $null
+}
 
+function Set-GnuPG {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   # Apparently, Git for Windows includes its own gpg
   # Normally, typing `gpg` in any shell will invoke Gpg4win or GnuPG
   # But Git signs with its own GPG, so usually we need to set the path
@@ -93,7 +106,11 @@ function Set-Config {
     New-Item -ItemType SymbolicLink -Path "$env:APPDATA\gnupg\$($_.Name)" `
       -Target $_.FullName -Force
   }
+}
 
+function Set-WinTerm {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
   @(
     @('', ''),
     @('Preview', '_preview')
@@ -105,13 +122,16 @@ function Set-Config {
 }
 
 function main {
+  New-Item -Path "$env:USERPROFILE\.config" -ItemType Directory -ErrorAction SilentlyContinue -Force
   #Uninstall-Bloat
   Install-Base
   Install-Prompt && Set-Prompt
   Install-Pyenv && Install-Python
   Install-OpenSSH && Set-OpenSSH
   Install-WSL && Set-WSL
-  Set-Config
+  Set-Git
+  Set-GnuPG
+  Set-WinTerm
 }
 
 $args | ForEach-Object {
