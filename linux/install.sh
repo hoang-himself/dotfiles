@@ -10,6 +10,7 @@ export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
 
+. ./bootstrap.sh
 if [[ -x "$(command -v apt)" ]]; then
   . ./bootstrap_apt.sh
 elif [[ -x "$(command -v dnf)" ]]; then
@@ -35,7 +36,7 @@ function set_prompt {
 
 function set_pyenv {
   pyenv update
-  local python_target='3.10.4'
+  python_target='3.10.4'
   pyenv install -s "$python_target"
   pyenv global "$python_target"
   pip install --upgrade pip setuptools wheel
