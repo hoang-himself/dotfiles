@@ -67,6 +67,8 @@ Host $h
   IdentityFile ~/.ssh/id.d/$1_$h
 
 EOF
+
+  chmod 600 "$HOME/.ssh/config.d/$hostname.conf"
 }
 
 function create-tmp {
