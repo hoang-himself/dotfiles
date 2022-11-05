@@ -1,0 +1,10 @@
+# shellcheck disable=SC2148
+
+: ${XDG_CONFIG_HOME:=$HOME/.config}
+ZDOTDIR=$XDG_CONFIG_HOME/zsh
+HISTFILE=$ZDOTDIR/.zsh_history
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi

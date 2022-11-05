@@ -1,0 +1,92 @@
+[core]
+  attributesFile = ~/.config/git/attributes
+  excludesFile = ~/.config/git/ignore
+  ignoreCase = false
+  pager = less
+  symlinks = true
+
+[commit]
+  template = ~/.config/git/message
+
+[alias]
+  ign = ls-files -o -i --exclude-standard
+  wdiff = diff -w --word-diff=color
+  whatadded = log --diff-filter=A
+
+[init]
+  defaultBranch = main
+
+[extensions]
+  worktreeConfig = true
+
+[help]
+  autocorrect = 30 # tenths of a second
+
+[merge]
+  autoStash = true
+  ff = false
+  conflictStyle = zdiff3
+
+[fetch]
+  prune = true
+
+[pull]
+  ff = only
+  rebase = true
+
+[rebase]
+  autoStash = true
+  updateRefs = true
+
+[push]
+  default = simple
+  followTags = true
+
+[status]
+  submodulesummary = 1
+
+[branch]
+  autosetuprebase = always
+
+[rerere] # in case `clear` does not work, delete .git/rr-cache
+  enabled = 1
+  autoupdate = 1
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+  ui = true
+  pager = true
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old = red
+  new = green
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[column]
+  ui = auto
+
+[branch]
+  sort = -committerdate
+
+[include]
+  path = ~/.gitconfig.local

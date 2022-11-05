@@ -1,0 +1,12 @@
+*.target.*/
+
+*.conf
+*.env
+*.ini
+*.json
+*.toml
+
+hosts
+
+!*.gitkeep
+!*.sample

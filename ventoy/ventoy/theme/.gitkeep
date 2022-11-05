@@ -1,0 +1,9 @@
+# tela
+
+```shell
+git clone https://github.com/vinceliuice/grub2-themes.git && cd grub2-themes
+./install.sh -t tela -s 1080p -g .
+cp -r tela ..
+cd ..
+rm -rf grub2-themes
+```

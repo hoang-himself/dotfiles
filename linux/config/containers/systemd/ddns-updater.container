@@ -1,0 +1,5 @@
+[Container]
+Image=ghcr.io/qdm12/ddns-updater:latest
+AutoUpdate=registry
+Pod=ddns-updater.pod
+Volume=../ddns-updater/data/config.json:/updater/data/config.json:Z

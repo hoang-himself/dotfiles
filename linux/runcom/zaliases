@@ -1,0 +1,24 @@
+# shellcheck disable=SC2148
+
+# Make aliases work with sudo
+alias sudo='sudo '
+
+# Other
+alias ls='ls --color=auto --group-directories-first -v'
+alias rr='rm -rf'
+alias now='date +"%T"'
+alias week='date +%V'
+
+function mktmp {
+  pushd "$(mktemp -d)" || exit 1
+}
+
+function rmtmp {
+  TMPDIR=$PWD
+  popd || exit 1
+  command rm -rf "$TMPDIR"
+}
+
+function clear_history {
+  echo '' >"$HISTFILE"
+}

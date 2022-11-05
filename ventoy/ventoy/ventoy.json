@@ -1,0 +1,26 @@
+{
+  "control": [
+    { "VTOY_DEFAULT_MENU_MODE": "1" },
+    { "VTOY_DEFAULT_SEARCH_ROOT": "/iso" },
+    { "VTOY_WIN11_BYPASS_CHECK": "1" },
+    { "VTOY_WIN11_BYPASS_NRO": "1" }
+  ],
+  "theme": {
+    "file": "/ventoy/theme/tela/theme.txt"
+  },
+  "auto_install": [
+    {
+      "parent": "/iso/WinNT10",
+      "template": [
+        "/script/WinNT10/autounattend.xml"
+      ],
+      "autosel": 1
+    }
+  ],
+  "injection": [
+    {
+      "parent": "/iso/WinNT10",
+      "archive": "/injection/WinNT10/ei.cfg.zip"
+    }
+  ]
+}

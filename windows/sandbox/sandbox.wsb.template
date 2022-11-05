@@ -1,0 +1,24 @@
+<Configuration>
+  <VGpu>Disable</VGpu>
+  <Networking>Enable</Networking>
+  <AudioInput>Disable</AudioInput>
+  <VideoInput>Disable</VideoInput>
+  <ProtectedClient>Default</ProtectedClient>
+  <PrinterRedirection>Disable</PrinterRedirection>
+  <ClipboardRedirection>Enable</ClipboardRedirection>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>__SANDBOX__\Assets</HostFolder>
+      <SandboxFolder>C:\users\WDAGUtilityAccount\Desktop\Setup\Assets</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+    <MappedFolder>
+      <HostFolder>__SANDBOX__\Scripts</HostFolder>
+      <SandboxFolder>C:\users\WDAGUtilityAccount\Desktop\Setup\Scripts</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>C:\Users\WDAGUtilityAccount\Desktop\Setup\Scripts\SetupComplete.cmd</Command>
+  </LogonCommand>
+</Configuration>

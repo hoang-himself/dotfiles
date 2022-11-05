@@ -1,0 +1,21 @@
+# shellcheck disable=SC2148
+
+# ^ = \C- = Control = Ctrl
+# ^[ = \e = Meta = Alt
+
+# In case you want to run a command that takes variable expansion
+#bindkey -s '^o' 'nvim $(fzf)^M'
+# or
+#bindkey -s '^o' 'nvim $(fzf)\n'
+# ^M = \n = Enter
+
+#function feature_branch() {
+#  branch_name=$BUFFER
+#  zle backward-kill-line
+#  echo "git checkout -b feat/$branch_name"
+#  git checkout -b "feat/${branch_name}"
+#  zle reset-prompt
+#  zle redisplay
+#}
+#zle -N feature_branch
+#bindkey '^gf' feature_branch
