@@ -1,0 +1,4 @@
+[Pod]
+Network=wireguard-server.network
+Volume=wireguard-server.volume:/config
+PublishPort=51820:51820/udp

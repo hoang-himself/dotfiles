@@ -1,0 +1,5 @@
+[Pod]
+Network=swag.network
+Volume=swag.volume:/config
+PublishPort=80:80
+PublishPort=443:443

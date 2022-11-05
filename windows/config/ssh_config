@@ -1,0 +1,19 @@
+EscapeChar ~
+IgnoreUnknown Password
+
+Include ~/.ssh/config.d/*.conf
+
+#Host ${alias}
+#  HostName ${address}
+#  Port ${port}
+#  User ${user}
+#  IdentityFile ${path}
+#  #AddKeysToAgent yes
+#  #ForwardAgent yes
+
+Host *
+  ControlMaster no
+  #ControlPath ~/.ssh/sockets/%C
+  #ControlPersist 600
+  IdentitiesOnly yes
+  ExitOnForwardFailure yes
