@@ -2,10 +2,19 @@
   "theme": {
     "file": "/ventoy/theme/tela/theme.txt"
   },
+  "auto_install": [
+    {
+      "parent": "/iso/WinNT10",
+      "template": [
+        "/script/WinNT10/select-edition.xml"
+      ],
+      "autosel": 1
+    }
+  ],
   "injection": [
     {
       "parent": "/iso/WinNT10",
-      "archive": "/injection/windows.zip"
+      "archive": "/injection/WinNT10/hwid.zip"
     }
   ]
 }
