@@ -10,18 +10,40 @@ ${function:......} = { Set-Location -Path '..\..\..\..\..' }
 Set-Alias -Name 'time' -Value 'Measure-Command'
 
 function sudo() {
-  $Params = @{
+  $params = @{
     'FilePath'         = 'pwsh'
     'Verb'             = 'RunAs'
-    'WorkingDirectory' = Get-Location
+    'WorkingDirectory' = $(Get-Location)
   }
-  if ($args.count -gt 0) {
-    $Params['FilePath'] = $args[0]
+
+  if ($args.Count -le 0) {
+    Start-Process @params
+    return
   }
-  if ($args.count -gt 1) {
-    $Params['ArgumentList'] = $args[1..($args.count - 1)]
+
+  switch ((Get-Command $args[0]).CommandType) {
+    'Application' {
+      $params['FilePath'] = $args[0]
+      if ($args.Count -gt 1) {
+        $params['ArgumentList'] = $args[1..($args.Count - 1)]
+      }
+    }
+    'ExternalScript' {
+      $params['ArgumentList'] = @('-File', $args[0])
+      if ($args.Count -gt 1) {
+        $params['ArgumentList'] += $args[1..($args.Count - 1)]
+      }
+    }
+    { $_ -in @('Alias', 'Cmdlet', 'Function') } {
+      $params['ArgumentList'] = '-Command & { @args }'
+    }
+    default {
+      $exception = New-Object System.ArgumentException("Invalid command type: $_")
+      throw $exception
+    }
   }
-  Start-Process @Params
+
+  Start-Process @params
 }
 
 function which($name) {
@@ -57,8 +79,7 @@ trim_trailing_whitespace = false
 
   if (Test-Path -Path '.editorconfig') {
     Write-Output -InputObject $editorconfig
-  }
-  else {
+  } else {
     Set-Content -Path '.editorconfig' -Value $editorconfig
   }
 }
