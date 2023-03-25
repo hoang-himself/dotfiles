@@ -80,6 +80,15 @@ function set_neovim {
   ln -frs "../shared/runcoms/neovim" "$XDG_CONFIG_HOME/nvim"
 }
 
+function set_containers {
+  #for file in ../shared/configs/containers/*.conf; do
+  #  [[ -f "$file" ]] && ln -frs "$file" "$XDG_CONFIG_HOME/containers/$(basename "$file")"
+  #done
+  ln -frs '../shared/configs/containers/containers.conf' "$XDG_CONFIG_HOME/containers/containers.conf"
+  #ln -frs '../shared/configs/containers/registries.conf' "$XDG_CONFIG_HOME/containers/registries.conf"
+  #ln -frs '../shared/configs/containers/storage.conf' "$XDG_CONFIG_HOME/containers/storage.conf"
+}
+
 function main {
   install_base
   install_prompt

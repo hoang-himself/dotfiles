@@ -256,6 +256,27 @@ function Set-Neovim {
     -Target $(Resolve-Path -LiteralPath '..\shared\runcoms\neovim') -Force
 }
 
+function Set-Containers {
+  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
+  #Get-ChildItem -Path '..\shared\configs\containers\*.conf' `
+  #| ForEach-Object -Process {
+  #  New-Item -ItemType SymbolicLink `
+  #    -Path "$env:XDG_CONFIG_HOME\containers\$($_.Name)" `
+  #    -Target $_.FullName -Force
+  #}
+  New-Item -Type SymbolicLink `
+    -Path "$env:XDG_CONFIG_HOME\containers\containers.conf" `
+    -Target $(Resolve-Path -LiteralPath '..\shared\configs\containers\containers.conf') -Force
+  #New-Item -Type SymbolicLink `
+  #  -Path "$env:XDG_CONFIG_HOME\containers\registries.conf" `
+  #  -Target $(Resolve-Path -LiteralPath '..\shared\configs\containers\registries.conf') -Force
+  #New-Item -Type SymbolicLink `
+  #  -Path "$env:XDG_CONFIG_HOME\containers\storage.conf" `
+  #  -Target $(Resolve-Path -LiteralPath '..\shared\configs\containers\storage.conf') -Force
+}
+
 function main {
   Install-Base
   Install-OpenSSH
