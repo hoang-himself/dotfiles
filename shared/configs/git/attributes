@@ -42,7 +42,7 @@
 *.svg text
 # If you want to treat it as binary,
 # use the following line instead.
-# *.svg    binary
+#*.svg binary
 *.eps binary
 
 # Scripts
@@ -72,6 +72,10 @@
 
 # Text files where line endings should be preserved
 *.patch -text
+
+# Text files with explicit line endings
+*.crlf text eol=crlf
+*.lf text eof=lf
 
 #
 # Exclude files from exporting
