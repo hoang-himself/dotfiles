@@ -78,13 +78,13 @@ function Install-Base {
     'PSReadLine'
   ) | ForEach-Object -Process { Install-Module -Name $_ -Scope CurrentUser -Force }
 
-  winget install --id 'GnuPG.Gpg4win' --override "/C=`"$PWD\configs\gpg4win.ini`" /S"
+  winget install --source winget --id 'GnuPG.Gpg4win' --override "/C=`"$PWD\configs\gpg4win.ini`" /S"
   @(
     'JohnTaylor.lesskey',
     'JohnTaylor.less',
     'Neovim.Neovim',
     'RedHat.Podman-Desktop'
-  ) | ForEach-Object -Process { winget install --id "$_" }
+  ) | ForEach-Object -Process { winget install --source winget --id "$_" }
 }
 
 function Install-Prompt {
@@ -95,7 +95,7 @@ function Install-Prompt {
   @(
     'Microsoft.PowerShell',
     'Starship.Starship'
-  ) | ForEach-Object -Process { winget install --id "$_" }
+  ) | ForEach-Object -Process { winget install --source winget --id "$_" }
 }
 
 function Set-RunCom {
@@ -154,7 +154,7 @@ function Install-Pyenv {
 }
 
 function Install-NVM {
-  winget install --id 'CoreyButler.NVMforWindows'
+  winget install --source winget --id 'CoreyButler.NVMforWindows'
 }
 
 function Set-NVM {
