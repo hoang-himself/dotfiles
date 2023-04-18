@@ -89,8 +89,7 @@ function Install-Base {
 
 function Install-Prompt {
   @(
-    'posh-git',
-    'Terminal-Icons'
+    'posh-git'
   ) | ForEach-Object -Process { Install-Module -Name $_ -Scope CurrentUser -Force }
 
   @(
