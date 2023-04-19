@@ -1,3 +1,8 @@
+vim.g.editorconfig = true
+
+vim.g.mapleader = ' '
+vim.opt.timeoutlen = 1000
+
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'

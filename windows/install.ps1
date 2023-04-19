@@ -249,8 +249,6 @@ function Set-Git {
 function Set-Neovim {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  git clone --depth 1 'https://github.com/wbthomason/packer.nvim' `
-    "$env:XDG_DATA_HOME\nvim-data\site\pack\packer\start\packer.nvim"
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\nvim" `
     -Target $(Resolve-Path -LiteralPath '..\shared\runcoms\neovim') -Force

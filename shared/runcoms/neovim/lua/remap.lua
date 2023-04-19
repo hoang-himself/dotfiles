@@ -1,6 +1,3 @@
-vim.g.mapleader = ' '
-vim.opt.timeoutlen = 1000
-
 vim.keymap.set('n', '+', '<C-a>')
 vim.keymap.set('n', '-', '<C-x>')
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
