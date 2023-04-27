@@ -2,14 +2,9 @@ EscapeChar ~
 #IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
 Include ~/.ssh/config.d/*.conf
 
-Host *.local
-  AddKeysToAgent yes
-  ForwardAgent yes
-  RemoteForward /run/user/1000/gnupg/S.gpg-agent ~/.gnupg/S.gpg-agent.extra
+Host *
   ControlMaster auto
   ControlPath ~/.ssh/sockets/%C
   ControlPersist 600
-
-Host *
   IdentitiesOnly yes
   ExitOnForwardFailure yes

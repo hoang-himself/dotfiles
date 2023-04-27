@@ -43,7 +43,9 @@ Host $h
   Port $p
   User $u
   IdentityFile ~/.ssh/id.d/$($args[0])_$h
-  IdentitiesOnly yes
+  #AddKeysToAgent yes
+  #ForwardAgent yes
+  #RemoteForward /run/user/1000/gnupg/S.gpg-agent ~/.gnupg/S.gpg-agent.extra
 
 "@
 
