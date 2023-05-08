@@ -50,11 +50,8 @@ insert_final_newline = true
 [*.{bat,cmd}]
 end_of_line = crlf
 
-[*.{fs,md,py}]
-indent_size = 4
-
-[*.json]
-insert_final_newline = false
+[*.md]
+trim_trailing_whitespace = false
 
 '@
 
