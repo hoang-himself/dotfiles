@@ -6,8 +6,11 @@ on:
     branches:
       - main
   push:
-    # tags:
-    #   - '**'
+    branches:
+      - main
+      - dev
+    paths:
+      - 'windows/**'
 
 jobs:
   lint:

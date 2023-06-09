@@ -5,9 +5,13 @@ on:
   pull_request:
     branches:
       - main
+      - dev
   push:
-    # tags:
-    #   - '**'
+    branches:
+      - main
+      - dev
+    paths:
+      - 'linux/**'
 
 jobs:
   lint:
