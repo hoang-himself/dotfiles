@@ -3,6 +3,7 @@
   excludesFile = ~/.config/git/ignore
   ignoreCase = false
   pager = less
+	symlinks = true
 
 [commit]
   template = ~/.config/git/message
