@@ -75,8 +75,8 @@ Backup of *.doc*
 *.wps
 
 # Environments
-.*env
-.*env.*
+#.env.*.local
+*.local
 
 # Font
 *.fnt
