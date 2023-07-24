@@ -67,8 +67,6 @@ $env:XDG_BIN_HOME = "$env:USERPROFILE\.local\bin"
 }
 
 function Install-Base {
-  #Add-AppxPackage -Path 'https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle'
-  #Add-ToUserPath -Path '%LOCALAPPDATA%\Microsoft\WindowsApps'
   Get-PackageProvider | Where-Object -Property Name -EQ 'NuGet' | Install-PackageProvider -Force
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
   Update-Module -Force
@@ -165,8 +163,6 @@ function Set-NVM {
     -ArgumentList @('install', 'latest') -Wait
   Start-Process -FilePath "$NVM_HOME\nvm.exe" `
     -ArgumentList @('use', 'latest') -Wait
-  Start-Process -FilePath "$NVM_HOME\nvm.exe" `
-    -ArgumentList 'on' -Wait
 }
 
 function Install-OpenSSH {
@@ -219,10 +215,8 @@ function Set-OpenSSH {
 }
 
 function Install-WSL {
-  # Get-WindowsOptionalFeature -Online
   Enable-WindowsOptionalFeature -Online -All -NoRestart `
-    -FeatureName @('VirtualMachinePlatform', 'HypervisorPlatform', 'Microsoft-Windows-Subsystem-Linux') `
-  | Out-Null
+    -FeatureName @('VirtualMachinePlatform', 'HypervisorPlatform', 'Microsoft-Windows-Subsystem-Linux')
 }
 
 function Set-WSL {
@@ -258,21 +252,12 @@ function Set-Containers {
   [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  #Get-ChildItem -Path '..\shared\configs\containers\*.conf' `
-  #| ForEach-Object -Process {
-  #  New-Item -ItemType SymbolicLink `
-  #    -Path "$env:XDG_CONFIG_HOME\containers\$($_.Name)" `
-  #    -Target $_.FullName -Force
-  #}
-  New-Item -Type SymbolicLink `
-    -Path "$env:XDG_CONFIG_HOME\containers\containers.conf" `
-    -Target $(Resolve-Path -LiteralPath '..\shared\configs\containers\containers.conf') -Force
-  #New-Item -Type SymbolicLink `
-  #  -Path "$env:XDG_CONFIG_HOME\containers\registries.conf" `
-  #  -Target $(Resolve-Path -LiteralPath '..\shared\configs\containers\registries.conf') -Force
-  #New-Item -Type SymbolicLink `
-  #  -Path "$env:XDG_CONFIG_HOME\containers\storage.conf" `
-  #  -Target $(Resolve-Path -LiteralPath '..\shared\configs\containers\storage.conf') -Force
+  Get-ChildItem -Path '..\shared\configs\containers\*.conf' `
+  | ForEach-Object -Process {
+   New-Item -ItemType SymbolicLink `
+     -Path "$env:XDG_CONFIG_HOME\containers\$($_.Name)" `
+     -Target $_.FullName -Force
+  }
 }
 
 function main {
@@ -284,7 +269,7 @@ function main {
 
   Set-RunCom
   Set-OpenSSH
-  #Set-WSL
+  Set-WSL
   Set-Git
   Set-Neovim
 }
