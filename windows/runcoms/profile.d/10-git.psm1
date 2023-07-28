@@ -1,42 +1,6 @@
-# We wrap in a local function instead of exporting the variable directly in
-# order to avoid interfering with manually-run git commands by the user.
-function __git_prompt_git {
-  git --no-optional-locks $args
-}
-
-# Outputs the name of the current branch
-# Usage example: git pull origin $(git_current_branch)
-# Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
-# it's not a symbolic ref, but in a Git repo.
-function git_current_branch {
-  git branch --show-current
-}
-
-# Outputs the name of the current user
-# Usage example: $(git_current_user_name)
-function git_current_user_name {
-  __git_prompt_git config user.name 2>$null
-}
-
-# Outputs the email of the current user
-# Usage example: $(git_current_user_email)
-function git_current_user_email {
-  __git_prompt_git config user.email 2>$null
-}
-
-# Output the name of the root directory of the git repository
-# Usage example: $(git_repo_name)
-function git_repo_name {
-  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSPossibleIncorrectUsageOfRedirectionOperator', '')]
-  param()
-  if ($repo_path = $(__git_prompt_git rev-parse --show-toplevel 2>$null)) {
-    return $repo_path.Split('/')[-1]
-  }
-}
-
-function current_branch {
-  git_current_branch
-}
+#
+# Functions
+#
 
 # Pretty log messages
 function _git_log_prettily {
@@ -47,7 +11,17 @@ function _git_log_prettily {
 
 # Warn if the current branch is a WIP
 function work_in_progress {
-  if (git -c log.showSignature=false log -n 1 | Select-String -Pattern '--wip--' -Quiet) { return 'WIP!!' }
+  if (git -c log.showSignature=false log -n 1 2>&1 | Select-String -Pattern '--wip--' -Quiet) { return 'WIP!!' }
+}
+
+# Similar to `gunwip` but recursive "Unwips" all recent `--wip--` commits not just the last one
+function gunwipall {
+  $commit = $(git log --grep='--wip--' --invert-grep --max-count=1 --format=format:%H)
+
+  # Check if a commit without "--wip--" was found and it's not the same as HEAD
+  if ("$commit" -ne "$(git rev-parse HEAD)") {
+    git reset "$commit" || return 1
+  }
 }
 
 # Check if main exists and use instead of master
@@ -78,6 +52,10 @@ function git_develop_branch {
   return 'develop'
 }
 
+#
+# Aliases
+#
+
 Set-Alias -Name 'g' -Value 'git'
 Remove-Alias -Name 'gc' -Force
 Remove-Alias -Name 'gcb' -Force
@@ -97,8 +75,8 @@ ${function:gap} = { git apply $args }
 ${function:gapt} = { git apply --3way $args }
 
 ${function:gb} = { git branch $args }
-${function:gba} = { git branch -a $args }
-${function:gbd} = { git branch -d $args }
+${function:gba} = { git branch --all $args }
+${function:gbd} = { git branch --delete $args }
 ${function:gbda} = {
   git branch -d @(
     git branch --no-color --merged `
@@ -106,7 +84,22 @@ ${function:gbda} = {
     | ForEach-Object -Process { $_.Line.Trim() }
   )
 }
-${function:gbD} = { git branch -D $args }
+${function:gbD} = { git branch --delete --force $args }
+${function:gbg} = { git branch -vv | Select-String -Pattern ': gone\]' }
+${function:gbgd} = {
+  git branch -d @(
+    git branch --no-color -vv `
+    | Select-String -Pattern ': gone\]' `
+    | ForEach-Object -Process { ($_ -split '\s+')[1] }
+  )
+}
+${function:gbgD} = {
+  git branch -D @(
+    git branch --no-color -vv `
+    | Select-String -Pattern ': gone\]' `
+    | ForEach-Object -Process { ($_ -split '\s+')[1] }
+  )
+}
 ${function:gbl} = { git blame -b -w $args }
 ${function:gbnm} = { git branch --no-merged $args }
 ${function:gbr} = { git branch --remote $args }
@@ -116,18 +109,17 @@ ${function:gbsg} = { git bisect good $args }
 ${function:gbsr} = { git bisect reset $args }
 ${function:gbss} = { git bisect start $args }
 
-${function:gc} = { git commit -v $args }
-${function:gc!} = { git commit -v --amend $args }
-${function:gcn} = { git commit -v --no-edit $args }
-${function:gcn!} = { git commit -v --no-edit --amend $args }
-${function:gca} = { git commit -v -a $args }
-${function:gca!} = { git commit -v -a --amend $args }
-${function:gcan!} = { git commit -v -a --no-edit --amend $args }
-${function:gcans!} = { git commit -v -a -s --no-edit --amend $args }
-${function:gcam} = { git commit -a -m $args }
-${function:gcsm} = { git commit -s -m $args }
-${function:gcas} = { git commit -a -s $args }
-${function:gcasm} = { git commit -a -s -m $args }
+${function:gc} = { git commit --verbose $args }
+${function:gc!} = { git commit --verbose --amend $args }
+${function:gcn!} = { git commit --verbose --no-edit --amend $args }
+${function:gca} = { git commit --verbose --all $args }
+${function:gca!} = { git commit --verbose --all --amend $args }
+${function:gcan!} = { git commit --verbose --all --no-edit --amend $args }
+${function:gcans!} = { git commit --verbose --all --signoff --no-edit --amend $args }
+${function:gcam} = { git commit --all --message $args }
+${function:gcsm} = { git commit --signoff --message $args }
+${function:gcas} = { git commit --all --signoff $args }
+${function:gcasm} = { git commit --all --signoff --message $args }
 ${function:gcb} = { git checkout -b $args }
 ${function:gcf} = { git config --list $args }
 
@@ -135,27 +127,26 @@ function gccd {
   git clone --recurse-submodules $args
   if (Test-Path -Path $args) {
     Set-Location -Path $args
-  }
-  else {
+  } else {
     Set-Location -Path $args.Split('/')[-1]
   }
 }
 
 ${function:gcl} = { git clone --recurse-submodules $args }
-${function:gclean} = { git clean -id $args }
-${function:gpristine} = { git reset --hard && git clean -dffx }
-${function:gcm} = { git checkout $(git_main_branch) $args }
+${function:gclean} = { git clean --interactive -d $args }
+${function:gpristine} = { git reset --hard && git clean --force -dfx $args }
+${function:gcm} = { git checkout $(git_main_branch) }
 ${function:gcd} = { git checkout $(git_develop_branch) $args }
-${function:gcmsg} = { git commit -m $args }
+${function:gcmsg} = { git commit --message $args }
 ${function:gco} = { git checkout $args }
 ${function:gcor} = { git checkout --recurse-submodules $args }
-${function:gcount} = { git shortlog -sn $args }
+${function:gcount} = { git shortlog --summary --numbered $args }
 ${function:gcp} = { git cherry-pick $args }
 ${function:gcpa} = { git cherry-pick --abort }
 ${function:gcpc} = { git cherry-pick --continue }
-${function:gcs} = { git commit -S $args }
-${function:gcss} = { git commit -S -s $args }
-${function:gcssm} = { git commit -S -s -m $args }
+${function:gcs} = { git commit --gpg-sign $args }
+${function:gcss} = { git commit --gpg-sign --signoff $args }
+${function:gcssm} = { git commit --gpg-sign --signoff --message $args }
 
 ${function:gd} = { git diff $args }
 ${function:gdca} = { git diff --cached $args }
@@ -170,7 +161,7 @@ function gdnolock {
   git diff $args ':(exclude)package-lock.json' ':(exclude)*.lock'
 }
 
-function gdv { git diff -w $args | & $env:EDITOR -R - }
+function gdv { git diff -w $args | &"$env:EDITOR" -R - }
 
 ${function:gf} = { git fetch $args }
 ${function:gfa} = { git fetch --all --prune --jobs=10 $args }
@@ -194,8 +185,7 @@ function ggfl {
 function ggl {
   if (($args.count -ne 0) -and ($args.count -ne 1)) {
     git pull origin $args
-  }
-  else {
+  } else {
     $b = if ($args.count -eq 0) { git_current_branch } else { $args[0] }
     git pull origin "$b"
   }
@@ -204,8 +194,7 @@ function ggl {
 function ggp {
   if (($args.count -ne 0) -and ($args.count -ne 1)) {
     git push origin $args
-  }
-  else {
+  } else {
     $b = if ($args.count -eq 0) { git_current_branch } else { $args[0] }
     git push origin "$b"
   }
@@ -214,8 +203,7 @@ function ggp {
 function ggpnp {
   if ($args.count -eq 0) {
     ggl && ggp
-  }
-  else {
+  } else {
     ggl $args && ggp $args
   }
 }
@@ -226,11 +214,11 @@ function ggu {
 }
 
 ${function:ggpur} = { ggu $args }
-${function:ggpull} = { git pull origin $(git_current_branch) $args }
-${function:ggpush} = { git push origin $(git_current_branch) $args }
+${function:ggpull} = { git pull origin $(git_current_branch) }
+${function:ggpush} = { git push origin $(git_current_branch) }
 
 ${function:ggsup} = { git branch --set-upstream-to="origin/$(git_current_branch)" $args }
-${function:gpsup} = { git push --set-upstream origin $(git_current_branch) $args }
+${function:gpsup} = { git push --set-upstream origin $(git_current_branch) }
 
 ${function:ghh} = { git help $args }
 
@@ -239,7 +227,7 @@ ${function:gignored} = { git ls-files -v | Select-String -CaseSensitive -Pattern
 ${function:gsdp} = { git svn dcommit && git push github "$(git_main_branch):svntrunk" }
 
 ${function:gk} = { gitk --all --branches $args }
-${function:gke} = { gitk --all $(git log -g --pretty=%h) $args }
+${function:gke} = { gitk --all $(git log --walk-reflogs --pretty=%h) $args }
 
 ${function:gl} = { git pull $args }
 ${function:glg} = { git log --stat $args }
@@ -263,15 +251,17 @@ ${function:gmtl} = { git mergetool --no-prompt $args }
 ${function:gmtlvim} = { git mergetool --no-prompt --tool='nvim -d' $args }
 ${function:gmum} = { git merge "upstream/$(git_main_branch)" $args }
 ${function:gma} = { git merge --abort }
+${function:gms} = { git merge --squash $args }
 
 ${function:gp} = { git push $args }
 ${function:gpd} = { git push --dry-run $args }
-${function:gpf} = { git push --force-with-lease $args }
+${function:gpf} = { git push --force-with-lease --force-if-includes $args }
 ${function:gpf!} = { git push --force $args }
 ${function:gpoat} = { git push origin --all && git push origin --tags }
+${function:gpod} = { git push origin --delete $args }
 ${function:gpr} = { git pull --rebase $args }
 ${function:gpu} = { git push upstream $args }
-${function:gpv} = { git push -v $args }
+${function:gpv} = { git push --verbose $args }
 
 ${function:gr} = { git remote $args }
 ${function:gra} = { git remote add $args }
@@ -280,7 +270,7 @@ ${function:grba} = { git rebase --abort }
 ${function:grbc} = { git rebase --continue }
 ${function:grbd} = { git rebase $(git_develop_branch) $args }
 ${function:grbi} = { git rebase -i $args }
-${function:grbm} = { git rebase $(git_main_branch) $args }
+${function:grbm} = { git rebase $(git_main_branch) }
 ${function:grbom} = { git rebase "origin/$(git_main_branch)" $args }
 ${function:grbo} = { git rebase --onto $args }
 ${function:grbs} = { git rebase --skip }
@@ -296,18 +286,19 @@ ${function:grs} = { git restore $args }
 ${function:grset} = { git remote set-url $args }
 ${function:grss} = { git restore --source $args }
 ${function:grst} = { git restore --staged $args }
-${function:grt} = { Set-Location $(git rev-parse --show-toplevel) }
+${function:grst} = { git restore --staged $args }
+${function:grt} = { Set-Location -Path "$(git rev-parse --show-toplevel || Write-Output -InputObject .)" $args }
 ${function:gru} = { git reset -- $args }
 ${function:grup} = { git remote update $args }
-${function:grv} = { git remote -v $args }
+${function:grv} = { git remote --verbose $args }
 
-${function:gsb} = { git status -sb $args }
+${function:gsb} = { git status --short --branch $args }
 ${function:gsd} = { git svn dcommit $args }
 ${function:gsh} = { git show $args }
 ${function:gsi} = { git submodule init $args }
 ${function:gsps} = { git show --pretty=short --show-signature $args }
 ${function:gsr} = { git svn rebase $args }
-${function:gss} = { git status -s $args }
+${function:gss} = { git status --short $args }
 ${function:gst} = { git status $args }
 
 ${function:gsta} = { git stash push $args }
@@ -317,12 +308,12 @@ ${function:gstd} = { git stash drop $args }
 ${function:gstl} = { git stash list $args }
 ${function:gstp} = { git stash pop $args }
 ${function:gsts} = { git stash show --text $args }
-${function:gstu} = { git stash push --include-untracked $args }
+${function:gstu} = { gsta --include-untracked $args }
 ${function:gstall} = { git stash --all $args }
 ${function:gsu} = { git submodule update $args }
 ${function:gsw} = { git switch $args }
 ${function:gswc} = { git switch -c $args }
-${function:gswm} = { git switch $(git_main_branch) $args }
+${function:gswm} = { git switch $(git_main_branch) }
 ${function:gswd} = { git switch $(git_develop_branch) $args }
 
 ${function:gts} = { git tag -s $args }
@@ -335,10 +326,10 @@ ${function:gup} = { git pull --rebase $args }
 ${function:gupv} = { git pull --rebase -v $args }
 ${function:gupa} = { git pull --rebase --autostash $args }
 ${function:gupav} = { git pull --rebase --autostash -v $args }
-${function:gupom} = { git pull --rebase origin $(git_main_branch) $args }
-${function:gupomi} = { git pull --rebase=interactive origin $(git_main_branch) $args }
-${function:glum} = { git pull upstream $(git_main_branch) $args }
-${function:gluc} = { git pull upstream $(git_current_branch) $args }
+${function:gupom} = { git pull --rebase origin $(git_main_branch) }
+${function:gupomi} = { git pull --rebase=interactive origin $(git_main_branch) }
+${function:glum} = { git pull upstream $(git_main_branch) }
+${function:gluc} = { git pull upstream $(git_current_branch) }
 
 ${function:gwch} = { git whatchanged -p --abbrev-commit --pretty=medium $args }
 ${function:gwip} = { git add -A; git rm $(git ls-files --deleted) 2>&1 | Out-Null; git commit --no-verify --no-gpg-sign -m '--wip-- [skip ci]' }
@@ -353,7 +344,7 @@ ${function:gam} = { git am $args }
 ${function:gamc} = { git am --continue }
 ${function:gams} = { git am --skip }
 ${function:gama} = { git am --abort }
-${function:gamscp} = { git am --show-current-patch $args }
+${function:gamscp} = { git am --show-current-patch }
 
 function grename {
   if (-not ([bool]$args[0] && [bool]$args[1])) {
