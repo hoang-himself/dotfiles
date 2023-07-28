@@ -39,17 +39,11 @@ function Install-Containers {
 }
 
 function Install-Pyenv {
-  git clone --depth 1 'https://github.com/pyenv-win/pyenv-win.git' "$env:USERPROFILE\.pyenv"
-
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV' `
-    -Value '%USERPROFILE%\.pyenv\pyenv-win'
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_ROOT' `
-    -Value '%USERPROFILE%\.pyenv\pyenv-win'
-  Set-ItemProperty -Path 'HKCU:\Environment' -Name 'PYENV_HOME' `
-    -Value '%USERPROFILE%\.pyenv\pyenv-win'
-
-  Add-ToUserPath -Path '%USERPROFILE%\.pyenv\pyenv-win\bin'
-  Add-ToUserPath -Path '%USERPROFILE%\.pyenv\pyenv-win\shims'
+  Invoke-WebRequest -UseBasicParsing `
+    -Uri 'https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1' `
+    -OutFile './install-pyenv-win.ps1'
+  &'./install-pyenv-win.ps1'
+  Remove-Item -Path './install-pyenv-win.ps1'
 }
 
 function Install-Nvm {
