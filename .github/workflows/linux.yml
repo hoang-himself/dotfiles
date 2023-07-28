@@ -7,9 +7,6 @@ on:
       - main
       - dev
   push:
-    branches:
-      - main
-      - dev
     paths:
       - 'linux/**'
 
