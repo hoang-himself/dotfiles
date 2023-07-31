@@ -19,7 +19,13 @@ elif [[ -x "$(command -v dnf)" ]]; then
   . ./install_dnf.sh
 fi
 
-function set_runcom {
+function install_nvm {
+  local nvm_ref
+  nvm_ref=$(curl --silent 'https://api.github.com/repos/nvm-sh/nvm/releases/latest' | grep -Po '"tag_name": "\K.*?(?=")')
+  curl -fSL "https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_ref}/install.sh" | bash
+}
+
+function set_shell {
   mkdir -p "$ZDOTDIR/zshrc.d"
 
   export ZSH="$ZDOTDIR/ohmyzsh"
@@ -36,7 +42,9 @@ function set_runcom {
   for rc in ./runcoms/zshrc.d/*; do
     [[ -f "$rc" ]] && ln -frs "$rc" "$ZDOTDIR/zshrc.d/$(basename "$rc")"
   done
+}
 
+function set_prompt {
   ln -frs '../shared/runcoms/starship.toml' "$XDG_CONFIG_HOME/starship.toml"
 }
 
@@ -56,10 +64,9 @@ function set_openssh {
   ln -frs './configs/ssh_config' "$HOME/.ssh/config"
 }
 
-function install_nvm {
-  local nvm_ref
-  nvm_ref=$(curl --silent 'https://api.github.com/repos/nvm-sh/nvm/releases/latest' | grep -Po '"tag_name": "\K.*?(?=")')
-  curl -fSL "https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_ref}/install.sh" | bash
+function set_runcom {
+  ln -frs '../shared/configs/git' "$XDG_CONFIG_HOME/git"
+  ln -frs "../shared/runcoms/neovim" "$XDG_CONFIG_HOME/nvim"
 }
 
 function set_nvm {
@@ -70,43 +77,24 @@ function set_nvm {
   nvm use node
 }
 
-function set_git {
-  ln -frs '../shared/configs/git' "$XDG_CONFIG_HOME/git"
-}
-
-function set_neovim {
-  ln -frs "../shared/runcoms/neovim" "$XDG_CONFIG_HOME/nvim"
-}
-
 function set_containers {
-  #for file in ../shared/configs/containers/*.conf; do
-  #  [[ -f "$file" ]] && ln -frs "$file" "$XDG_CONFIG_HOME/containers/$(basename "$file")"
-  #done
-  ln -frs '../shared/configs/containers/containers.conf' "$XDG_CONFIG_HOME/containers/containers.conf"
-  #ln -frs '../shared/configs/containers/registries.conf' "$XDG_CONFIG_HOME/containers/registries.conf"
-  #ln -frs '../shared/configs/containers/storage.conf' "$XDG_CONFIG_HOME/containers/storage.conf"
+  for file in ../shared/configs/containers/*.conf; do
+    [[ -f "$file" ]] && ln -frs "$file" "$XDG_CONFIG_HOME/containers/$(basename "$file")"
+  done
 }
 
 function main {
   install_base
+  install_shell
   install_prompt
+
+  install_containers
   install_pyenv
 
-  set_runcom
+  set_shell
+  set_prompt
   set_openssh
-  set_git
-  set_neovim
+  set_runcom
 }
 
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-  -i | --install)
-    main
-    shift
-    ;;
-  *)
-    echo "Unrecognized option \"$1\""
-    shift
-    ;;
-  esac
-done
+main

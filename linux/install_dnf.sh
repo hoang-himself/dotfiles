@@ -6,11 +6,11 @@ function install_base {
   sudo dnf upgrade -y
   sudo dnf install -y git git-lfs less neovim make curl wget rsync \
     openssl acl gnupg dos2unix crontabs ShellCheck \
-    buildah podman skopeo openssh-clients #openssh-server
+    openssh-clients #openssh-server
   sudo dnf autoremove -y
 }
 
-function install_prompt {
+function install_shell {
   mkdir -p "$XDG_CONFIG_HOME/zsh"
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
@@ -20,7 +20,14 @@ function install_prompt {
   sudo lchsh "$USER" <<EOF
 $(command -v zsh)
 EOF
+}
+
+function install_prompt {
   curl -SL https://starship.rs/install.sh | sudo sh -s -- -f
+}
+
+function install_containers {
+  sudo dnf install -y buildah podman skopeo
 }
 
 function install_pyenv {

@@ -6,17 +6,24 @@ function install_base {
   sudo apt full-upgrade -y
   sudo apt install -y git git-lfs less neovim make curl wget rsync \
     openssl acl gnupg dos2unix cron shellcheck \
-    buildah podman skopeo openssh-client #openssh-server
+    openssh-client #openssh-server
   sudo apt autoremove -y
 }
 
-function install_prompt {
+function install_shell {
   mkdir -p "$XDG_CONFIG_HOME/zsh"
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
   sudo apt install -y zsh
   chsh -s "$(command -v zsh)"
+}
+
+function install_prompt {
   curl -SL https://starship.rs/install.sh | sudo sh -s -- -f
+}
+
+function install_containers {
+  sudo apt install -y buildah podman skopeo
 }
 
 function install_pyenv {
