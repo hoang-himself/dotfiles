@@ -9,7 +9,17 @@ alias rr='rm -rf'
 alias now='date +"%T"'
 alias week='date +%V'
 
-function set-formatting {
+function mktmp {
+  pushd "$(mktemp -d)" || exit 1
+}
+
+function rmtmp {
+  TMPDIR=$PWD
+  popd || exit 1
+  command rm -rf "$TMPDIR"
+}
+
+function set_formatting {
   editorconfig=$(
     cat <<EOF
 root = true
@@ -38,16 +48,6 @@ EOF
   fi
 }
 
-function create-tmp {
-  pushd "$(mktemp -d)" || exit 1
-}
-
-function clear-tmp {
-  TMPDIR=$PWD
-  popd || exit 1
-  command rm -rf "$TMPDIR"
-}
-
-function clear-history {
+function clear_history {
   echo '' >"$HISTFILE"
 }

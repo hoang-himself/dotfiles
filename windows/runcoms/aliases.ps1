@@ -55,6 +55,22 @@ function touch($file) { '' | Out-File -FilePath $file -Encoding ASCII }
 
 function mkcd($path) { New-Item -ItemType Directory -Path $path && Set-Location -Path $path }
 
+function mktmp {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
+  $TMPDIR = "$($env:TMP)\tmp$([Convert]::ToString((Get-Random 65535),16).padleft(4,'0')).tmp"
+  New-Item -ItemType Directory -Path $TMPDIR
+  Push-Location -Path $TMPDIR
+}
+
+function rmtmp {
+  [CmdletBinding(SupportsShouldProcess)]
+  param()
+  $TMPDIR = Get-Location
+  Pop-Location
+  Remove-Item -Path $TMPDIR -Recurse -Force
+}
+
 function Set-Formatting {
   [CmdletBinding(SupportsShouldProcess)]
   param()
@@ -82,22 +98,6 @@ trim_trailing_whitespace = false
   } else {
     Set-Content -Path '.editorconfig' -Value $editorconfig
   }
-}
-
-function New-TemporaryFolder {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-  $TMPDIR = "$($env:TMP)\tmp$([Convert]::ToString((Get-Random 65535),16).padleft(4,'0')).tmp"
-  New-Item -ItemType Directory -Path $TMPDIR
-  Push-Location -Path $TMPDIR
-}
-
-function Remove-TemporaryFolder {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-  $TMPDIR = Get-Location
-  Pop-Location
-  Remove-Item -Path $TMPDIR -Recurse -Force
 }
 
 function Clear-GlobalHistory {
