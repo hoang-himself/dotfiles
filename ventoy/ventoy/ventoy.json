@@ -6,7 +6,7 @@
     {
       "parent": "/iso/WinNT10",
       "template": [
-        "/script/WinNT10/select-edition.xml"
+        "/script/WinNT10/unattend.xml"
       ],
       "autosel": 1
     }
