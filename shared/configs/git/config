@@ -35,6 +35,7 @@
 
 [rebase]
   autoStash = true
+  updateRefs = true
 
 [push]
   default = simple
