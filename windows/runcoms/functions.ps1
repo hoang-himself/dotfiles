@@ -28,8 +28,7 @@ function ssh-hostgen {
   $hostname = $args[2]
   $p = if ($args[3] -is [int]) {
     $args[3]
-  }
-  else {
+  } else {
     throw [System.ArgumentException] 'invalid port'
   }
   $u = $args[4]

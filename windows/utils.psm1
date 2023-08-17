@@ -24,8 +24,7 @@ function Add-ToUserPath {
 
   if ($Prepend) {
     Set-ItemProperty -Path "$RegistryPath" -Name 'Path' -Value "$Path;$oldPath" -Force
-  }
-  else {
+  } else {
     Set-ItemProperty -Path "$RegistryPath" -Name 'Path' -Value "$oldPath;$Path" -Force
   }
 }
