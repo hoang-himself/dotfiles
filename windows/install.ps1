@@ -4,8 +4,6 @@ Import-Module -Name './utils.psm1'
 Import-Module -Name './installers.psm1'
 Import-Module -Name './setters.psm1'
 
-$ErrorActionPreference = 'SilentlyContinue'
-
 @(
   'config',
   'cache',
@@ -38,6 +36,8 @@ $env:XDG_STATE_HOME = "$env:USERPROFILE\.local\state"
 $env:XDG_BIN_HOME = "$env:USERPROFILE\.local\bin"
 
 function main {
+  $ErrorActionPreference = 'SilentlyContinue'
+
   Install-Base
   Install-Shell
   Install-Prompt

@@ -1,8 +1,7 @@
 function ssh-hostgen {
   [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseApprovedVerbs', '')]
   param()
-  # Urban myth
-  # Throw is used to terminate an inner block of code and return to the calling block
+  # Urban myth: throw is used to terminate an inner block of code and return to the calling block
   if ($args.Length -ne 5) {
     Write-Output -InputObject 'ssh-hostgen <algorithm> <host> <hostname> <port> <user>'
     Write-Output -InputObject ''

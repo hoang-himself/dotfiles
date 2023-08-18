@@ -47,8 +47,8 @@ function sudo() {
 }
 
 function which($name) {
-  Get-Command -Name $name -ErrorAction SilentlyContinue `
-  | Select-Object -ExpandProperty Definition -ErrorAction SilentlyContinue
+  $ErrorActionPreference = 'SilentlyContinue'
+  Get-Command -Name $name | Select-Object -ExpandProperty Definition
 }
 
 function touch($file) { '' | Out-File -FilePath $file -Encoding ASCII }
@@ -56,16 +56,12 @@ function touch($file) { '' | Out-File -FilePath $file -Encoding ASCII }
 function mkcd($path) { New-Item -ItemType Directory -Path $path && Set-Location -Path $path }
 
 function mktmp {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
   $TMPDIR = "$($env:TMP)\tmp$([Convert]::ToString((Get-Random 65535),16).padleft(4,'0')).tmp"
   New-Item -ItemType Directory -Path $TMPDIR
   Push-Location -Path $TMPDIR
 }
 
 function rmtmp {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
   $TMPDIR = Get-Location
   Pop-Location
   Remove-Item -Path $TMPDIR -Recurse -Force
