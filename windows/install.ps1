@@ -42,7 +42,7 @@ function main {
   Install-Shell
   Install-Prompt
 
-  Install-Containers
+  Install-Virtualization
   Install-Pyenv
 
   Set-Shell

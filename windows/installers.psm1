@@ -3,8 +3,6 @@ function Install-Base {
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
   Update-Module -Force
 
-  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName 'HypervisorPlatform'
-
   winget install --source winget --id 'GnuPG.Gpg4win' --override "/C=`"$PWD\configs\gpg4win.ini`" /S"
   @(
     'JohnTaylor.lesskey',
@@ -32,10 +30,11 @@ function Install-Prompt {
   winget install --source winget --id 'Starship.Starship'
 }
 
-function Install-Containers {
-  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
-  param()
+function Install-Virtualization {
+  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName 'HypervisorPlatform'
+
   winget install --source winget --id 'RedHat.Podman-Desktop'
+  winget install --source winget --id 'RedHat.Podman'
 }
 
 function Install-Pyenv {

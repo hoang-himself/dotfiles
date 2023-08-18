@@ -115,8 +115,7 @@ function Set-NVM {
     -ArgumentList @('use', 'latest') -Wait
 }
 
-function Set-Containers {
-  [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
+function Set-Virtualization {
   [CmdletBinding(SupportsShouldProcess)]
   param()
   #New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
