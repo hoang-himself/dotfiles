@@ -10,6 +10,8 @@ function Install-Base {
     'Neovim.Neovim'
   ) | ForEach-Object -Process { winget install --source winget --id "$_" }
 
+  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName 'TelnetClient'
+
   Add-WindowsCapability -Online -Name OpenSSH.Client
   Get-Service -Name 'ssh-agent' | Set-Service -StartupType Automatic -PassThru | Start-Service
 
@@ -31,7 +33,8 @@ function Install-Prompt {
 }
 
 function Install-Virtualization {
-  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName 'HypervisorPlatform'
+  Enable-WindowsOptionalFeature -Online -All -NoRestart `
+    -FeatureName @('HypervisorPlatform', 'VirtualMachinePlatform','Microsoft-Windows-Subsystem-Linux', 'Microsoft-Hyper-V')
 
   winget install --source winget --id 'RedHat.Podman-Desktop'
   winget install --source winget --id 'RedHat.Podman'

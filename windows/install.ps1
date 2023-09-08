@@ -49,6 +49,8 @@ function main {
   Set-Prompt
   Set-OpenSSH
   Set-RunCom
+
+  Disable-WindowsOptionalFeature -Online -FeatureName 'MicrosoftWindowsPowerShellV2Root'
 }
 
 main
