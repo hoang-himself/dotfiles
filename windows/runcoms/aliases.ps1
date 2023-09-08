@@ -35,7 +35,7 @@ function sudo() {
       }
     }
     { $_ -in @('Alias', 'Cmdlet', 'Function') } {
-      $params['ArgumentList'] = '-Command & { @args }'
+      $params['ArgumentList'] = "-NoExit -Command & { $args }"
     }
     default {
       $exception = New-Object System.ArgumentException("Invalid command type: $_")
