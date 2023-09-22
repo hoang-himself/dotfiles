@@ -45,7 +45,7 @@ function set_shell {
 }
 
 function set_prompt {
-  ln -frs '../shared/runcoms/starship.toml' "$XDG_CONFIG_HOME/starship.toml"
+  ln -frs '../common/runcoms/starship.toml' "$XDG_CONFIG_HOME/starship.toml"
 }
 
 function set_openssh {
@@ -54,10 +54,10 @@ function set_openssh {
   sudo mkdir -p -m 700 "/etc/ssh/keys/$(whoami)"
   mkdir -p "$HOME"/.ssh/{config.d,id.d,sockets}
 
-  for rc in ../shared/configs/sshd_config.d/*.conf; do
+  for rc in ../common/configs/sshd_config.d/*.conf; do
     [[ -f "$rc" ]] && sudo ln -frs "$rc" "/etc/ssh/sshd_config.d/$(basename "$rc")"
   done
-  for rc in ../shared/configs/ssh_config.d/*.conf; do
+  for rc in ../common/configs/ssh_config.d/*.conf; do
     [[ -f "$rc" ]] && sudo ln -frs "$rc" "/etc/ssh/ssh_config.d/$(basename "$rc")"
   done
 
@@ -65,8 +65,8 @@ function set_openssh {
 }
 
 function set_runcom {
-  ln -frs '../shared/configs/git' "$XDG_CONFIG_HOME/git"
-  ln -frs "../shared/runcoms/neovim" "$XDG_CONFIG_HOME/nvim"
+  ln -frs '../common/configs/git' "$XDG_CONFIG_HOME/git"
+  ln -frs "../common/runcoms/neovim" "$XDG_CONFIG_HOME/nvim"
 }
 
 function set_nvm {
@@ -78,7 +78,7 @@ function set_nvm {
 }
 
 function set_containers {
-  for file in ../shared/configs/containers/*.conf; do
+  for file in ../common/configs/containers/*.conf; do
     [[ -f "$file" ]] && ln -frs "$file" "$XDG_CONFIG_HOME/containers/$(basename "$file")"
   done
 }

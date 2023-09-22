@@ -27,7 +27,7 @@ function Set-Prompt {
   [CmdletBinding(SupportsShouldProcess)]
   param()
   New-Item -ItemType SymbolicLink -Path "$env:XDG_CONFIG_HOME\starship.toml" `
-    -Target $(Resolve-Path -LiteralPath '..\shared\runcoms\starship.toml') -Force
+    -Target $(Resolve-Path -LiteralPath '..\common\runcoms\starship.toml') -Force
 }
 
 function Set-OpenSSH {
@@ -47,13 +47,13 @@ function Set-OpenSSH {
     -Path "$env:ProgramData\ssh\sshd_config" `
     -Target $(Resolve-Path -LiteralPath '.\configs\sshd_config') -Force
 
-  Get-ChildItem -Path '..\shared\configs\sshd_config.d' | ForEach-Object -Process {
+  Get-ChildItem -Path '..\common\configs\sshd_config.d' | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:ProgramData\ssh\sshd_config.d\$($_.Name)" `
       -Target $_.FullName -Force
   }
 
-  Get-ChildItem -Path '..\shared\configs\ssh_config.d' | ForEach-Object -Process {
+  Get-ChildItem -Path '..\common\configs\ssh_config.d' | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:ProgramData\ssh\ssh_config.d\$($_.Name)" `
       -Target $_.FullName -Force
@@ -92,7 +92,7 @@ function Set-RunCom {
 
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\git" `
-    -Target $(Resolve-Path -LiteralPath '..\shared\configs\git') -Force
+    -Target $(Resolve-Path -LiteralPath '..\common\configs\git') -Force
 
   Get-ChildItem -Path '.\configs\git\bash' | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
@@ -102,7 +102,7 @@ function Set-RunCom {
 
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\nvim" `
-    -Target $(Resolve-Path -LiteralPath '..\shared\runcoms\neovim') -Force
+    -Target $(Resolve-Path -LiteralPath '..\common\runcoms\neovim') -Force
 }
 
 function Set-NVM {
@@ -118,10 +118,10 @@ function Set-NVM {
 function Set-Virtualization {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  #New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
-  #  -Target $(Resolve-Path -LiteralPath '.\configs\wslconfig') -Force
+  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
+    -Target $(Resolve-Path -LiteralPath '.\configs\wslconfig') -Force
 
-  Get-ChildItem -Path '..\shared\configs\containers\*.conf' `
+  Get-ChildItem -Path '..\common\configs\containers\*.conf' `
   | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:XDG_CONFIG_HOME\containers\$($_.Name)" `
