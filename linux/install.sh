@@ -19,6 +19,10 @@ elif [[ -x "$(command -v dnf)" ]]; then
   . ./install_dnf.sh
 fi
 
+function install_prompt {
+  curl -SL https://starship.rs/install.sh | sudo -s sh -s -- -f
+}
+
 function install_nvm {
   local nvm_ref
   nvm_ref=$(curl --silent 'https://api.github.com/repos/nvm-sh/nvm/releases/latest' | grep -Po '"tag_name": "\K.*?(?=")')

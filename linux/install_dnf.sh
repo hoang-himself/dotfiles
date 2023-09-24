@@ -22,10 +22,6 @@ $(command -v zsh)
 EOF
 }
 
-function install_prompt {
-  curl -SL https://starship.rs/install.sh | sudo sh -s -- -f
-}
-
 function install_containers {
   sudo dnf install -y buildah podman skopeo
 }

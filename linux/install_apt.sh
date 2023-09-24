@@ -18,10 +18,6 @@ function install_shell {
   chsh -s "$(command -v zsh)"
 }
 
-function install_prompt {
-  curl -SL https://starship.rs/install.sh | sudo sh -s -- -f
-}
-
 function install_containers {
   sudo apt install -y buildah podman skopeo
 }
