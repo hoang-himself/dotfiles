@@ -14,7 +14,7 @@
   "injection": [
     {
       "parent": "/iso/WinNT10",
-      "archive": "/injection/WinNT10/hwid.zip"
+      "archive": "/injection/WinNT10/ei.cfg.zip"
     }
   ]
 }
