@@ -2,7 +2,6 @@
 <unattend xmlns="urn:schemas-microsoft-com:unattend"
   xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Automatically&UILanguage=en-US&UserLocale=en-001&KeyboardLayout=0409%3A00000409&ProcessorArchitecture=amd64&ComputerName=&TimeZone=Automatically&PartitionMode=Manually&WindowsEdition=none&UserAccountMode=Manually&LockoutMode=Default&EnableLongPaths=true&AllowPowerShellScripts=true&WifiMode=Manually&ExpressSettings=Privacy-->
   <settings pass="windowsPE">
     <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64"
       publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
@@ -32,11 +31,15 @@
       <RunSynchronous>
         <RunSynchronousCommand wcm:action="add">
           <Order>1</Order>
-          <Path>%windir%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 /f</Path>
+          <Path>reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 /f</Path>
         </RunSynchronousCommand>
         <RunSynchronousCommand wcm:action="add">
           <Order>2</Order>
-          <Path>%windir%\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command "Set-ExecutionPolicy -Scope 'LocalMachine' -ExecutionPolicy 'RemoteSigned' -Force;"</Path>
+          <Path>powershell.exe -NoProfile -Command "Set-ExecutionPolicy -Scope 'LocalMachine' -ExecutionPolicy 'RemoteSigned' -Force;"</Path>
+        </RunSynchronousCommand>
+        <RunSynchronousCommand wcm:action="add">
+          <Order>3</Order>
+          <Path>cmd.exe /q /c "FOR %i IN (C D E F G H I J K L N M O P Q R S T U V W X Y Z) DO IF EXIST %i:\bootstrap\WinNT10\CreateSetup.cmd cmd.exe /c %i:\bootstrap\WinNT10\CreateSetup.cmd"</Path>
         </RunSynchronousCommand>
       </RunSynchronous>
     </component>
@@ -53,7 +56,6 @@
     </component>
     <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64"
       publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-      <ConfigureChatAutoInstall>false</ConfigureChatAutoInstall>
       <OOBE>
         <HideEULAPage>true</HideEULAPage>
         <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
