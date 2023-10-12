@@ -33,8 +33,13 @@ function Install-Prompt {
 }
 
 function Install-Virtualization {
-  Enable-WindowsOptionalFeature -Online -All -NoRestart `
-    -FeatureName @('HypervisorPlatform', 'VirtualMachinePlatform','Microsoft-Windows-Subsystem-Linux', 'Microsoft-Hyper-V')
+  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName @(
+    'HypervisorPlatform',
+    'VirtualMachinePlatform',
+    'Microsoft-Windows-Subsystem-Linux',
+    'Microsoft-Hyper-V',
+    'Containers-DisposableClientVM'
+  )
 
   winget install --source winget --id 'RedHat.Podman-Desktop'
   winget install --source winget --id 'RedHat.Podman'
