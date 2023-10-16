@@ -25,8 +25,8 @@ function install_prompt {
 
 function install_nvm {
   local nvm_ref
-  nvm_ref=$(curl --silent 'https://api.github.com/repos/nvm-sh/nvm/releases/latest' | grep -Po '"tag_name": "\K.*?(?=")')
-  curl -fSL "https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_ref}/install.sh" | bash
+  nvm_ref=$(curl -sL 'https://api.github.com/repos/nvm-sh/nvm/releases/latest' | grep -Po '"tag_name": "\K.*?(?=")')
+  curl -SL "https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_ref}/install.sh" | bash
 }
 
 function set_shell {
