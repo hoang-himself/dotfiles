@@ -1,5 +1,3 @@
-@echo off
-
 :: Precheck
 fltmc >nul || exit /b
 
