@@ -75,8 +75,10 @@ Backup of *.doc*
 *.wps
 
 # Environments
-#.env.*.local
-*.local
+*.venv
+*.venv.*
+*.env
+*.env.*
 
 # Font
 *.fnt
@@ -173,3 +175,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Purpose-specific file
+*.local
+!*.example
