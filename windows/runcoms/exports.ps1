@@ -5,6 +5,3 @@ $MaximumHistoryCount = 1024
 Set-PSReadLineOption -MaximumHistoryCount $MaximumHistoryCount
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -ShowToolTips
-
-$PSDefaultParameterValues = @{}
-$PSDefaultParameterValues.Add('Get-ChildItem:Exclude', '.*')
