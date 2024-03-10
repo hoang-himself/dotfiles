@@ -1,6 +1,6 @@
-# Ventoy configs
+# Ventoy
 
-## Test with a Windows NT 10.0 virtual machine
+## Testing with a Windows NT 10.0 virtual machine
 
 This section is documented accordingly to Hyper-V, but may apply to other hypervisors as well
 
