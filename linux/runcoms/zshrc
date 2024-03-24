@@ -70,8 +70,6 @@ HIST_STAMPS="yyyy-mm-dd"
 HISTSIZE=1024
 SAVEHIST=$HISTSIZE
 
-VSCODE='code-insiders'
-
 # Use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
