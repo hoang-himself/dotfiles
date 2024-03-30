@@ -7,7 +7,8 @@ function Install-Base {
   @(
     'JohnTaylor.lesskey',
     'JohnTaylor.less',
-    'Neovim.Neovim'
+    'Neovim.Neovim',
+    'Google.QuickShare'
   ) | ForEach-Object -Process { winget install --source winget --id "$_" }
 
   Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName 'TelnetClient'
