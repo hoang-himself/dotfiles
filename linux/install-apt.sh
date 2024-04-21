@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+if [[ $EUID -eq 0 ]]; then
+  echo 'Run script without sudoer'
+  exit 1
+fi
+
+if ! command -v apt &>/dev/null; then
+  echo 'apt not found'
+  exit 1
+fi
+
+#shellcheck source=./common.sh
+. ./common.sh
 
 function install_base {
   sudo apt update
@@ -33,3 +45,21 @@ function install_pyenv {
   eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
 }
+
+function main {
+  set_xdg_dir
+
+  install_base
+  install_shell
+  install_prompt
+
+  install_containers
+  install_pyenv
+
+  set_shell
+  set_prompt
+  set_openssh
+  set_runcom
+}
+
+main

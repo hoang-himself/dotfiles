@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+if [[ $EUID -eq 0 ]]; then
+  echo 'Run script without sudoer'
+  exit 1
+fi
+
+if ! command -v dnf &>/dev/null; then
+  echo 'dnf not found'
+  exit 1
+fi
+
+#shellcheck source=./common.sh
+. ./common.sh
 
 function install_base {
   sudo dnf install -y dnf-plugins-core util-linux-user
@@ -46,3 +58,21 @@ function install_rpm_fusion {
   sudo dnf install -y rpmfusion-free-release-tainted \
     rpmfusion-nonfree-release-tainted
 }
+
+function main {
+  set_xdg_dir
+
+  install_base
+  install_shell
+  install_prompt
+
+  install_containers
+  install_pyenv
+
+  set_shell
+  set_prompt
+  set_openssh
+  set_runcom
+}
+
+main

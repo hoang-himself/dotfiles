@@ -1,23 +1,15 @@
 #!/usr/bin/env bash
-if [[ $EUID -eq 0 ]]; then
-  echo 'Run script without sudoer'
-  exit 1
-fi
 
-mkdir -p "$HOME"/.{config,cache,local}
-mkdir -p "$HOME"/.local/{share,state,bin}
+function set_xdg_dir {
+  mkdir -p "$HOME"/.{config,cache,local}
+  mkdir -p "$HOME"/.local/{share,state,bin}
 
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
-export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
-export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
-export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
-
-if [[ -x "$(command -v apt)" ]]; then
-  . ./install_apt.sh
-elif [[ -x "$(command -v dnf)" ]]; then
-  . ./install_dnf.sh
-fi
+  export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+  export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+  export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+  export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
+  export XDG_BIN_HOME=${XDG_BIN_HOME:-$HOME/.local/bin}
+}
 
 function install_prompt {
   curl -SL https://starship.rs/install.sh | sudo -s sh -s -- -f
@@ -86,19 +78,3 @@ function set_containers {
     [[ -f "$file" ]] && ln -frs "$file" "$XDG_CONFIG_HOME/containers/$(basename "$file")"
   done
 }
-
-function main {
-  install_base
-  install_shell
-  install_prompt
-
-  install_containers
-  install_pyenv
-
-  set_shell
-  set_prompt
-  set_openssh
-  set_runcom
-}
-
-main
