@@ -6,8 +6,10 @@ on:
     branches:
       - main
   push:
+    branches:
+      - '!wip/**'
     paths:
-      - 'windows/**'
+      - windows/**
 
 jobs:
   lint:
