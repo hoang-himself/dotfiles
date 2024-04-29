@@ -111,7 +111,6 @@ plugins=(
   gpg-agent
   rsync
   ssh-agent
-  vscode
   zsh-autosuggestions
   zsh-syntax-highlighting # Must be placed at last
 )
