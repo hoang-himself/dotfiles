@@ -1,4 +1,4 @@
-name: 'Windows'
+name: Windows
 
 on:
   workflow_dispatch:
@@ -8,8 +8,6 @@ on:
   push:
     branches:
       - '!wip/**'
-    paths:
-      - windows/**
 
 jobs:
   lint:

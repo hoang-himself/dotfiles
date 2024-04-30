@@ -1,4 +1,4 @@
-name: 'Linux'
+name: Linux
 
 on:
   workflow_dispatch:
@@ -8,8 +8,6 @@ on:
   push:
     branches:
       - '!wip/**'
-    paths:
-      - linux/**
 
 jobs:
   lint:
