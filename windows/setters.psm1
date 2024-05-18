@@ -118,9 +118,6 @@ function Set-NVM {
 function Set-Virtualization {
   [CmdletBinding(SupportsShouldProcess)]
   param()
-  New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.wslconfig" `
-    -Target $(Resolve-Path -LiteralPath '.\configs\wslconfig') -Force
-
   Get-ChildItem -Path '..\common\configs\containers\*.conf' `
   | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
