@@ -5,7 +5,7 @@
 
 ## Disclaimer
 
-You should not clone this repo and use directly, instead create a fork or use this repo as a template to create a new one.
+You should not clone and use this repo directly, instead create a fork or use this repo as a template to create a new one.
 Review the code and remove things you don't want or need.
 
 Use at your own risk!
