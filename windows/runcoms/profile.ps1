@@ -17,7 +17,6 @@ Push-Location (Split-Path -Parent $Profile)
 
 @(
   'exports',
-  'functions',
   'aliases',
   'bindings',
   'completions'

@@ -118,7 +118,7 @@ eval "$(starship init zsh)"
 
 pushd "$ZDOTDIR" >/dev/null
 
-for rc in ./.z{functions,aliases,bindings}; do
+for rc in ./.z{aliases,bindings}; do
   [[ -f "$rc" ]] && source "$rc"
 done
 
