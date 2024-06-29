@@ -1,12 +1,12 @@
-# Dotfiles for Development Container
+# Development Containers
 
-## Instructions
+## Dotfiles
 
 There is no cross platform way to copy aliases from machine to dev container yet, so we put the dotfiles in the project then source it.
 
 For Containerfiles, you must use absolute paths.
 
-```Dockerfile
+```Containerfile
 RUN echo "[ -f /workspaces/.devcontainer/bash_aliases ] && . /workspaces/.devcontainer/bash_aliases" >>~/.bashrc
 ```
 
@@ -22,3 +22,13 @@ See:
 
 - [Going further with Dev Containers](https://microsoft.github.io/code-with-engineering-playbook/developer-experience/going-further/#allow-some-customization)
 - [Lifecycle scripts](https://containers.dev/implementors/json_reference/#lifecycle-scripts)
+
+## Python venv
+
+```Containerfile
+...
+ENV VIRTUAL_ENV=/opt/venv
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+...
+```
