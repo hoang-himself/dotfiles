@@ -89,12 +89,6 @@ function Set-RunCom {
     -Path "$env:XDG_CONFIG_HOME\git" `
     -Target $(Resolve-Path -LiteralPath '..\common\configs\git') -Force
 
-  Get-ChildItem -Path '.\configs\git\bash' | ForEach-Object -Process {
-    New-Item -ItemType SymbolicLink `
-      -Path "$env:USERPROFILE\.$($_.Name)" `
-      -Target $_.FullName -Force
-  }
-
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\nvim" `
     -Target $(Resolve-Path -LiteralPath '..\common\runcoms\neovim') -Force
