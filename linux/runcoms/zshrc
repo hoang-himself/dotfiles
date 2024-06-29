@@ -3,9 +3,6 @@
 # pyenv
 [[ -z "$VIRTUAL_ENV" ]] && eval "$(pyenv init -)"
 
-# nvm
-export NVM_DIR="$XDG_CONFIG_HOME/nvm"
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$XDG_BIN_HOME:$PATH
 

@@ -53,7 +53,3 @@ function Install-Pyenv {
   &'./install-pyenv-win.ps1'
   Remove-Item -Path './install-pyenv-win.ps1'
 }
-
-function Install-Nvm {
-  winget install --source winget --id 'CoreyButler.NVMforWindows'
-}

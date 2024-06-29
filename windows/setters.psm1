@@ -100,16 +100,6 @@ function Set-RunCom {
     -Target $(Resolve-Path -LiteralPath '..\common\runcoms\neovim') -Force
 }
 
-function Set-NVM {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-  $NVM_HOME = "$env:APPDATA\nvm"
-  Start-Process -FilePath "$NVM_HOME\nvm.exe" `
-    -ArgumentList @('install', 'latest') -Wait
-  Start-Process -FilePath "$NVM_HOME\nvm.exe" `
-    -ArgumentList @('use', 'latest') -Wait
-}
-
 function Set-Virtualization {
   [CmdletBinding(SupportsShouldProcess)]
   param()

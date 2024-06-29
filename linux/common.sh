@@ -15,12 +15,6 @@ function install_prompt {
   curl -SL https://starship.rs/install.sh | sudo -s sh -s -- -f
 }
 
-function install_nvm {
-  local nvm_ref
-  nvm_ref=$(curl -sL 'https://api.github.com/repos/nvm-sh/nvm/releases/latest' | grep -Po '"tag_name": "\K.*?(?=")')
-  curl -SL "https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_ref}/install.sh" | bash
-}
-
 function set_shell {
   mkdir -p "$ZDOTDIR/zshrc.d"
 
@@ -63,14 +57,6 @@ function set_openssh {
 function set_runcom {
   ln -frs '../common/configs/git' "$XDG_CONFIG_HOME/git"
   ln -frs "../common/runcoms/neovim" "$XDG_CONFIG_HOME/nvim"
-}
-
-function set_nvm {
-  export NVM_DIR="$XDG_CONFIG_HOME/nvm"
-  [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
-  [[ -s "$NVM_DIR/bash_completion" ]] && . "$NVM_DIR/bash_completion"
-  nvm install node
-  nvm use node
 }
 
 function set_containers {
