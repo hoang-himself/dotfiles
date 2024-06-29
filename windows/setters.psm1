@@ -80,11 +80,6 @@ function Set-RunCom {
 
   Add-ToUserPath -Path '%XDG_BIN_HOME%' -Prepend
 
-  # https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
-  New-Item -ItemType SymbolicLink `
-    -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" `
-    -Target $(Resolve-Path -LiteralPath '.\configs\wt_settings.json') -Force
-
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\git" `
     -Target $(Resolve-Path -LiteralPath '..\common\configs\git') -Force
