@@ -3,7 +3,6 @@ function Install-Base {
   Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
   Update-Module -Force
 
-  winget install --source winget --id 'GnuPG.Gpg4win' --override "/C=`"$PWD\configs\gpg4win.ini`" /S"
   @(
     'JohnTaylor.lesskey',
     'JohnTaylor.less',
