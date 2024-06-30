@@ -38,7 +38,6 @@ Include __PROGRAMDATA__/ssh/sshd_config.d/*.conf
 # The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
 # but this is overridden so installations will only check .ssh/authorized_keys
 AuthorizedKeysFile .ssh/authorized_keys
-#__PROGRAMDATA__/ssh/keys/%u/authorized_keys
 
 #AuthorizedPrincipalsFile none
 
@@ -87,5 +86,5 @@ Subsystem sftp sftp-server.exe
 #  PermitTTY no
 #  ForceCommand cvs server
 
-#Match Group administrators
-#  AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+Match Group administrators
+  AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys

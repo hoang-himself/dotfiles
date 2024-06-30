@@ -34,7 +34,6 @@ function Set-OpenSSH {
   [CmdletBinding(SupportsShouldProcess)]
   param()
   New-Item -ItemType Directory -Path "$env:ProgramData\ssh\sshd_config.d" -Force
-  New-Item -ItemType Directory -Path "$env:ProgramData\ssh\keys\$env:USERNAME" -Force
 
   @(
     'config.d',

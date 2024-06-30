@@ -17,8 +17,7 @@ function install_base {
   sudo apt install -y apt-utils build-essential
   sudo apt full-upgrade -y
   sudo apt install -y git git-lfs less neovim make curl wget rsync \
-    openssl acl gnupg dos2unix cron shellcheck \
-    openssh-client #openssh-server
+    openssl acl gnupg dos2unix cron shellcheck openssh-client
   sudo apt autoremove -y
 }
 

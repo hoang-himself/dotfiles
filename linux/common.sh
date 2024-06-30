@@ -40,8 +40,6 @@ function set_prompt {
 
 function set_openssh {
   sudo mkdir -p -m 700 '/etc/ssh/sshd_config.d'
-  sudo mkdir -p -m 700 '/etc/ssh/keys'
-  sudo mkdir -p -m 700 "/etc/ssh/keys/$(whoami)"
   mkdir -p "$HOME"/.ssh/{config.d,id.d,sockets}
 
   for rc in ../common/configs/sshd_config.d/*.conf; do
