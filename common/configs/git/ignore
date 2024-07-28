@@ -179,3 +179,4 @@ $RECYCLE.BIN/
 # Purpose-specific file
 *.local
 !*.example
+!*.sample
