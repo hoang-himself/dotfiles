@@ -59,8 +59,6 @@ function install_rpm_fusion {
 }
 
 function main {
-  set_xdg_dir
-
   install_base
   install_shell
   install_prompt
