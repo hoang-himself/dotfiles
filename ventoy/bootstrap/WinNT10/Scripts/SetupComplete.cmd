@@ -13,7 +13,7 @@ set SCRIPTSDIR=%SETUPDIR%\Scripts
 start /wait cmd /c "%ASSETSDIR%\Office\start_setup.cmd"
 
 ::
-curl -SL -o "%SCRIPTSDIR%\MAS_AIO.cmd" https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version/MAS_AIO.cmd
+curl -SL -o "%SCRIPTSDIR%\MAS_AIO.cmd" https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version-KL/MAS_AIO.cmd
 start /wait cmd /c "%SCRIPTSDIR%\MAS_AIO.cmd" /HWID /Ohook
 
 :: Postcondition
