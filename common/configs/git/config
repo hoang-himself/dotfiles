@@ -82,5 +82,11 @@
   process = git-lfs filter-process
   required = true
 
+[column]
+  ui = auto
+
+[branch]
+  sort = -committerdate
+
 [include]
   path = ~/.gitconfig.local
