@@ -12,7 +12,7 @@
     {
       "parent": "/iso/WinNT10",
       "template": [
-        "/script/WinNT10/unattend.xml"
+        "/script/WinNT10/autounattend.xml"
       ],
       "autosel": 1
     }
