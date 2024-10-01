@@ -19,5 +19,5 @@ start /wait cmd /c "%SCRIPTSDIR%\MAS_AIO.cmd" /HWID /Ohook
 :: Postcondition
 if exist "%SETUPDIR%\CreateSetup.cmd" @rd /S /Q "%SETUPDIR%\CreateSetup.cmd"
 if exist "%ASSETSDIR%" @rd /S /Q "%ASSETSDIR%"
-if exist "%SCRIPTSDIR%" @rd /S /Q "%SCRIPTSDIR%"
+::if exist "%SCRIPTSDIR%" @rd /S /Q "%SCRIPTSDIR%"
 exit /b

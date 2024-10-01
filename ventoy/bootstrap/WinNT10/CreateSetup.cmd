@@ -5,5 +5,5 @@ set SETUPDIR=%WINDIR%\Setup
 set ASSETSDIR=%SETUPDIR%\Assets
 
 :: Copy files to local
-xcopy /herky "%FILEDIR%\*.*" "%SETUPDIR%\" >nul
+xcopy /H /I /V /E /R/ K /Y "%FILEDIR%\*.*" "%SETUPDIR%\" >nul
 if not exist "%ASSETSDIR%" mkdir "%ASSETSDIR%"
