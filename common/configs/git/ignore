@@ -180,3 +180,4 @@ $RECYCLE.BIN/
 *.local
 !*.example
 !*.sample
+!*.template
