@@ -35,18 +35,19 @@
 ########################################################################
 #
 # Type must be one of the following:
-#   - build: Changes affecting the build system or external dependencies
-#            (example scopes: gulp, broccoli, npm)
-#   - ci: Changes to our CI configuration files and scripts
-#         (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-#   - docs: Documentation only changes
 #   - feat: A new feature
 #   - fix: A bug fix
-#   - perf: A code change that improves performance
-#   - refactor: Code changes that neither fix a bug nor add a feature
+#   - docs: Documentation only changes
 #   - style: Changes that do not affect the meaning of the code
 #            (e.g.: white-spaces, formatting, missing semi-colons, etc.)
+#   - refactor: Code changes that neither fix a bug nor add a feature
 #   - test: Adding missing tests or correcting existing tests
+#   - build: Changes affecting the build system or external dependencies
+#            (example scopes: gulp, broccoli, npm)
+#   - chore: Changes to the build process or auxiliary tools and
+#            libraries such as documentation generation
+#   - ci: Changes to our CI configuration files and scripts
+#         (example scopes: Travis, Circle, BrowserStack, SauceLabs)
 #   - revert: Reverting a previous commit, followed by the header of the
 #             reverted commit. In the body it should say:
 #             "This reverts commit <hash>."
