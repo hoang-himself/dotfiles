@@ -1,3 +1,5 @@
+@echo off
+
 :: Set paths
 set USBPART=%~d0
 set FILEDIR=%USBPART%\bootstrap\WinNT10
