@@ -1,39 +1,63 @@
-#Requires -PSEdition Core -RunAsAdministrator
+#Requires -RunAsAdministrator
 
-Import-Module -Name './utils.psm1'
-Import-Module -Name './installers.psm1'
-Import-Module -Name './setters.psm1'
+Import-Module -Name './common.psm1'
 
-@(
-  'config',
-  'cache',
-  'local'
-) | ForEach-Object -Process {
-  New-Item -Path "$env:USERPROFILE\.$_" -ItemType Directory -Force
+function Install-Base {
+  WSReset.exe -i
+  Install-PackageProvider -Name 'NuGet' -Force
+  Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
+
+  Install-Module -Name Microsoft.WinGet.Client -Force -AllowClobber
+  Repair-WinGetPackageManager -Latest -Force
+
+  Update-Module -Force
+  winget upgrade --source winget --all
+
+  @(
+    'OpenSSH.Client',
+    'OpenSSH.Server'
+  ) | ForEach-Object -Process { Add-WindowsCapability -Online -Name "$_" }
+
+  Enable-WindowsOptionalFeature -Online -All -NoRestart -FeatureName @(
+    'HypervisorPlatform',
+    'VirtualMachinePlatform',
+    'Microsoft-Hyper-V',
+    'Microsoft-Windows-Subsystem-Linux',
+    'Containers-DisposableClientVM'
+  )
+
+  @(
+    'Microsoft.PowerShell',
+    'Git.Git',
+    'Neovim.Neovim',
+    'jftuga.less',
+    #'Google.QuickShare',
+    'RedHat.Podman-Desktop',
+    'RedHat.Podman'
+  ) | ForEach-Object -Process { winget install --source winget --id "$_" }
 }
-@(
-  'share',
-  'state',
-  'bin'
-) | ForEach-Object -Process {
-  New-Item -Path "$env:USERPROFILE\.local\$_" -ItemType Directory -Force
+
+function Install-Shell {
+  winget install --source winget --id 'Microsoft.PowerShell'
+
+  Install-Module -Scope CurrentUser -Force -AllowClobber -Name @(
+    'PowerShellGet',
+    'PSReadLine',
+    'posh-git'
+  )
 }
 
-@(
-  @('XDG_CONFIG_HOME', '%USERPROFILE%\.config'),
-  @('XDG_CACHE_HOME', '%USERPROFILE%\.cache'),
-  @('XDG_DATA_HOME', '%USERPROFILE%\.local\share'),
-  @('XDG_STATE_HOME', '%USERPROFILE%\.local\state'),
-  @('XDG_BIN_HOME', '%USERPROFILE%\.local\bin')
-) | ForEach-Object -Process {
-  Add-ToUserEnvironment -Name $_[0] -Value $_[1]
+function Install-Prompt {
+  winget install --source winget --id 'Starship.Starship'
 }
 
-$env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
-$env:XDG_CACHE_HOME = "$env:USERPROFILE\.cache"
-$env:XDG_DATA_HOME = "$env:USERPROFILE\.local\share"
-$env:XDG_STATE_HOME = "$env:USERPROFILE\.local\state"
-$env:XDG_BIN_HOME = "$env:USERPROFILE\.local\bin"
+function Install-Pyenv {
+  Invoke-WebRequest -UseBasicParsing `
+    -Uri 'https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1' `
+    -OutFile './install-pyenv-win.ps1'
+  &'./install-pyenv-win.ps1'
+  Remove-Item -Path './install-pyenv-win.ps1'
+}
 
 function main {
   $ErrorActionPreference = 'SilentlyContinue'
@@ -41,16 +65,12 @@ function main {
   Install-Base
   Install-Shell
   Install-Prompt
-
-  Install-Virtualization
   Install-Pyenv
 
+  Set-Base
   Set-Shell
   Set-Prompt
-  Set-OpenSSH
   Set-RunCom
-
-  Disable-WindowsOptionalFeature -Online -FeatureName 'MicrosoftWindowsPowerShellV2Root'
 }
 
 main
