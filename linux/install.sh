@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 if [[ $EUID -eq 0 ]]; then
-  echo 'Run script without sudoer'
-  exit 1
-fi
-
-if ! command -v dnf &>/dev/null; then
-  echo 'dnf not found'
+  echo 'Run script without sudo'
   exit 1
 fi
 
@@ -13,11 +8,10 @@ fi
 . ./common.sh
 
 function install_base {
-  sudo dnf upgrade --refresh
-  sudo dnf install -y dnf-plugins-core util-linux-user
-  sudo dnf upgrade -y
-  sudo dnf install -y git git-lfs less neovim make curl wget rsync \
-    openssl acl gnupg dos2unix crontabs ShellCheck openssh-clients
+  sudo dnf upgrade --refresh -y
+  sudo dnf install -y git neovim less \
+    openssh openssh-clients openssh-server \
+    buildah podman skopeo
   sudo dnf autoremove -y
 }
 
@@ -27,14 +21,12 @@ function install_shell {
 
   sudo dnf install -y zsh
 
-  # Use heredoc to automatically press enter on confirmation
-  sudo lchsh "$USER" <<EOF
-$(command -v zsh)
-EOF
+  # Use heredoc to emulate enter
+  chsh -s "$(command -v zsh)"
 }
 
-function install_containers {
-  sudo dnf install -y buildah podman skopeo
+function install_prompt {
+  curl -SL https://starship.rs/install.sh | sudo -s sh -s -- -f
 }
 
 function install_pyenv {
@@ -62,13 +54,11 @@ function main {
   install_base
   install_shell
   install_prompt
-
-  install_containers
   install_pyenv
 
+  set_base
   set_shell
   set_prompt
-  set_openssh
   set_runcom
 }
 
