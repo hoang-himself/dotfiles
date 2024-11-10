@@ -2,7 +2,7 @@ set SETUPDIR=C:\Users\WDAGUtilityAccount\Desktop\Setup
 set ASSETSDIR=%TEMP%\Assets
 
 rem We need a writeable location to launch MSIs it seems
-xcopy /H /I /V /E /R /K /Y %SETUPDIR%\* %TEMP%\
+xcopy /HIVERKYQ %SETUPDIR%\* %TEMP%\
 
 rem https://github.com/microsoft/vscode/blob/main/build/win32/code.iss
 "%ASSETSDIR%\vscode.exe" /silent /suppressmsgboxes /MERGETASKS="!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath"
