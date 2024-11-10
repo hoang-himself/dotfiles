@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend"
   xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -22,7 +22,7 @@
       <RunSynchronous>
         <RunSynchronousCommand wcm:action="add">
           <Order>1</Order>
-          <Path>cmd.exe /q /c "FOR %i IN (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) DO IF EXIST %i:\bootstrap\WinNT10\CreateSetup.cmd cmd.exe /c %i:\bootstrap\WinNT10\CreateSetup.cmd"</Path>
+          <Path>cmd.exe /q /c "FOR %i IN (A B C D E F G H I J K L M N O P Q R S T U V W X Y Z) DO IF EXIST %i:\bootstrap\WinNT10\CreateSetup.cmd cmd.exe /q /c %i:\bootstrap\WinNT10\CreateSetup.cmd"</Path>
         </RunSynchronousCommand>
         <RunSynchronousCommand wcm:action="add">
           <Order>2</Order>
@@ -54,11 +54,11 @@
         </RunSynchronousCommand>
         <RunSynchronousCommand wcm:action="add">
           <Order>9</Order>
-          <Path>cmd.exe /c "reg.exe import "C:\Windows\Setup\Scripts\contextmenu.reg" >>"C:\Windows\Setup\Scripts\contextmenu.log" 2>&amp;1"</Path>
+          <Path>cmd.exe /c "reg.exe import "C:\Windows\Setup\Scripts\contextmenu.reg" >"C:\Windows\Setup\Scripts\contextmenu.log" 2>&amp;1"</Path>
         </RunSynchronousCommand>
         <RunSynchronousCommand wcm:action="add">
           <Order>10</Order>
-          <Path>cmd.exe /c "C:\Windows\Setup\Scripts\schneegans.cmd >>"C:\Windows\Setup\Scripts\schneegans.log" 2>&amp;1"</Path>
+          <Path>cmd.exe /c "C:\Windows\Setup\Scripts\schneegans.cmd >"C:\Windows\Setup\Scripts\schneegans.log" 2>&amp;1"</Path>
         </RunSynchronousCommand>
         <RunSynchronousCommand wcm:action="add">
           <Order>11</Order>
@@ -66,7 +66,7 @@
         </RunSynchronousCommand>
         <RunSynchronousCommand wcm:action="add">
           <Order>12</Order>
-          <Path>cmd.exe /c "C:\Windows\Setup\Scripts\localmachine.cmd >>"C:\Windows\Setup\Scripts\localmachine.log" 2>&amp;1"</Path>
+          <Path>cmd.exe /c "C:\Windows\Setup\Scripts\localmachine.cmd >"C:\Windows\Setup\Scripts\localmachine.log" 2>&amp;1"</Path>
         </RunSynchronousCommand>
         <RunSynchronousCommand wcm:action="add">
           <Order>13</Order>
@@ -254,6 +254,7 @@ $selectors = @(
   'Microsoft-RemoteDesktopConnection';
   'Recall';
   'Microsoft-SnippingTool';
+  'MicrosoftWindowsPowerShellV2Root';
 );
 
 $getCommand = { Get-WindowsOptionalFeature -Online; }
@@ -1175,6 +1176,9 @@ reg.exe add "HKCU\Control Panel\Mouse" /v MouseSpeed /t REG_SZ /d "0" /f
 reg.exe add "HKCU\Control Panel\Mouse" /v MouseThreshold1 /t REG_SZ /d "0" /f
 reg.exe add "HKCU\Control Panel\Mouse" /v MouseThreshold2 /t REG_SZ /d "0" /f
 
+:: Enables Underline Access Keys
+reg.exe add "HKCU\Control Panel\Accessibility\Keyboard Preference" /v On /t REG_SZ /d "1" /f
+
 :: Disables Sticky Keys
 reg.exe add "HKCU\Control Panel\Accessibility\StickyKeys" /v Flags /t REG_SZ /d "506" /f
 reg.exe add "HKCU\Control Panel\Accessibility\StickyKeys" /v HotkeyFlags /t REG_SZ /d "58" /f
@@ -1246,6 +1250,9 @@ reg.exe add "HKCU\Software\Microsoft\Multimedia\Audio" /v "UserDuckingPreference
 
 :: Enables User Account Control (Default Value)
 reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 1 /f
+
+::
+shutdown.exe /r /t 0
     </File>
   </Extensions>
 </unattend>

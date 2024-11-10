@@ -7,5 +7,4 @@ set SETUPDIR=%WINDIR%\Setup
 set ASSETSDIR=%SETUPDIR%\Assets
 
 :: Copy files to local
-xcopy /HIVERKY "%FILEDIR%\*.*" "%SETUPDIR%\" 2>&1
-if not exist "%ASSETSDIR%" mkdir "%ASSETSDIR%"
+xcopy /HIVERKYQ "%FILEDIR%\*.*" "%SETUPDIR%\" 2>&1

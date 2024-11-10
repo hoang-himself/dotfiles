@@ -16,11 +16,15 @@ set SCRIPTSDIR=%SETUPDIR%\Scripts
 ::start /wait cmd /c "%ASSETSDIR%\Office\start_setup.cmd"
 
 ::
+::curl -SL -o "%ASSETSDIR%\VisualCppRedist_AIO_x86_x64.exe" https://github.com/abbodi1406/vcredist/releases/latest/download/VisualCppRedist_AIO_x86_x64.exe
+::"%ASSETSDIR%\VisualCppRedist_AIO_x86_x64.exe" /ai9
+
+::
 ::curl -SL -o "%SCRIPTSDIR%\MAS_AIO.cmd" https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version-KL/MAS_AIO.cmd
 ::start /wait cmd /c "%SCRIPTSDIR%\MAS_AIO.cmd" /HWID /Ohook
 
 :: Postcondition
 if exist "%SETUPDIR%\CreateSetup.cmd" del /Q "%SETUPDIR%\CreateSetup.cmd"
 if exist "%ASSETSDIR%" rd /S /Q "%ASSETSDIR%"
-::if exist "%SCRIPTSDIR%" rd /S /Q "%SCRIPTSDIR%"
+for /f "delims=" %%i in ('dir "%SCRIPTSDIR%" /b /a-d ^| findstr /vile ".log" ^| findstr /vile "currentuser.cmd"') do del "%SCRIPTSDIR%\%%i"
 exit /b
