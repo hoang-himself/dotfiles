@@ -149,5 +149,5 @@ function Set-RunCom {
 
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\nvim" `
-    -Target $(Resolve-Path -LiteralPath '..\common\runcoms\neovim') -Force
+    -Target $(Resolve-Path -LiteralPath '..\common\runcoms\nvim') -Force
 }

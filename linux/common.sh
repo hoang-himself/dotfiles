@@ -57,5 +57,5 @@ function set_prompt {
 
 function set_runcom {
   ln -frs '../common/configs/git' "$XDG_CONFIG_HOME/git"
-  ln -frs "../common/runcoms/neovim" "$XDG_CONFIG_HOME/nvim"
+  ln -frs '../common/runcoms/nvim' "$XDG_CONFIG_HOME/nvim"
 }
