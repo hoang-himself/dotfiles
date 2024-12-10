@@ -30,5 +30,5 @@ set SCRIPTSDIR=%SETUPDIR%\Scripts
 :: Postcondition
 if exist "%SETUPDIR%\CreateSetup.cmd" del /Q "%SETUPDIR%\CreateSetup.cmd"
 if exist "%ASSETSDIR%" rd /S /Q "%ASSETSDIR%"
-for /f "delims=" %%i in ('dir "%SCRIPTSDIR%" /b /a-d ^| findstr /vile ".log" ^| findstr /vile "currentuser.cmd"') do del "%SCRIPTSDIR%\%%i"
+for /f "delims=" %%i in ('dir "%SCRIPTSDIR%" /b /a-d ^| findstr /vile ".log" ^| findstr /vile "UserOnce.ps1"') do del "%SCRIPTSDIR%\%%i"
 exit /b
