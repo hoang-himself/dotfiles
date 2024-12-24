@@ -8,4 +8,6 @@ Host *
   #ControlPath ~/.ssh/sockets/%C
   #ControlPersist 600
   IdentitiesOnly yes
+  AddKeysToAgent yes
+  ForwardAgent yes
   ExitOnForwardFailure yes
