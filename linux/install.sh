@@ -22,7 +22,6 @@ function install_shell {
 
   sudo dnf install -y zsh
 
-  # Use heredoc to emulate enter
   chsh -s "$(command -v zsh)"
 }
 

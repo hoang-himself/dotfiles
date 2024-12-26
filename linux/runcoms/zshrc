@@ -103,10 +103,6 @@ zstyle :omz:plugins:ssh-agent ssh-add-args -q
 plugins=(
   colored-man-pages
   common-aliases
-  git-lfs
-  git
-  gpg-agent
-  rsync
   ssh-agent
   zsh-autosuggestions
   zsh-syntax-highlighting # Must be placed at last
