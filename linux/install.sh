@@ -9,7 +9,8 @@ fi
 
 function install_base {
   sudo dnf upgrade --refresh -y
-  sudo dnf install -y git neovim less \
+  sudo dnf install -y \
+    util-linux-user git neovim less \
     openssh openssh-clients openssh-server \
     buildah podman skopeo
   sudo dnf autoremove -y
