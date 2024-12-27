@@ -1,5 +1,5 @@
 EscapeChar ~
-#IgnoreUnknown ServerAliveInterval,ServerAliveCountMax
+IgnoreUnknown Password
 
 Include ~/.ssh/config.d/*.conf
 
