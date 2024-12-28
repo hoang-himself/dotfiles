@@ -9,7 +9,7 @@ fi
 
 function install_base {
   sudo dnf upgrade --refresh -y
-  sudo dnf install -y \
+  sudo dnf install -y --skip-broken \
     util-linux-user git neovim less \
     openssh openssh-clients openssh-server \
     buildah podman skopeo
