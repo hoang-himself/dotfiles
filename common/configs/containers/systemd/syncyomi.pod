@@ -1,0 +1,6 @@
+[Unit]
+Description=SyncYomi Pod
+
+[Pod]
+Network=swag.network
+Volume=syncyomi.volume:/config

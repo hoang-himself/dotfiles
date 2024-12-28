@@ -1,0 +1,4 @@
+[Unit]
+Description=WireGuard Server Network
+
+[Network]

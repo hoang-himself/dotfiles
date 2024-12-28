@@ -1,0 +1,5 @@
+[Unit]
+Description=Xray Pod
+
+[Pod]
+Network=swag.network

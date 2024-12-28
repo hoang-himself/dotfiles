@@ -1,0 +1,12 @@
+[Unit]
+Description=WireGuard Server Container
+
+[Container]
+Image=lscr.io/linuxserver/wireguard:latest
+AutoUpdate=registry
+Pod=wireguard-server.pod
+EnvironmentFile=../wireguard-server/wireguard-server.env
+AddCapability=NET_ADMIN
+AddCapability=NET_RAW
+Sysctl=net.ipv4.conf.all.src_valid_mark=1
+Sysctl=net.ipv4.ip_forward=1

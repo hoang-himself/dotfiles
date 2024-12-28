@@ -1,0 +1,7 @@
+[Unit]
+Description=Xray Container
+
+[Container]
+Image=ghcr.io/xtls/xray-core:latest
+Pod=xray.pod
+Volume=../xray/xray:/etc/xray:Z

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 if [[ $EUID -eq 0 ]]; then
   echo 'Run script without sudo'
   exit 1
@@ -38,16 +39,6 @@ function install_pyenv {
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
-}
-
-function install_rpm_fusion {
-  sudo dnf install -y \
-    "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-    "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-  sudo dnf upgrade --refresh
-  sudo dnf -y groupupdate core
-  sudo dnf install -y rpmfusion-free-release-tainted \
-    rpmfusion-nonfree-release-tainted
 }
 
 function main {

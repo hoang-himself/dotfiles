@@ -19,24 +19,3 @@ Assume that the escape character is `~`:
 Settings in the "top" level can’t be overridden, whereas settings in `Host *` will be overridden by any setting defined before that section (in the "top" level, or in a section matching the target host).
 
 The "top" level should be used for settings which shouldn’t be overridden, and the `Host *` section, which should come last, should be used for default settings.
-
-## Templates
-
-```ssh_config
-Host *github.com
-  HostName github.com
-  Port 22
-  User git
-  IdentityFile id_rsa
-
-Host rl
-  HostName raspberrypi.local
-
-Host r?
-  Port 22
-  User pi
-  IdentityFile id_rsa
-  AddKeysToAgent yes
-  ForwardAgent yes
-  StreamLocalBindUnlink yes
-```

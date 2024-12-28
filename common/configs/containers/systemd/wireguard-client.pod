@@ -1,0 +1,6 @@
+[Unit]
+Description=WireGuard Client Pod
+
+[Pod]
+Network=wireguard-client.network
+Volume=wireguard-client.volume:/config

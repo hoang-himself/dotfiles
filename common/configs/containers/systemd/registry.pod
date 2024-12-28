@@ -1,0 +1,6 @@
+[Unit]
+Description=Registry Pod
+
+[Pod]
+Network=swag.network
+Volume=registry.volume:/var/lib/registry
