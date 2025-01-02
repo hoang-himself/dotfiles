@@ -1,0 +1,13 @@
+# Plugin ordering is static
+# See plugin.cfg
+
+. {
+  log
+  errors
+  hosts {
+    10.13.13.1 vpsst.hoang-himself.dev
+    fallthrough
+  }
+  forward . 1.1.1.1 8.8.8.8 1.0.0.1 8.8.4.4
+  cache 600
+}
