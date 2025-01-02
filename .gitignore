@@ -1,6 +1,9 @@
+hosts
+
 *.conf
 *.ini
 *.json
 *.toml
+
 !*.gitkeep
 !*.sample

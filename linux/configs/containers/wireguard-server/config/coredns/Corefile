@@ -1,0 +1,19 @@
+# Plugin ordering is static
+# See plugin.cfg
+
+. {
+  reload
+  log
+  errors
+  loop
+
+  cancel
+  bufsize
+  minimal
+  cache 60
+
+  hosts hosts {
+    fallthrough
+  }
+  forward . 1.1.1.1 8.8.8.8 1.0.0.1 8.8.4.4
+}
