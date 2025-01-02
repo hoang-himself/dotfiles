@@ -12,7 +12,8 @@
         ]
       },
       "streamSettings": {
-        "network": "ws"
+        "network": "xhttp",
+        "xhttpSettings": {}
       },
       "sniffing": {
         "enabled": true,
