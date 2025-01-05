@@ -5,7 +5,7 @@ function install_base {
 }
 
 function set_containers {
-  ln -frs '../common/configs/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
+  ln -frs './configs/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
   systemctl --user daemon-reload
 }
 
