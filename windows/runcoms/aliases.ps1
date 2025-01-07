@@ -67,36 +67,6 @@ function rmtmp {
   Remove-Item -Path $TMPDIR -Recurse -Force
 }
 
-function Set-Formatting {
-  [CmdletBinding(SupportsShouldProcess)]
-  param()
-  $editorconfig = @'
-root = true
-
-[*]
-indent_style = space
-indent_size = 2
-end_of_line = lf
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
-
-[*.{bat,cmd}]
-end_of_line = crlf
-
-[*.md]
-indent_size = 4
-trim_trailing_whitespace = false
-
-'@
-
-  if (Test-Path -Path '.editorconfig') {
-    Write-Output -InputObject $editorconfig
-  } else {
-    Set-Content -Path '.editorconfig' -Value $editorconfig
-  }
-}
-
 function Clear-GlobalHistory {
   Clear-History
   Set-Content -Path $($(Get-PSReadLineOption).'HistorySavePath') -Value ''
