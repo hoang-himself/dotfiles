@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-function set_containers {
-  ln -frs './configs/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
-  systemctl --user daemon-reload
-}
+#shellcheck source=./common.sh
+. ./common.sh
 
 function set_firewall {
   sudo firewall-cmd --permanent --add-service http
@@ -14,7 +12,7 @@ function set_firewall {
 }
 
 function main {
-  set_containers
+  set_systemd
 }
 
 main

@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
+#shellcheck source=./common.sh
+. ./common.sh
+
 function install_base {
   sudo rpm-ostree install buildah git git-lfs neovim avahi nss-mdns qemu-user-static
-}
-
-function set_containers {
-  ln -frs './configs/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
-  systemctl --user daemon-reload
 }
 
 function set_firewall {
@@ -20,7 +18,7 @@ function set_firewall {
 
 function main {
   install_base
-  set_containers
+  set_systemd
 }
 
 main

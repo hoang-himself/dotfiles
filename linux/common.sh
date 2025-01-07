@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 mkdir -p "$HOME"/.{config,cache,local}
+mkdir -p "$HOME"/.config/containers
 mkdir -p "$HOME"/.local/{share,state,bin}
 
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
@@ -22,8 +23,6 @@ function set_base {
   done
 
   ln -frs './configs/ssh_config' "$HOME/.ssh/config"
-
-  mkdir -p "$XDG_CONFIG_HOME/containers"
 
   for file in ../common/configs/containers/*.conf; do
     [[ -f "$file" ]] && ln -frs "$file" "$XDG_CONFIG_HOME/containers/$(basename "$file")"
@@ -58,4 +57,10 @@ function set_prompt {
 function set_runcom {
   ln -frs '../common/configs/git' "$XDG_CONFIG_HOME/git"
   ln -frs '../common/runcoms/nvim' "$XDG_CONFIG_HOME/nvim"
+}
+
+function set_systemd {
+  sudo loginctl enable-linger
+  ln -frs './configs/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
+  systemctl --user daemon-reload
 }
