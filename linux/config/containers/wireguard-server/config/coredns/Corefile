@@ -10,7 +10,7 @@
   cancel
   bufsize
   minimal
-  cache 60
+  cache 300
 
   hosts hosts {
     fallthrough
