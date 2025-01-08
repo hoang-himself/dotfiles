@@ -14,17 +14,17 @@ function set_base {
   sudo mkdir -p -m 700 '/etc/ssh/sshd_config.d'
   mkdir -p "$HOME"/.ssh/{config.d,id.d,sockets}
 
-  for rc in ../common/configs/sshd_config.d/*.conf; do
+  for rc in ../common/config/sshd_config.d/*.conf; do
     [[ -f "$rc" ]] && sudo ln -frs "$rc" "/etc/ssh/sshd_config.d/$(basename "$rc")"
   done
 
-  for rc in ../common/configs/ssh_config.d/*.conf; do
+  for rc in ../common/config/ssh_config.d/*.conf; do
     [[ -f "$rc" ]] && sudo ln -frs "$rc" "/etc/ssh/ssh_config.d/$(basename "$rc")"
   done
 
-  ln -frs './configs/ssh_config' "$HOME/.ssh/config"
+  ln -frs './config/ssh_config' "$HOME/.ssh/config"
 
-  for file in ../common/configs/containers/*.conf; do
+  for file in ../common/config/containers/*.conf; do
     [[ -f "$file" ]] && ln -frs "$file" "$XDG_CONFIG_HOME/containers/$(basename "$file")"
   done
 }
@@ -39,28 +39,28 @@ function set_shell {
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
-  ln -frs './runcoms/zshenv' "$HOME/.zshenv"
+  ln -frs './runcom/zshenv' "$HOME/.zshenv"
 
-  for rc in ./runcoms/*; do
+  for rc in ./runcom/*; do
     [[ -f "$rc" ]] && ln -frs "$rc" "$ZDOTDIR/.$(basename "$rc")"
   done
 
-  for rc in ./runcoms/zshrc.d/*; do
+  for rc in ./runcom/zshrc.d/*; do
     [[ -f "$rc" ]] && ln -frs "$rc" "$ZDOTDIR/zshrc.d/$(basename "$rc")"
   done
 }
 
 function set_prompt {
-  ln -frs '../common/runcoms/starship.toml' "$XDG_CONFIG_HOME/starship.toml"
+  ln -frs '../common/runcom/starship.toml' "$XDG_CONFIG_HOME/starship.toml"
 }
 
 function set_runcom {
-  ln -frs '../common/configs/git' "$XDG_CONFIG_HOME/git"
-  ln -frs '../common/runcoms/nvim' "$XDG_CONFIG_HOME/nvim"
+  ln -frs '../common/config/git' "$XDG_CONFIG_HOME/git"
+  ln -frs '../common/runcom/nvim' "$XDG_CONFIG_HOME/nvim"
 }
 
 function set_systemd {
   sudo loginctl enable-linger
-  ln -frs './configs/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
+  ln -frs './config/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
   systemctl --user daemon-reload
 }

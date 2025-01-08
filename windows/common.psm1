@@ -75,15 +75,15 @@ function Set-Base {
 
   New-Item -ItemType SymbolicLink `
     -Path "$env:ProgramData\ssh\sshd_config" `
-    -Target $(Resolve-Path -LiteralPath '.\configs\sshd_config') -Force
+    -Target $(Resolve-Path -LiteralPath '.\config\sshd_config') -Force
 
-  Get-ChildItem -Path '..\common\configs\sshd_config.d' | ForEach-Object -Process {
+  Get-ChildItem -Path '..\common\config\sshd_config.d' | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:ProgramData\ssh\sshd_config.d\$($_.Name)" `
       -Target $_.FullName -Force
   }
 
-  Get-ChildItem -Path '..\common\configs\ssh_config.d' | ForEach-Object -Process {
+  Get-ChildItem -Path '..\common\config\ssh_config.d' | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:ProgramData\ssh\ssh_config.d\$($_.Name)" `
       -Target $_.FullName -Force
@@ -91,12 +91,12 @@ function Set-Base {
 
   New-Item -ItemType SymbolicLink `
     -Path "$env:USERPROFILE\.ssh\config" `
-    -Target $(Resolve-Path -LiteralPath '.\configs\ssh_config') -Force
+    -Target $(Resolve-Path -LiteralPath '.\config\ssh_config') -Force
 
   New-ItemProperty -Path 'HKLM:\SOFTWARE\OpenSSH' -PropertyType String `
     -Name 'DefaultShell' -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
 
-  Get-ChildItem -Path '..\common\configs\containers\*.conf' `
+  Get-ChildItem -Path '..\common\config\containers\*.conf' `
   | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:XDG_CONFIG_HOME\containers\$($_.Name)" `
@@ -112,12 +112,12 @@ function Set-Shell {
   New-Item -ItemType Directory -Path "$PROFILE_HOME" -Force
   New-Item -ItemType Directory -Path "$PROFILE_HOME\profile.d" -Force
 
-  Get-ChildItem -Path '.\runcoms\*.ps1' | ForEach-Object -Process {
+  Get-ChildItem -Path '.\runcom\*.ps1' | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink -Path "$PROFILE_HOME\$($_.Name)" `
       -Target $_.FullName -Force
   }
 
-  Get-ChildItem -Path '.\runcoms\profile.d\*' | ForEach-Object -Process {
+  Get-ChildItem -Path '.\runcom\profile.d\*' | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink -Path "$PROFILE_HOME\profile.d\$($_.Name)" `
       -Target $_.FullName -Force
   }
@@ -127,7 +127,7 @@ function Set-Prompt {
   [CmdletBinding(SupportsShouldProcess)]
   param()
   New-Item -ItemType SymbolicLink -Path "$env:XDG_CONFIG_HOME\starship.toml" `
-    -Target $(Resolve-Path -LiteralPath '..\common\runcoms\starship.toml') -Force
+    -Target $(Resolve-Path -LiteralPath '..\common\runcom\starship.toml') -Force
 }
 
 function Set-RunCom {
@@ -145,9 +145,9 @@ function Set-RunCom {
 
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\git" `
-    -Target $(Resolve-Path -LiteralPath '..\common\configs\git') -Force
+    -Target $(Resolve-Path -LiteralPath '..\common\config\git') -Force
 
   New-Item -ItemType SymbolicLink `
     -Path "$env:XDG_CONFIG_HOME\nvim" `
-    -Target $(Resolve-Path -LiteralPath '..\common\runcoms\nvim') -Force
+    -Target $(Resolve-Path -LiteralPath '..\common\runcom\nvim') -Force
 }
