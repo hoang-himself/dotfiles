@@ -13,7 +13,7 @@ function install_base {
   sudo dnf install -y --skip-broken \
     util-linux-user git neovim less \
     openssh openssh-clients openssh-server \
-    buildah podman skopeo
+    tar buildah podman skopeo
   sudo dnf autoremove -y
 }
 
