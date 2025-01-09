@@ -11,6 +11,7 @@ function install_base {
 }
 
 function set_firewall {
+  sudo systemctl enable --now firewalld
   sudo firewall-cmd --permanent --add-service http
   sudo firewall-cmd --permanent --add-service https
   sudo firewall-cmd --permanent --add-service ssh
