@@ -92,10 +92,14 @@ ${function:gcans!} = { git commit --all --signoff --no-edit --amend $args }
 ${function:gc!} = { git commit --amend $args }
 ${function:gcn!} = { git commit --no-edit --amend $args }
 
+${function:gup} = { git pull --rebase }
+${function:gupa} = { git pull --rebase --autostash }
+${function:gupom} = { git pull --rebase origin $(git_main_branch) }
+
 ${function:gp} = { git push $args }
 ${function:gpd} = { git push --delete $args }
-${function:gpf!} = { git push --force $args }
 ${function:gpf} = { git push --force-with-lease --force-if-includes $args }
+${function:gpf!} = { git push --force $args }
 ${function:gpsup} = { git push --set-upstream origin $(git branch --show-current) }
 ${function:gpsupf} = { git push --set-upstream origin $(git branch --show-current) --force-with-lease --force-if-includes }
 ${function:gpoat} = { git push --all --tags origin }
