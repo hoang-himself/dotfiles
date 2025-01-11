@@ -1,4 +1,0 @@
-[Unit]
-Description=WireGuard Client Network
-
-[Network]

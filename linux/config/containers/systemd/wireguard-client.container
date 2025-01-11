@@ -4,7 +4,7 @@ Description=WireGuard Client Container
 [Container]
 Image=lscr.io/linuxserver/wireguard:latest
 AutoUpdate=registry
-Pod=wireguard-client.pod
+Volume=wireguard-client.volume:/config
 Volume=../wireguard-client/config/wg_confs:/config/wg_confs:Z
 AddCapability=NET_ADMIN
 AddCapability=NET_RAW
