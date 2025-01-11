@@ -4,7 +4,9 @@
 . ./common.sh
 
 function install_base {
-  sudo rpm-ostree install buildah git git-lfs neovim avahi nss-mdns qemu-user-static
+  sudo rpm-ostree install -y \
+    buildah qemu-user-static avahi nss-mdns \
+    git git-lfs neovim logrotate fail2ban
 }
 
 function set_firewall {
@@ -19,6 +21,7 @@ function set_firewall {
 function main {
   install_base
   set_systemd
+  set_fail2ban
 }
 
 main

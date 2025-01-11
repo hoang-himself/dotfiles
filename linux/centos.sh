@@ -7,7 +7,8 @@ function install_base {
   sudo dnf install -y --skip-broken \
     epel-release epel-next-release
   sudo dnf upgrade -y
-  sudo dnf install -y --skip-broken neovim
+  sudo dnf install -y --skip-broken \
+    neovim logrotate fail2ban
 }
 
 function set_firewall {
@@ -22,6 +23,7 @@ function set_firewall {
 function main {
   install_base
   set_systemd
+  set_fail2ban
 }
 
 main

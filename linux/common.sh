@@ -64,3 +64,10 @@ function set_systemd {
   ln -frs './config/containers/systemd' "$XDG_CONFIG_HOME/containers/systemd"
   systemctl --user daemon-reload
 }
+
+function set_fail2ban {
+  sudo systemctl enable --now fail2ban
+  for file in ./config/fail2ban/jail.d/*.conf; do
+    [[ -f "$file" ]] && sudo ln -frs "$file" "/etc/fail2ban/jail.d/$(basename "$file")"
+  done
+}
