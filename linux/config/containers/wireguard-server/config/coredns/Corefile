@@ -2,18 +2,17 @@
 # See plugin.cfg
 
 . {
-  reload
-  log
-  errors
-  loop
-
   cancel
+  reload
   bufsize
-  minimal
+  errors
+  log
+  any
   cache 300
-
+  minimal
   hosts hosts {
     fallthrough
   }
+  loop
   forward . 94.140.14.140 1.1.1.1 8.8.8.8
 }
