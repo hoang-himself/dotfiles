@@ -4,6 +4,7 @@
 . ./common.sh
 
 function install_base {
+  sudo rpm-ostree kargs --delete-if-present '$ignition_firstboot'
   sudo rpm-ostree install -y \
     buildah qemu-user-static avahi nss-mdns \
     git git-lfs neovim logrotate fail2ban
