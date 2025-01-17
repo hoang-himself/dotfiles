@@ -8,7 +8,7 @@
   errors
   log
   any
-  cache 300
+  cache 600
   minimal
   hosts hosts {
     fallthrough
