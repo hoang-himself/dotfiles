@@ -1,0 +1,5 @@
+[Unit]
+Description=FlareSolverr Pod
+
+[Pod]
+Network=swag.network

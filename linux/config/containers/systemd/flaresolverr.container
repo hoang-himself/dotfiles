@@ -1,0 +1,8 @@
+[Unit]
+Description=FlareSolverr Container
+
+[Container]
+Image=ghcr.io/flaresolverr/flaresolverr:latest
+AutoUpdate=registry
+Pod=flaresolverr.pod
+EnvironmentFile=../flaresolverr/flaresolverr.env
