@@ -1,0 +1,6 @@
+[Unit]
+Description=Suwayomi Pod
+
+[Pod]
+Network=swag.network
+Volume=suwayomi.volume:/home/suwayomi/.local/share/Tachidesk
