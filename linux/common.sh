@@ -90,3 +90,11 @@ function set_fail2ban {
   done
   sudo fail2ban-client reload
 }
+
+function set_udev_rule {
+  for file in ./config/udev/rules.d/*.rules; do
+    [[ -f "$file" ]] && sudo ln -frs "$file" "/etc/udev/rules.d/$(basename "$file")"
+  done
+  sudo udevadm control --reload
+  sudo udevadm trigger
+}
