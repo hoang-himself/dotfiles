@@ -1,1 +1,2 @@
 KERNEL=="gpiochip?", SUBSYSTEM=="gpio", OWNER="user", GROUP="user", MODE="0660"
+KERNEL=="i2c-?", SUBSYSTEM=="i2c-dev", OWNER="user", GROUP="user", MODE="0660"
