@@ -1,0 +1,26 @@
+[commit]
+  gpgSign = true
+
+[tag]
+  gpgSign = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+
+[includeIf "hasconfig:remote.*.url:https://github.com/hoang-himself/**"]
+  path = ~/.gitconfig.gh-hh
+
+[includeIf "hasconfig:remote.*.url:git@github.com:hoang-himself/**"]
+  path = ~/.gitconfig.gh-hh
+
+[includeIf "hasconfig:remote.*.url:https://gitlab.com/hoang-himself/**"]
+  path = ~/.gitconfig.gl-hh
+
+[includeIf "hasconfig:remote.*.url:git@gitlab.com:hoang-himself/**"]
+  path = ~/.gitconfig.gl-hh
+
+[includeIf "gitdir:~/work/"]
+  path = ~/.gitconfig.work

@@ -1,3 +1,5 @@
+#ssh-keygen -C 'user@domain' -t ed25519 -f .\id.d\ed25519_domain
+
 EscapeChar ~
 IgnoreUnknown Password
 
