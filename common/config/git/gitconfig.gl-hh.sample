@@ -1,0 +1,11 @@
+[user]
+  signingkey = ~/.ssh/id.d/ed25519_gitlab.pub
+  name = Hoang NGUYEN
+  email = 12511492-hoang-himself@users.noreply.gitlab.com
+
+[url "git@gitlab.com:"]
+  pushInsteadOf = https://gitlab.com/
+  pushInsteadOf = git://gitlab.com/
+
+[url "git@gitlab.com:hoang-himself/"]
+  insteadOf = gl:

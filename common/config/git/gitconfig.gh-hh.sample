@@ -1,0 +1,11 @@
+[user]
+  signingkey = ~/.ssh/id.d/ed25519_github.pub
+  name = Hoang NGUYEN
+  email = 10150902+hoang-himself@users.noreply.github.com
+
+[url "git@github.com:"]
+  pushInsteadOf = https://github.com/
+  pushInsteadOf = git://github.com/
+
+[url "git@github.com:hoang-himself/"]
+  insteadOf = gh:
