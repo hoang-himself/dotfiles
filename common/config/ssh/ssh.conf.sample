@@ -1,0 +1,7 @@
+Host ${name}
+  HostName ${hostname}
+  Port ${port}
+  User ${user}
+  IdentityFile ${path}
+  #AddKeysToAgent yes
+  #ForwardAgent yes
