@@ -9,43 +9,6 @@ ${function:......} = { Set-Location -Path '..\..\..\..\..' }
 
 Set-Alias -Name 'time' -Value 'Measure-Command'
 
-function sudo() {
-  $params = @{
-    'FilePath'         = 'pwsh'
-    'Verb'             = 'RunAs'
-    'WorkingDirectory' = $(Get-Location)
-  }
-
-  if ($args.Count -le 0) {
-    Start-Process @params
-    return
-  }
-
-  switch ((Get-Command $args[0]).CommandType) {
-    'Application' {
-      $params['FilePath'] = $args[0]
-      if ($args.Count -gt 1) {
-        $params['ArgumentList'] = $args[1..($args.Count - 1)]
-      }
-    }
-    'ExternalScript' {
-      $params['ArgumentList'] = @('-File', $args[0])
-      if ($args.Count -gt 1) {
-        $params['ArgumentList'] += $args[1..($args.Count - 1)]
-      }
-    }
-    { $_ -in @('Alias', 'Cmdlet', 'Function') } {
-      $params['ArgumentList'] = "-NoExit -Command & { $args }"
-    }
-    default {
-      $exception = New-Object System.ArgumentException("Invalid command type: $_")
-      throw $exception
-    }
-  }
-
-  Start-Process @params
-}
-
 function which($name) {
   $ErrorActionPreference = 'SilentlyContinue'
   Get-Command -Name $name | Select-Object -ExpandProperty Definition
