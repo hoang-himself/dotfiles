@@ -31,9 +31,11 @@ function Install-Base {
     'Git.Git',
     'Neovim.Neovim',
     'jftuga.less',
-    #'Google.QuickShare',
+    'Google.QuickShare',
     'RedHat.Podman-Desktop',
-    'RedHat.Podman'
+    'RedHat.Podman',
+    'DevToys-app.DevToys',
+    'Microsoft.PowerToys'
   ) | ForEach-Object -Process { winget install --source winget --id "$_" }
 }
 
