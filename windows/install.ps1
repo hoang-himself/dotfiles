@@ -53,21 +53,12 @@ function Install-Prompt {
   winget install --source winget --id 'Starship.Starship'
 }
 
-function Install-Pyenv {
-  Invoke-WebRequest -UseBasicParsing `
-    -Uri 'https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1' `
-    -OutFile './install-pyenv-win.ps1'
-  &'./install-pyenv-win.ps1'
-  Remove-Item -Path './install-pyenv-win.ps1'
-}
-
 function main {
   $ErrorActionPreference = 'SilentlyContinue'
 
   Install-Base
   Install-Shell
   Install-Prompt
-  Install-Pyenv
 
   Set-Base
   Set-Shell
