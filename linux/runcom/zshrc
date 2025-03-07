@@ -1,8 +1,5 @@
 # shellcheck disable=SC2148
 
-# pyenv
-[[ -z "$VIRTUAL_ENV" ]] && eval "$(pyenv init -)"
-
 # If you come from bash you might have to change your $PATH.
 export PATH=$XDG_BIN_HOME:$PATH
 
