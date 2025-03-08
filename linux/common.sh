@@ -52,10 +52,6 @@ function set_shell {
   for rc in ./runcom/*; do
     [[ -f "$rc" ]] && ln -frs "$rc" "$ZDOTDIR/.$(basename "$rc")"
   done
-
-  for rc in ./runcom/zshrc.d/*; do
-    [[ -f "$rc" ]] && ln -frs "$rc" "$ZDOTDIR/zshrc.d/$(basename "$rc")"
-  done
 }
 
 function set_prompt {

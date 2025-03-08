@@ -7,6 +7,7 @@ ${function:....} = { Set-Location -Path '..\..\..' }
 ${function:.....} = { Set-Location -Path '..\..\..\..' }
 ${function:......} = { Set-Location -Path '..\..\..\..\..' }
 
+Set-Alias -Name 'g' -Value 'git'
 Set-Alias -Name 'time' -Value 'Measure-Command'
 
 function which($name) {
