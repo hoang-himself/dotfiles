@@ -4,6 +4,7 @@
 alias sudo='sudo '
 
 # Other
+alias g='git'
 alias ls='ls --color=auto --group-directories-first -v'
 alias rr='rm -rf'
 alias now='date +"%T"'

@@ -116,11 +116,6 @@ function Set-Shell {
     New-Item -ItemType SymbolicLink -Path "$PROFILE_HOME\$($_.Name)" `
       -Target $_.FullName -Force
   }
-
-  Get-ChildItem -Path '.\runcom\profile.d\*' | ForEach-Object -Process {
-    New-Item -ItemType SymbolicLink -Path "$PROFILE_HOME\profile.d\$($_.Name)" `
-      -Target $_.FullName -Force
-  }
 }
 
 function Set-Prompt {
