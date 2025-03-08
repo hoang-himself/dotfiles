@@ -2,55 +2,69 @@
   attributesFile = ~/.config/git/attributes
   excludesFile = ~/.config/git/ignore
   ignoreCase = false
-  pager = less
   symlinks = true
+  fsmonitor = true
+  untrackedCache = true
 
 [commit]
   template = ~/.config/git/message
-
-[alias]
-  ign = ls-files -o -i --exclude-standard
-  wdiff = diff -w --word-diff=color
-  whatadded = log --diff-filter=A
+  verbose = true
 
 [init]
   defaultBranch = main
 
-[extensions]
-  worktreeConfig = true
-
-[help]
-  autocorrect = 30 # tenths of a second
-
-[merge]
-  autoStash = true
-  ff = false
-  conflictStyle = zdiff3
-
 [fetch]
+  all = true
+  parallel = 0
   prune = true
+  pruneTags = true
+
+[submodule]
+  fetchJobs = 0
+  recurse = true
 
 [pull]
   ff = only
   rebase = true
 
+[merge]
+  autoStash = true
+  ff = only
+  conflictStyle = zdiff3
+
 [rebase]
   autoStash = true
+  autoSquash = true
   updateRefs = true
+
+[rerere] # in case `clear` does not work, delete .git/rr-cache
+  enabled = true
+  autoupdate = true
 
 [push]
   default = simple
+  autoSetupRemote = true
   followTags = true
 
 [status]
-  submodulesummary = 1
+  submoduleSummary = true
+
+[column]
+  ui = auto
 
 [branch]
-  autosetuprebase = always
+  autoSetupMerge = always
+  autoSetupRebase = always
+  sort = -committerdate
 
-[rerere] # in case `clear` does not work, delete .git/rr-cache
-  enabled = 1
-  autoupdate = 1
+[tag]
+  sort = version:refname
+
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
 
 [color]
   branch = auto
@@ -77,16 +91,17 @@
   untracked = cyan
 
 [filter "lfs"]
+  required = true
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
-  required = true
 
-[column]
-  ui = auto
+[help]
+  autocorrect = prompt
 
-[branch]
-  sort = -committerdate
+[alias]
+  ls-ignored = ls-files -o -i --exclude-standard
+  word-diff = diff -w --word-diff=color
 
 [include]
   path = ~/.gitconfig.local
