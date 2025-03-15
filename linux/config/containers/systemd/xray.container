@@ -2,4 +2,4 @@
 Image=ghcr.io/xtls/xray-core:latest
 AutoUpdate=registry
 Pod=xray.pod
-Volume=../xray/xray:/etc/xray:Z
+Volume=../xray/xray:/etc/xray:ro
