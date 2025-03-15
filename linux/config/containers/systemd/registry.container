@@ -2,4 +2,5 @@
 Image=docker.io/library/registry:latest
 AutoUpdate=registry
 Pod=registry.pod
-Volume=../registry/registry/config.yml:/etc/docker/registry/config.yml:Z
+EnvironmentFile=../registry/registry.env
+Volume=../registry/config.yml:/etc/docker/registry/config.yml:ro
