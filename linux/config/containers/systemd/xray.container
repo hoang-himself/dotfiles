@@ -3,3 +3,5 @@ Image=ghcr.io/xtls/xray-core:latest
 AutoUpdate=registry
 Pod=xray.pod
 Volume=../xray/xray:/etc/xray:ro
+PublishPort=44380:44380/tcp
+PublishPort=44380:44380/udp

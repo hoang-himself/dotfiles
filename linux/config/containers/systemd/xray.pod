@@ -1,2 +1,0 @@
-[Pod]
-Network=swag.network
