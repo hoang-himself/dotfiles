@@ -1,5 +1,16 @@
 # Random notes
 
+## Reset author and committer of git history
+
+```shell
+git -c rebase.instructionFormat='%s%nexec GIT_AUTHOR_DATE="%aD" GIT_COMMITTER_DATE="%cD" git commit --amend --no-edit --reset-author' rebase
+```
+
+See:
+
+- [Commit Information](https://git-scm.com/docs/git-commit#_commit_information)
+- [Placeholders that expand to information extracted from the commit](https://git-scm.com/docs/git-log#Documentation/git-log.txt-emHem)
+
 ## Set unprivileged port start
 
 ```shell
