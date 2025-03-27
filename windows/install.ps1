@@ -27,16 +27,37 @@ function Install-Base {
   )
 
   @(
-    'Microsoft.PowerShell',
+    'XPFP7F8RL7MB1W',
+    'XPDC2RH70K22MN',
+    '9NBLGGH516XP',
+    'XP8LFCZM790F6B',
+    'XPDCCPPSK2XPQW',
+    '9PLJWWSV01LK',
+    '9P95ZZKTNRN4',
+    'XP89DCGQ3K6VLD'
+  ) | ForEach-Object -Process {
+    winget install --accept-source-agreements --accept-package-agreements --source msstore --id "$_"
+  }
+
+  @(
+    'AdGuard.AdGuard',
+    'AdGuard.AdGuardVPN',
+    'Bitwarden.Bitwarden',
+    'voidtools.Everything',
     'Git.Git',
-    'Neovim.Neovim',
+    'Google.GoogleDrive',
     'jftuga.less',
+    'Microsoft.OneDrive',
+    'Neovim.Neovim',
+    'Valve.Steam',
+    'StartIsBack.StartAllBack'
+    'CodeSector.TeraCopy',
     'Google.QuickShare',
-    'RedHat.Podman-Desktop',
     'RedHat.Podman',
-    'DevToys-app.DevToys',
-    'Microsoft.PowerToys'
-  ) | ForEach-Object -Process { winget install --source winget --id "$_" }
+    'RedHat.Podman-Desktop'
+  ) | ForEach-Object -Process {
+    winget install --accept-source-agreements --accept-package-agreements --source winget --id "$_"
+  }
 }
 
 function Install-Shell {
