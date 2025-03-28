@@ -17,7 +17,10 @@ function which($name) {
 
 function touch($file) { '' | Out-File -FilePath $file -Encoding ASCII }
 
-function mkcd($path) { New-Item -ItemType Directory -Path $path && Set-Location -Path $path }
+function mkcd($path) {
+  New-Item -ItemType Directory -Path $path;
+  Set-Location -Path $path
+}
 
 function mktmp {
   $TMPDIR = "$($env:TMP)\tmp$([Convert]::ToString((Get-Random 65535),16).padleft(4,'0')).tmp"
