@@ -2,7 +2,7 @@
 Image=lscr.io/linuxserver/wireguard:latest
 AutoUpdate=registry
 Volume=wireguard-client.volume:/config
-Volume=../wireguard-client/config/wg_confs:/config/wg_confs:ro
+Volume=../wireguard-client/config/wg_confs:/config/wg_confs:Z
 AddCapability=NET_ADMIN
 AddCapability=NET_RAW
 Sysctl=net.ipv4.conf.all.src_valid_mark=1

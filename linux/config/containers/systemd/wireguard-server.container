@@ -3,7 +3,7 @@ Image=lscr.io/linuxserver/wireguard:latest
 AutoUpdate=registry
 Pod=wireguard-server.pod
 EnvironmentFile=../wireguard-server/wireguard-server.env
-Volume=../wireguard-server/config/coredns:/config/coredns:ro
+Volume=../wireguard-server/config/coredns:/config/coredns:Z
 AddCapability=NET_ADMIN
 AddCapability=NET_RAW
 Sysctl=net.ipv4.conf.all.src_valid_mark=1
