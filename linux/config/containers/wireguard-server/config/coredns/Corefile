@@ -2,17 +2,17 @@
 # See plugin.cfg
 
 . {
+  metadata
   cancel
   reload
   bufsize
   errors
   log
   any
-  cache 600
+  cache
   minimal
-  hosts hosts {
-    fallthrough
-  }
   loop
-  forward . 94.140.14.140 1.1.1.1 8.8.8.8
+  forward . 94.140.14.140 1.1.1.1 8.8.8.8 {
+    policy sequential
+  }
 }
