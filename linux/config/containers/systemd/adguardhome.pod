@@ -1,0 +1,21 @@
+[Pod]
+Network=swag.network
+Network=adguardhome.network
+Volume=adguardhome-conf.volume:/opt/adguardhome/conf
+Volume=adguardhome-work.volume:/opt/adguardhome/work
+# dns
+PublishPort=53:53/tcp
+PublishPort=53:53/udp
+# dhcp
+PublishPort=67:67/udp
+PublishPort=68:68/tcp
+PublishPort=68:68/udp
+# dot
+PublishPort=853:853/tcp
+# doq
+#PublishPort=784:784/udp
+PublishPort=853:853/udp
+#PublishPort=8853:8853/udp
+# dnscrypt
+#PublishPort=5443:5443/tcp
+#PublishPort=5443:5443/udp
