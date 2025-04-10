@@ -49,19 +49,16 @@ function Install-Base {
     'jftuga.less',
     'Microsoft.OneDrive',
     'Neovim.Neovim',
-    'Valve.Steam',
-    'StartIsBack.StartAllBack'
-    'CodeSector.TeraCopy',
-    'Google.QuickShare',
     'RedHat.Podman',
-    'RedHat.Podman-Desktop'
+    'RedHat.Podman-Desktop',
+    'Google.QuickShare',
+    'Starship.Starship',
+    'StartIsBack.StartAllBack'
+    'Valve.Steam',
+    'Microsoft.WindowsTerminal.Preview'
   ) | ForEach-Object -Process {
     winget install --accept-source-agreements --accept-package-agreements --source winget --id "$_"
   }
-}
-
-function Install-Shell {
-  winget install --source winget --id 'Microsoft.PowerShell'
 
   Install-Module -Scope CurrentUser -Force -AllowClobber -Name @(
     'PowerShellGet',
@@ -70,16 +67,10 @@ function Install-Shell {
   )
 }
 
-function Install-Prompt {
-  winget install --source winget --id 'Starship.Starship'
-}
-
 function main {
   $ErrorActionPreference = 'SilentlyContinue'
 
   Install-Base
-  Install-Shell
-  Install-Prompt
 
   Set-Base
   Set-Shell
