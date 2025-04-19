@@ -1,0 +1,4 @@
+[Pod]
+Network=adguardhome.network
+Network=swag.network:ip=10.90.0.53
+Network=wireguard-server.network:ip=10.90.1.53
