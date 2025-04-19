@@ -1,0 +1,5 @@
+[Container]
+Image=docker.io/mvance/unbound:latest
+AutoUpdate=registry
+Pod=unbound.pod
+Volume=../unbound/unbound.conf:/opt/unbound/etc/unbound:ro
