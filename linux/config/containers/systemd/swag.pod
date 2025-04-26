@@ -1,4 +1,5 @@
 [Pod]
 Network=swag.network
+Network=wireguard-server.network
 Volume=swag.volume:/config
 PublishPort=443:443/tcp
