@@ -1,14 +1,5 @@
 {
   "files.associations": {
-    "*.build": "properties",
-    "*.container": "properties",
-    "*.image": "properties",
-    "*.kube": "properties",
-    "*.network": "properties",
-    "*.pod": "properties",
-    "*.service": "properties",
-    "*.timer": "properties",
-    "*.volume": "properties",
     "attributes": "gitignore",
     "config": "properties",
     "ignore": "gitignore",
