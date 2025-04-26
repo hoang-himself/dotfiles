@@ -6,6 +6,4 @@
 *.json
 *.toml
 
-hosts
-
 !*.gitkeep

@@ -10,8 +10,10 @@
   log
   any
   cache
+  rewrite name regex (?:.+)+\.hoang-himself\.dev systemd-swag.dns.podman answer auto
   minimal
   loop
+  forward dns.podman /etc/resolv.conf
   forward . 94.140.14.140 1.1.1.1 8.8.8.8 {
     policy sequential
   }
