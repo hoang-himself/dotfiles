@@ -1,0 +1,4 @@
+[Container]
+Image=docker.io/openspeedtest/latest:latest
+AutoUpdate=registry
+Pod=openspeedtest.pod
