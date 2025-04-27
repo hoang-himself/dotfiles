@@ -1,0 +1,3 @@
+[Pod]
+Network=swag.network
+Volume=librespeed.volume:/config
