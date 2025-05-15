@@ -1,2 +1,2 @@
 [Pod]
-Network=swag.network
+PublishPort=80:80/tcp
