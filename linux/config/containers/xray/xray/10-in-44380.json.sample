@@ -1,7 +1,6 @@
 {
   "inbounds": [
     {
-      "tag": "in44380-vmess",
       "port": 44380,
       "protocol": "vmess",
       "settings": {
@@ -13,13 +12,6 @@
       },
       "streamSettings": {
         "network": "xhttp"
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
       }
     }
   ]
