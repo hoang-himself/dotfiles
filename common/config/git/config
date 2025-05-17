@@ -153,7 +153,7 @@
   pf = push --force-with-lease --force-if-includes
   pfa = pf --all
   psup = !git push --set-upstream origin $(git branch --show-current)
-  psupf = !git psup --force-with-lease --force-if-includes
+  psupf = psup --force-with-lease --force-if-includes
 
   sw = switch
   swc = switch --create
