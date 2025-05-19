@@ -33,7 +33,6 @@ function Install-Base {
     'XP8LFCZM790F6B',
     'XPDCCPPSK2XPQW',
     '9PLJWWSV01LK',
-    '9P95ZZKTNRN4',
     'XP89DCGQ3K6VLD'
   ) | ForEach-Object -Process {
     winget install --accept-source-agreements --accept-package-agreements --source msstore --id "$_"
@@ -54,8 +53,7 @@ function Install-Base {
     'Google.QuickShare',
     'Starship.Starship',
     'StartIsBack.StartAllBack'
-    'Valve.Steam',
-    'Microsoft.WindowsTerminal.Preview'
+    'Valve.Steam'
   ) | ForEach-Object -Process {
     winget install --accept-source-agreements --accept-package-agreements --source winget --id "$_"
   }
