@@ -196,7 +196,9 @@ filtering:
   blocking_mode: nxdomain
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
-  rewrites: []
+  rewrites:
+    - domain: adguard.home.arpa
+      answer: 10.90.0.53
   safe_fs_patterns:
     - /opt/adguardhome/work/userfilters/*
   safebrowsing_cache_size: 1048576
