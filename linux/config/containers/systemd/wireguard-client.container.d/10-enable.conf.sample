@@ -1,2 +1,5 @@
 [Service]
 ExecStartPre=/usr/bin/sudo /usr/sbin/modprobe ip_tables
+
+[Install]
+WantedBy=default.target

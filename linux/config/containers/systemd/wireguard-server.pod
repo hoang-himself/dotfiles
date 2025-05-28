@@ -1,6 +1,3 @@
-[Unit]
-Requires=adguardhome.pod
-
 [Pod]
 Network=wireguard-server.network:ip=10.90.1.13
 Volume=wireguard-server.volume:/config
