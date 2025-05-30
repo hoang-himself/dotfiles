@@ -72,10 +72,17 @@ function set_systemd {
 
 function set_firewall {
   sudo systemctl enable --now firewalld
-  sudo firewall-cmd --permanent --add-service ssh
-  sudo firewall-cmd --permanent --add-service https
-  sudo firewall-cmd --permanent --add-service wireguard
+
+  sudo firewall-cmd --permanent \
+    --add-service ssh \
+    --add-service http \
+    --add-service https \
+    --add-service http3 \
+    --add-service wireguard
   sudo firewall-cmd --reload
+
+  sudo tee '/etc/sysctl.d/50-rootless-port.conf' <<<'net.ipv4.ip_unprivileged_port_start = 80' >/dev/null
+  sudo sysctl --system >/dev/null
 }
 
 function set_fail2ban {
