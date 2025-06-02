@@ -18,6 +18,13 @@
       "ReflectionService"
     ]
   },
+  "dns": {
+    "tag": "dns",
+    "servers": [
+      "10.88.53.53"
+    ],
+    "disableCache": true
+  },
   "routing": {
     "rules": [
       {
@@ -26,6 +33,12 @@
           "api"
         ],
         "outboundTag": "api"
+      },
+      {
+        "type": "field",
+        "port": 53,
+        "network": "tcp,udp",
+        "outboundTag": "dns"
       },
       {
         "type": "field",
@@ -50,14 +63,21 @@
       "port": 51820,
       "protocol": "dokodemo-door",
       "settings": {
-        "address": "127.0.0.1",
-        "port": 51820
+        "address": "127.0.0.1"
       }
     }
   ],
   "outbounds": [
     {
+      "tag": "freedom",
       "protocol": "freedom"
+    },
+    {
+      "tag": "dns",
+      "protocol": "dns",
+      "settings": {
+        "address": "10.88.53.53"
+      }
     },
     {
       "tag": "blackhole",

@@ -1,7 +1,8 @@
 {
   "inbounds": [
     {
-      "port": 44380,
+      "tag": "xhttp",
+      "port": 80,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -11,7 +12,10 @@
         ]
       },
       "streamSettings": {
-        "network": "xhttp"
+        "network": "xhttp",
+        "xhttpSettings": {
+          "path": "/xhttp"
+        }
       }
     }
   ]
