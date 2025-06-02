@@ -2,4 +2,5 @@
 Image=ghcr.io/xtls/xray-core:latest
 AutoUpdate=registry
 Pod=xray.pod
-Volume=../xray/xray:/etc/xray:ro
+Volume=../xray/xray:/usr/local/etc/xray:Z
+AddCapability=NET_BIND_SERVICE
