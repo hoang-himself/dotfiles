@@ -1,4 +1,4 @@
 [Pod]
-Network=wireguard-server.network:ip=10.90.1.13
+Network=podman
 Volume=wireguard-server.volume:/config
 PublishPort=51820:51820/udp

@@ -14,5 +14,5 @@
   minimal
   loop
   forward dns.podman /etc/resolv.conf
-  forward . 10.90.1.53
+  forward . 10.88.53.53
 }

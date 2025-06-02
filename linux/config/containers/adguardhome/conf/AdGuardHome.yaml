@@ -197,6 +197,8 @@ filtering:
   safebrowsing_block_host: standard-block.dns.adguard.com
   rewrites:
     - domain: adguard.home.arpa
+      answer: 10.88.53.53
+    - domain: adguard.home.arpa
       answer: 10.90.0.53
   safe_fs_patterns:
     - /opt/adguardhome/work/userfilters/*
