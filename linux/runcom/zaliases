@@ -5,7 +5,7 @@ alias sudo='sudo '
 
 # Other
 alias g='git'
-alias ls='ls --color=auto --group-directories-first -v'
+alias ls='ls --color --classify --group-directories-first --human-readable -v'
 alias rr='rm -rf'
 alias now='date +"%T"'
 alias week='date +%V'
