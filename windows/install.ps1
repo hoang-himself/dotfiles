@@ -33,7 +33,8 @@ function Install-Base {
     'XP8LFCZM790F6B',
     'XPDCCPPSK2XPQW',
     '9PLJWWSV01LK',
-    'XP89DCGQ3K6VLD'
+    'XP89DCGQ3K6VLD',
+    '9N8G7TSCL18R'
   ) | ForEach-Object -Process {
     winget install --accept-source-agreements --accept-package-agreements --source msstore --id "$_"
   }

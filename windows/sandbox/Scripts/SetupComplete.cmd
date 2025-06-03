@@ -5,9 +5,9 @@ set ASSETSDIR=%TEMP%\Assets
 xcopy /HIVERKYQ %SETUPDIR%\* %TEMP%\
 
 ::
-"%ASSETSDIR%\7zip-installer.exe" /S
+powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\NanaZip.msixbundle;"
 :: https://github.com/microsoft/vscode/blob/main/build/win32/code.iss
-"%ASSETSDIR%\vscode-installer.exe" /SILENT /SUPPRESSMSGBOXES /MERGETASKS="!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath"
+"%ASSETSDIR%\vscode-setup.exe" /SILENT /SUPPRESSMSGBOXES /MERGETASKS="!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath"
 "%ASSETSDIR%\wireguard-installer.exe" /S
 
 :: PowerShell script block logging

@@ -4,14 +4,14 @@ function Get-Asset {
   Push-Location -Path 'Assets';
 
   $scriptBlockList += {
-    Invoke-WebRequest -Uri 'https://sourceforge.net/projects/sevenzip/files/latest/download' `
+    Invoke-WebRequest -Uri 'https://sourceforge.net/projects/nanazip/files/latest/download' `
       -Headers @{ 'User-Agent' = 'Wget x64' } `
-      -OutFile '7zip-installer.exe';
+      -OutFile 'nanazip.msixbundle';
   }
 
   $scriptBlockList += {
     Invoke-WebRequest -Uri 'https://update.code.visualstudio.com/latest/win32-x64-user/stable' `
-      -OutFile 'vscode-installer.exe';
+      -OutFile 'vscode-setup.exe';
   }
 
   $scriptBlockList += {

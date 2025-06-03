@@ -23,9 +23,9 @@ set SCRIPTSDIR=%SETUPDIR%\Scripts
 ::curl -SL -o "%ASSETSDIR%\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 ::powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle;"
 
-:: 7-Zip
-::curl -H "User-Agent: Wget x64" -SL -o "%ASSETSDIR%\7z-x64.exe" https://sourceforge.net/projects/sevenzip/files/latest/download
-::"%ASSETSDIR%\7z-x64.exe" /S
+:: NanaZip
+::curl -H "User-Agent: Wget x64" -SL -o "%ASSETSDIR%\NanaZip.msixbundle" https://sourceforge.net/projects/nanazip/files/latest/download
+::powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\NanaZip.msixbundle;"
 
 :: Postcondition
 if exist "%SETUPDIR%\CreateSetup.cmd" del /Q "%SETUPDIR%\CreateSetup.cmd"
