@@ -19,6 +19,12 @@ function Get-Asset {
       -OutFile 'wireguard-installer.exe';
   }
 
+  $scriptBlockList += {
+    Invoke-WebRequest -Uri 'https://github.com/2dust/v2rayN/releases/latest/download/v2rayN-windows-64-desktop.zip' `
+      -OutFile 'v2rayN-windows-64-desktop.zip';
+    Expand-Archive -Path 'v2rayN-windows-64-desktop.zip'
+  }
+
   $scriptBlockList | ForEach-Object { Start-Job -ScriptBlock $_ };
 
   Get-Job | Wait-Job;
