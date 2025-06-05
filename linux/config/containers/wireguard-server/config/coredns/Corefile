@@ -9,8 +9,6 @@
   errors
   log
   any
-  cache
-  rewrite name regex (?:.+)+\.hoang-himself\.dev systemd-swag.dns.podman answer auto
   minimal
   loop
   forward dns.podman /etc/resolv.conf
