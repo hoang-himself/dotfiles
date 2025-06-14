@@ -1,3 +1,2 @@
 [Pod]
 Network=podman:ip=10.88.53.53
-Network=swag.network:ip=10.90.0.53

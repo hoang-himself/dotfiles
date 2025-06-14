@@ -1,5 +1,4 @@
 [Pod]
 Network=podman:ip=10.88.80.80
-Network=swag.network
 Volume=swag.volume:/config
 PublishPort=443:443/tcp

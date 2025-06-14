@@ -198,8 +198,6 @@ filtering:
   rewrites:
     - domain: adguard.home.arpa
       answer: 10.88.53.53
-    - domain: adguard.home.arpa
-      answer: 10.90.0.53
     - domain: '*.hoang-himself.dev'
       answer: 10.88.80.80
   safe_fs_patterns:

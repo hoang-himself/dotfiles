@@ -2,4 +2,4 @@
 Image=ghcr.io/syncyomi/syncyomi:latest
 AutoUpdate=registry
 Pod=syncyomi.pod
-Volume=../syncyomi/config/config.toml:/config/config.toml:ro
+Volume=../syncyomi/config/config.toml:/config/config.toml:Z
