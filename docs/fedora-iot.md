@@ -1,4 +1,4 @@
-# Installing Fedora IoT on RPi4
+# Installing Fedora IoT on RPi4B
 
 ## Flash the image
 
@@ -75,46 +75,32 @@ You can check if the wifi connection is active
 nmcli connection show --active
 ```
 
-### Set static IP address, hostname and enable mDNS
+### Networking
 
 ```shell
-rpm-ostree -y install avahi nss-mdns
-hostnamectl hostname raspberrypi.local
-
-nmcli connection add type ethernet ifname <INTERFACE> con-name <NAME> ip4 <ADDRESS> gw4 <GATEWAY> -- +ipv4.dns <DNS> +connection.mdns 2
-nmcli connection up <NAME>
-
 firewall-cmd --permanent --add-service mdns
 firewall-cmd --reload
+hostnamectl hostname raspberrypi.local
+
+mkdir -p /etc/systemd/resolved.conf.d
+tee '/etc/systemd/resolved.conf.d/mdns.conf' <<'__EOF__' >/dev/null
+[Resolve]
+MulticastDNS=yes
+LLMNR=no
+__EOF__
+
+tee '/etc/NetworkManager/conf.d/mdns.conf' <<'__EOF__' >/dev/null
+[connection]
+mdns=2
+llmnr=0
+__EOF__
+
+nmcli connection add type ethernet ifname <INTERFACE> con-name <NAME> ip4 <ADDRESS> gw4 <GATEWAY> -- +ipv4.dns <DNS> +connection.mdns 2
+#nmcli connection modify <ID> +connection.mdns 2
+nmcli connection up <NAME>
 ```
 
 where:
 
 - `<INTERFACE>` can be obtained with `nmcli device`
 - Relevant IPv6 configurations can be added by replacing `4` with `6`
-
-### Change SSHD port
-
-First, enable the new port in SELinux and the firewall
-
-```shell
-semanage port -a -t ssh_port_t -p tcp 69420
-
-firewall-cmd --permanent --service ssh --add-port 69420/tcp
-#firewall-cmd --permanent --add-port 69420/tcp
-#firewall-cmd --runtime-to-permanent
-firewall-cmd --reload
-```
-
-Then, change revelant `sshd` configs in `/etc/ssh`, then restart `sshd` service
-
-### Set timezone
-
-Since this is a server image, it is recommended to set the timezone to UTC
-
-If your applications require a different time zone, in most cases, it is possible to set a different time zone than the system one for individual applications by setting the `TZ` environment variable
-
-```shell
-timedatectl set-timezone UTC
-timedatectl set-local-rtc no
-```
