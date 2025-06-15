@@ -1,5 +1,2 @@
-[Unit]
-Requires=adguardhome.pod
-
 [Install]
 WantedBy=default.target

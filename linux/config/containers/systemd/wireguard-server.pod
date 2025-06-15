@@ -1,3 +1,6 @@
+[Unit]
+Requires=adguardhome.pod
+
 [Pod]
 Network=podman:ip=10.88.13.10
 Volume=wireguard-server.volume:/config

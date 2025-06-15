@@ -1,6 +1,3 @@
-[Unit]
-Requires=adguardhome.pod
-
 [Service]
 ExecStartPre=/usr/bin/sudo /usr/sbin/modprobe ip_tables
 
