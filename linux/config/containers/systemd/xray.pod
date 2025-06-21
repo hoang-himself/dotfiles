@@ -1,6 +1,6 @@
 [Unit]
 Requires=adguardhome.pod
+Requires=swag.pod
 
 [Pod]
 Network=podman:ip=10.88.13.80
-PublishPort=80:80/tcp
