@@ -5,5 +5,5 @@ Pod=swag.pod
 EnvironmentFile=../swag/swag.env
 Volume=../swag/config/dns-conf/porkbun.ini:/config/dns-conf/porkbun.ini:Z
 Volume=../swag/config/nginx/site-confs/default.conf:/config/nginx/site-confs/default.conf:Z
-Volume=../swag/config/nginx/proxy-confs:/config/nginx/proxy-confs:Z
+Volume=../swag/config/nginx/proxy-confs/custom:/config/nginx/proxy-confs/custom:Z
 AddCapability=NET_ADMIN
