@@ -42,8 +42,8 @@
   autoupdate = true
 
 [push]
-  default = simple
   autoSetupRemote = true
+  default = simple
   followTags = true
 
 [status]
@@ -112,6 +112,7 @@
   up = pull --rebase --autostash
   submodup = submodule update --init --recursive
 
+  wt = worktree
   wta = worktree add
   wtls = worktree list
   wtmv = worktree move
@@ -159,6 +160,7 @@
   swc = switch --create
 
   branches = branch --all
+  b = branch
   bf = branch --force
   bd = branch --delete
   bsup = !git branch --set-upstream-to=\"origin/$(git branch --show-current)\"

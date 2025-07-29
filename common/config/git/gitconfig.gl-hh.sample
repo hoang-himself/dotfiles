@@ -9,3 +9,6 @@
 
 [url "git@gitlab.com:hoang-himself/"]
   insteadOf = gl:
+
+[credential]
+  helper = cache --timeout 8192

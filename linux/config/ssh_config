@@ -1,4 +1,4 @@
-#ssh-keygen -C 'user@client:user@server' -t ed25519 -f .\id.d\ed25519_domain
+#ssh-keygen -C 'user@client:user@server' -t ed25519 -f ./id.d/ed25519_domain
 
 EscapeChar ~
 IgnoreUnknown Password

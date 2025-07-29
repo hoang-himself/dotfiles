@@ -1,8 +1,8 @@
 Import-Module -Name 'posh-git'
 
-Invoke-Command -ScriptBlock $([ScriptBlock]::Create(
-    $(starship init powershell)
-  ))
+Invoke-Command -ScriptBlock $(
+  [ScriptBlock]::Create($(starship init powershell))
+)
 
 function Invoke-Starship-PreCommand {
   $loc = $($executionContext.SessionState.Path.CurrentLocation);

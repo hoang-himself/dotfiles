@@ -9,3 +9,6 @@
 
 [url "git@github.com:hoang-himself/"]
   insteadOf = gh:
+
+[credential]
+  helper = cache --timeout 8192
