@@ -76,8 +76,8 @@ function set_firewall {
   sudo firewall-cmd --permanent \
     --add-service ssh \
     --add-service http \
-    --add-service https \
     --add-service http3 \
+    --add-service https \
     --add-service wireguard
   sudo firewall-cmd --reload
 
