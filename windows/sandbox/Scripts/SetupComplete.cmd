@@ -8,7 +8,7 @@ xcopy /HIVERKYQ %SETUPDIR%\* %TEMP%\
 start "" powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\NanaZip.msixbundle;"
 :: https://github.com/microsoft/vscode/blob/main/build/win32/code.iss
 start "" "%ASSETSDIR%\vscode-setup.exe" /SILENT /SUPPRESSMSGBOXES /MERGETASKS="!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath"
-start "" "%ASSETSDIR%\wireguard-installer.exe" /S
+::start "" "%ASSETSDIR%\wireguard-installer.exe" /S
 
 :: PowerShell script block logging
 powershell.exe -Command "New-Item -Path HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -Force"

@@ -3,6 +3,7 @@
     "attributes": "gitignore",
     "config": "properties",
     "ignore": "gitignore",
-    "message": "git-commit"
+    "message": "git-commit",
+    "*.wsb": "xml"
   }
 }
