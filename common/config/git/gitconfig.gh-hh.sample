@@ -1,3 +1,9 @@
+[commit]
+  gpgSign = true
+
+[tag]
+  gpgSign = true
+
 [user]
   signingkey = ~/.ssh/id.d/ed25519_github.pub
   name = Hoang NGUYEN
