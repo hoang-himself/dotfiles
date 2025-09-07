@@ -110,7 +110,7 @@
   cl = clone --recurse-submodules
   fa = fetch --all --prune
   up = pull --rebase --autostash
-  submodup = submodule update --init --recursive
+  submodup = submodule update --init --rebase --recursive
 
   wt = worktree
   wta = worktree add
