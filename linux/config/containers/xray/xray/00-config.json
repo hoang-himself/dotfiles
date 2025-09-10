@@ -20,6 +20,14 @@
   },
   "dns": {
     "tag": "dns",
+    "hosts": {
+      "cloudflare-dns.com": "adguard.home.arpa",
+      "dns.google": "adguard.home.arpa",
+      "dns.cloudflare.com": "adguard.home.arpa",
+      "doh.dns.sb": "adguard.home.arpa",
+      "doh.opendns.com": "adguard.home.arpa",
+      "common.dot.dns.yandex.net": "adguard.home.arpa"
+    },
     "servers": [
       "10.88.53.53"
     ],
@@ -39,6 +47,13 @@
           "api"
         ],
         "outboundTag": "api"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "10.88.0.0/16"
+        ],
+        "outboundTag": "freedom"
       },
       {
         "type": "field",
