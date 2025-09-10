@@ -4,3 +4,4 @@ Requires=swag.pod
 
 [Pod]
 Network=podman:ip=10.88.13.80
+Volume=xray.volume:/var/log/xray
