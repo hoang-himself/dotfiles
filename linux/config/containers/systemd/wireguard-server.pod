@@ -2,6 +2,6 @@
 Requires=adguardhome.pod
 
 [Pod]
-Network=podman:ip=10.88.13.10
+Network=podman:ip=10.88.13.13
 Volume=wireguard-server.volume:/config
 PublishPort=51820:51820/udp

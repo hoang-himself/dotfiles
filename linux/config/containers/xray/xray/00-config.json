@@ -43,6 +43,13 @@
       {
         "type": "field",
         "ip": [
+          "10.88.0.0/16"
+        ],
+        "outboundTag": "freedom"
+      },
+      {
+        "type": "field",
+        "ip": [
           "geoip:private"
         ],
         "outboundTag": "blackhole"
