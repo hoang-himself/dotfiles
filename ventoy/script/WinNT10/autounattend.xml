@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
-  <!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Interactive&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&BypassNetworkCheck=true&HidePowerShellWindows=true&ComputerNameMode=Random&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Interactive&DiskAssertionMode=Skip&WindowsEditionMode=Interactive&UserAccountMode=InteractiveLocal&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=Hidden&ShowFileExtensions=true&ClassicContextMenu=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Empty&DisableWidgets=true&LeftTaskbar=true&HideTaskViewButton=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Empty&DisableFastStartup=true&EnableLongPaths=true&HardenSystemDriveAcl=true&AllowPowerShellScripts=true&DisableLastAccess=true&DisableAppSuggestions=true&PreventDeviceEncryption=true&DisablePointerPrecision=true&DeleteWindowsOld=true&EffectsMode=Default&DesktopIconsMode=Custom&IconControlPanel=true&IconRecycleBin=true&IconThisPC=true&WifiMode=Interactive&ExpressSettings=DisableAll&KeysMode=Configure&CapsLockInitial=Off&CapsLockBehavior=Toggle&NumLockInitial=On&NumLockBehavior=Toggle&ScrollLockInitial=Off&ScrollLockBehavior=Toggle&StickyKeysMode=Disabled&ColorMode=Default&WallpaperMode=Default&Remove3DViewer=true&RemoveBingSearch=true&RemoveClipchamp=true&RemoveCopilot=true&RemoveCortana=true&RemoveDevHome=true&RemoveFamily=true&RemoveFeedbackHub=true&RemoveGetHelp=true&RemoveHandwriting=true&RemoveInternetExplorer=true&RemoveMailCalendar=true&RemoveMaps=true&RemoveMathInputPanel=true&RemoveMixedReality=true&RemoveNews=true&RemoveOffice365=true&RemoveOneDrive=true&RemoveOneNote=true&RemoveOneSync=true&RemoveOutlook=true&RemovePaint=true&RemovePaint3D=true&RemovePeople=true&RemovePowerAutomate=true&RemovePowerShell2=true&RemovePowerShellISE=true&RemoveQuickAssist=true&RemoveRecall=true&RemoveRdpClient=true&RemoveSkype=true&RemoveSolitaire=true&RemoveSpeech=true&RemoveStepsRecorder=true&RemoveTeams=true&RemoveGetStarted=true&RemoveWallet=true&RemoveWeather=true&RemoveFaxAndScan=true&RemoveWordPad=true&RemoveXboxApps=true&SystemScript0=FOR+%25%25i+IN+%28A+B+C+D+E+F+G+H+I+J+K+L+M+N+O+P+Q+R+S+T+U+V+W+X+Y+Z%29+DO+IF+EXIST+%25%25i%3A%5Cbootstrap%5CWinNT10%5CCreateSetup.cmd+cmd.exe+%2Fq+%2Fc+%25%25i%3A%5Cbootstrap%5CWinNT10%5CCreateSetup.cmd&SystemScriptType0=Cmd&SystemScript1=%5B-HKEY_CLASSES_ROOT%5C*%5Cshell%5CTakeOwnership%5D%0D%0A%5B-HKEY_CLASSES_ROOT%5C*%5Cshell%5Crunas%5D%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5C*%5Cshell%5CTakeOwnership%5D%0D%0A%40%3D%22Take+Ownership%22%0D%0A%22Extended%22%3D-%0D%0A%22HasLUAShield%22%3D%22%22%0D%0A%22NoWorkingDirectory%22%3D%22%22%0D%0A%22NeverDefault%22%3D%22%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5C*%5Cshell%5CTakeOwnership%5Ccommand%5D%0D%0A%40%3D%22powershell+-windowstyle+hidden+-command+%5C%22Start-Process+cmd+-ArgumentList+%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%26amp%3B+pause%27+-Verb+runAs%5C%22%22%0D%0A%22IsolatedCommand%22%3D+%22powershell+-windowstyle+hidden+-command+%5C%22Start-Process+cmd+-ArgumentList+%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%26amp%3B+pause%27+-Verb+runAs%5C%22%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDirectory%5Cshell%5CTakeOwnership%5D%0D%0A%40%3D%22Take+Ownership%22%0D%0A%22AppliesTo%22%3D%22NOT+%28System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CUsers%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CProgramData%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CWindows%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CWindows%5C%5CSystem32%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CProgram+Files%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CProgram+Files+%28x86%29%5C%22%29%22%0D%0A%22Extended%22%3D-%0D%0A%22HasLUAShield%22%3D%22%22%0D%0A%22NoWorkingDirectory%22%3D%22%22%0D%0A%22Position%22%3D%22middle%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDirectory%5Cshell%5CTakeOwnership%5Ccommand%5D%0D%0A%40%3D%22powershell+-windowstyle+hidden+-command+%5C%22%24Y+%3D+%28%24null+%7C+choice%29.Substring%281%2C1%29%3B+Start-Process+cmd+-ArgumentList+%28%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+%27+%2B+%24Y+%2B+%27+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%2Fq+%26amp%3B+pause%27%29+-Verb+runAs%5C%22%22%0D%0A%22IsolatedCommand%22%3D%22powershell+-windowstyle+hidden+-command+%5C%22%24Y+%3D+%28%24null+%7C+choice%29.Substring%281%2C1%29%3B+Start-Process+cmd+-ArgumentList+%28%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+%27+%2B+%24Y+%2B+%27+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%2Fq+%26amp%3B+pause%27%29+-Verb+runAs%5C%22%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDrive%5Cshell%5Crunas%5D%0D%0A%40%3D%22Take+Ownership%22%0D%0A%22Extended%22%3D-%0D%0A%22HasLUAShield%22%3D%22%22%0D%0A%22NoWorkingDirectory%22%3D%22%22%0D%0A%22Position%22%3D%22middle%22%0D%0A%22AppliesTo%22%3D%22NOT+%28System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5C%5C%22%29%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDrive%5Cshell%5Crunas%5Ccommand%5D%0D%0A%40%3D%22cmd.exe+%2Fc+takeown+%2Ff+%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+y+%26amp%3B%26amp%3B+icacls+%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%26amp%3B+Pause%22%0D%0A%22IsolatedCommand%22%3D%22cmd.exe+%2Fc+takeown+%2Ff+%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+y+%26amp%3B%26amp%3B+icacls+%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%26amp%3B+Pause%22&SystemScriptType1=Reg&SystemScript2=%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindows%5CCurrentVersion%5CShell+Extensions%5CBlocked%5D%0D%0A%22%7B1FA0E654-C9F2-4A1F-9800-B9A75D744B00%7D%22%3D%22OneDrive%22&SystemScriptType2=Reg&WdacMode=Skip-->
+  <!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Interactive&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&BypassNetworkCheck=true&HidePowerShellWindows=true&ComputerNameMode=Random&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Interactive&DiskAssertionMode=Skip&WindowsEditionMode=Interactive&InstallFromMode=Automatic&PEMode=Default&UserAccountMode=InteractiveLocal&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=Hidden&ShowFileExtensions=true&ClassicContextMenu=true&LaunchToThisPC=true&ShowEndTask=true&TaskbarSearch=Hide&TaskbarIconsMode=Empty&DisableWidgets=true&LeftTaskbar=true&HideTaskViewButton=true&DisableBingResults=true&StartTilesMode=Empty&StartPinsMode=Empty&DisableFastStartup=true&EnableLongPaths=true&HardenSystemDriveAcl=true&AllowPowerShellScripts=true&DisableLastAccess=true&DisableAppSuggestions=true&PreventDeviceEncryption=true&DisablePointerPrecision=true&DeleteWindowsOld=true&EffectsMode=Default&DesktopIconsMode=Custom&IconControlPanel=true&IconRecycleBin=true&IconThisPC=true&StartFoldersMode=Default&WifiMode=Interactive&ExpressSettings=DisableAll&LockKeysMode=Configure&CapsLockInitial=Off&CapsLockBehavior=Toggle&NumLockInitial=On&NumLockBehavior=Toggle&ScrollLockInitial=Off&ScrollLockBehavior=Toggle&StickyKeysMode=Disabled&ColorMode=Default&WallpaperMode=Default&LockScreenMode=Default&Remove3DViewer=true&RemoveBingSearch=true&RemoveClipchamp=true&RemoveCopilot=true&RemoveCortana=true&RemoveDevHome=true&RemoveFamily=true&RemoveFeedbackHub=true&RemoveGameAssist=true&RemoveGetHelp=true&RemoveHandwriting=true&RemoveInternetExplorer=true&RemoveMailCalendar=true&RemoveMaps=true&RemoveMathInputPanel=true&RemoveMixedReality=true&RemoveNews=true&RemoveOffice365=true&RemoveOneDrive=true&RemoveOneNote=true&RemoveOneSync=true&RemoveOutlook=true&RemovePaint=true&RemovePaint3D=true&RemovePeople=true&RemovePowerAutomate=true&RemovePowerShell2=true&RemovePowerShellISE=true&RemoveQuickAssist=true&RemoveRecall=true&RemoveRdpClient=true&RemoveSkype=true&RemoveSolitaire=true&RemoveSpeech=true&RemoveStepsRecorder=true&RemoveTeams=true&RemoveGetStarted=true&RemoveWallet=true&RemoveWeather=true&RemoveFaxAndScan=true&RemoveWordPad=true&RemoveXboxApps=true&SystemScript0=FOR+%25%25i+IN+%28A+B+C+D+E+F+G+H+I+J+K+L+M+N+O+P+Q+R+S+T+U+V+W+X+Y+Z%29+DO+IF+EXIST+%25%25i%3A%5Cbootstrap%5CWinNT10%5CCreateSetup.cmd+cmd.exe+%2Fq+%2Fc+%25%25i%3A%5Cbootstrap%5CWinNT10%5CCreateSetup.cmd&SystemScriptType0=Cmd&SystemScript1=%5B-HKEY_CLASSES_ROOT%5C*%5Cshell%5CTakeOwnership%5D%0D%0A%5B-HKEY_CLASSES_ROOT%5C*%5Cshell%5Crunas%5D%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5C*%5Cshell%5CTakeOwnership%5D%0D%0A%40%3D%22Take+Ownership%22%0D%0A%22Extended%22%3D-%0D%0A%22HasLUAShield%22%3D%22%22%0D%0A%22NoWorkingDirectory%22%3D%22%22%0D%0A%22NeverDefault%22%3D%22%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5C*%5Cshell%5CTakeOwnership%5Ccommand%5D%0D%0A%40%3D%22powershell+-windowstyle+hidden+-command+%5C%22Start-Process+cmd+-ArgumentList+%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%26amp%3B+pause%27+-Verb+runAs%5C%22%22%0D%0A%22IsolatedCommand%22%3D+%22powershell+-windowstyle+hidden+-command+%5C%22Start-Process+cmd+-ArgumentList+%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%26amp%3B+pause%27+-Verb+runAs%5C%22%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDirectory%5Cshell%5CTakeOwnership%5D%0D%0A%40%3D%22Take+Ownership%22%0D%0A%22AppliesTo%22%3D%22NOT+%28System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CUsers%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CProgramData%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CWindows%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CWindows%5C%5CSystem32%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CProgram+Files%5C%22+OR+System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5CProgram+Files+%28x86%29%5C%22%29%22%0D%0A%22Extended%22%3D-%0D%0A%22HasLUAShield%22%3D%22%22%0D%0A%22NoWorkingDirectory%22%3D%22%22%0D%0A%22Position%22%3D%22middle%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDirectory%5Cshell%5CTakeOwnership%5Ccommand%5D%0D%0A%40%3D%22powershell+-windowstyle+hidden+-command+%5C%22%24Y+%3D+%28%24null+%7C+choice%29.Substring%281%2C1%29%3B+Start-Process+cmd+-ArgumentList+%28%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+%27+%2B+%24Y+%2B+%27+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%2Fq+%26amp%3B+pause%27%29+-Verb+runAs%5C%22%22%0D%0A%22IsolatedCommand%22%3D%22powershell+-windowstyle+hidden+-command+%5C%22%24Y+%3D+%28%24null+%7C+choice%29.Substring%281%2C1%29%3B+Start-Process+cmd+-ArgumentList+%28%27%2Fc+takeown+%2Ff+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+%27+%2B+%24Y+%2B+%27+%26amp%3B%26amp%3B+icacls+%5C%5C%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%2Fl+%2Fq+%26amp%3B+pause%27%29+-Verb+runAs%5C%22%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDrive%5Cshell%5Crunas%5D%0D%0A%40%3D%22Take+Ownership%22%0D%0A%22Extended%22%3D-%0D%0A%22HasLUAShield%22%3D%22%22%0D%0A%22NoWorkingDirectory%22%3D%22%22%0D%0A%22Position%22%3D%22middle%22%0D%0A%22AppliesTo%22%3D%22NOT+%28System.ItemPathDisplay%3A%3D%5C%22C%3A%5C%5C%5C%22%29%22%0D%0A%0D%0A%5BHKEY_CLASSES_ROOT%5CDrive%5Cshell%5Crunas%5Ccommand%5D%0D%0A%40%3D%22cmd.exe+%2Fc+takeown+%2Ff+%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+y+%26amp%3B%26amp%3B+icacls+%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%26amp%3B+Pause%22%0D%0A%22IsolatedCommand%22%3D%22cmd.exe+%2Fc+takeown+%2Ff+%5C%22%251%5C%5C%5C%22+%2Fr+%2Fd+y+%26amp%3B%26amp%3B+icacls+%5C%22%251%5C%5C%5C%22+%2Fgrant+*S-1-3-4%3AF+%2Ft+%2Fc+%26amp%3B+Pause%22&SystemScriptType1=Reg&SystemScript2=%5BHKEY_LOCAL_MACHINE%5CSOFTWARE%5CMicrosoft%5CWindows%5CCurrentVersion%5CShell+Extensions%5CBlocked%5D%0D%0A%22%7B1FA0E654-C9F2-4A1F-9800-B9A75D744B00%7D%22%3D%22OneDrive%22&SystemScriptType2=Reg&DefaultUserScript0=%5BHKEY_USERS%5CDefaultUser%5CSoftware%5CMicrosoft%5CWindows%5CCurrentVersion%5CExplorer%5CAdvanced%5D%0D%0A%22UseCompactMode%22%3Ddword%3A00000001&DefaultUserScriptType0=Reg&DefaultUserScript1=%5BHKEY_USERS%5CDefaultUser%5CSoftware%5CMicrosoft%5CSiuf%5CRules%5D%0D%0A%22NumberOfSIUFInPeriod%22%3Ddword%3A00000000&DefaultUserScriptType1=Reg&WdacMode=Skip-->
   <settings pass="offlineServicing"></settings>
   <settings pass="windowsPE">
     <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
@@ -100,6 +100,7 @@ $selectors = @(
   'Microsoft.Windows.DevHome';
   'MicrosoftCorporationII.MicrosoftFamily';
   'Microsoft.WindowsFeedbackHub';
+  'Microsoft.Edge.GameAssist';
   'Microsoft.GetHelp';
   'Microsoft.Getstarted';
   'microsoft.windowscommunicationsapps';
@@ -413,6 +414,18 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked]
 "{1FA0E654-C9F2-4A1F-9800-B9A75D744B00}"="OneDrive"
     </File>
+    <File path="C:\Windows\Setup\Scripts\unattend-04.reg">
+Windows Registry Editor Version 5.00
+
+[HKEY_USERS\DefaultUser\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"UseCompactMode"=dword:00000001
+    </File>
+    <File path="C:\Windows\Setup\Scripts\unattend-05.reg">
+Windows Registry Editor Version 5.00
+
+[HKEY_USERS\DefaultUser\Software\Microsoft\Siuf\Rules]
+"NumberOfSIUFInPeriod"=dword:00000000
+    </File>
     <File path="C:\Windows\Setup\Scripts\Specialize.ps1">
 $scripts = @(
   {
@@ -524,13 +537,7 @@ $scripts = @(
     [System.Diagnostics.EventLog]::WriteEntry( 'UnattendGenerator', "User '$env:USERNAME' has requested to unlock the Start menu layout.", [System.Diagnostics.EventLogEntryType]::Information, 1 );
   };
   {
-    $params = @{
-      Path = 'Registry::HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32';
-      ErrorAction = 'SilentlyContinue';
-      Force = $true;
-    };
-    New-Item @params;
-    Set-ItemProperty @params -Name '(Default)' -Value '' -Type 'String';
+    reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /f;
   };
   {
     Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'LaunchTo' -Type 'DWord' -Value 1;
@@ -603,6 +610,9 @@ $scripts = @(
     reg.exe add "HKU\DefaultUser\Software\Policies\Microsoft\Windows\WindowsCopilot" /v TurnOffWindowsCopilot /t REG_DWORD /d 1 /f;
   };
   {
+    reg.exe add "HKU\DefaultUser\Software\Microsoft\Internet Explorer\LowRegistry\Audio\PolicyConfig\PropertyStore" /f;
+  };
+  {
     Remove-ItemProperty -LiteralPath 'Registry::HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'OneDriveSetup' -Force -ErrorAction 'Continue';
   };
   {
@@ -633,6 +643,8 @@ $scripts = @(
       'SubscribedContent-338388Enabled';
       'SubscribedContent-338389Enabled';
       'SubscribedContent-338393Enabled';
+      'SubscribedContent-353694Enabled';
+      'SubscribedContent-353696Enabled';
       'SubscribedContent-353698Enabled';
       'SystemPaneSuggestionsEnabled';
     );
@@ -668,6 +680,12 @@ $scripts = @(
   };
   {
     reg.exe add "HKU\DefaultUser\Control Panel\Accessibility\StickyKeys" /v Flags /t REG_SZ /d 10 /f;
+  };
+  {
+    reg.exe import "C:\Windows\Setup\Scripts\unattend-04.reg";
+  };
+  {
+    reg.exe import "C:\Windows\Setup\Scripts\unattend-05.reg";
   };
   {
     reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v "UnattendedSetup" /t REG_SZ /d "powershell.exe -WindowStyle Hidden -NoProfile -Command \""Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\UserOnce.ps1' -Raw | Invoke-Expression;\""" /f;
