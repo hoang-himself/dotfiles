@@ -1,8 +1,8 @@
 {
   "inbounds": [
     {
-      "tag": "xhttp",
-      "port": 9090,
+      "tag": "ws",
+      "port": 80,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -12,9 +12,9 @@
         ]
       },
       "streamSettings": {
-        "network": "xhttp",
-        "xhttpSettings": {
-          "path": "/host/00000000-0000-0000-0000-000000000000/xhttp"
+        "network": "ws",
+        "wsSettings": {
+          "path": "/host/00000000-0000-0000-0000-000000000000/ws"
         }
       },
       "sniffing": {
