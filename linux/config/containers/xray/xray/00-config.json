@@ -20,6 +20,14 @@
   },
   "dns": {
     "tag": "dns",
+    "hosts": {
+      "cloudflare-dns.com": "adguard.hoang-himself.dev",
+      "dns.google": "adguard.hoang-himself.dev",
+      "dns.cloudflare.com": "adguard.hoang-himself.dev",
+      "doh.dns.sb": "adguard.hoang-himself.dev",
+      "doh.opendns.com": "adguard.hoang-himself.dev",
+      "common.dot.dns.yandex.net": "adguard.hoang-himself.dev"
+    },
     "servers": [
       "10.88.53.53"
     ],

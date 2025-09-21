@@ -74,7 +74,7 @@ dns:
   pending_requests:
     enabled: true
 tls:
-  enabled: false
+  enabled: true
   server_name: ""
   force_https: false
   port_https: 443
@@ -157,6 +157,18 @@ filters:
     url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt
     name: HaGeZi's Threat Intelligence Feeds
     id: 1746376507
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_65.txt
+    name: HaGeZi's Vivo Tracker Blocklist
+    id: 1757951029
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_67.txt
+    name: HaGeZi's Apple Tracker Blocklist
+    id: 1757951030
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_66.txt
+    name: HaGeZi's OPPO & Realme Tracker Blocklist
+    id: 1757951031
 whitelist_filters: []
 user_rules: []
 dhcp:
@@ -199,8 +211,10 @@ filtering:
   rewrites:
     - domain: adguard.home.arpa
       answer: 10.88.53.53
-    - domain: '*.hoang-himself.dev'
+    - domain: swag.home.arpa
       answer: 10.88.80.80
+    - domain: adguard.hoang-himself.dev
+      answer: swag.home.arpa
   safe_fs_patterns:
     - /opt/adguardhome/work/userfilters/*
   safebrowsing_cache_size: 1048576
