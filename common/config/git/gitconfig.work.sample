@@ -1,0 +1,5 @@
+[core]
+  editor = code --wait
+
+[credential]
+  helper = cache --timeout 8192

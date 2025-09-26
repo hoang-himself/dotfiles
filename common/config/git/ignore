@@ -176,6 +176,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# Purpose-specific file
+# Purpose-specific
+.*
 *.local
 !*.gitkeep

@@ -1,9 +1,6 @@
 *.target.*/
 
 *.conf
-*.env
 *.ini
 *.json
 *.toml
-
-!*.gitkeep
