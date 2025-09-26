@@ -1,9 +1,10 @@
 {
   "files.associations": {
+    "*.wsb": "xml",
+    "aliases": "properties",
     "attributes": "gitignore",
     "config": "properties",
     "ignore": "gitignore",
-    "message": "git-commit",
-    "*.wsb": "xml"
+    "message": "git-commit"
   }
 }

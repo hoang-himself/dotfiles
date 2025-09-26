@@ -1,6 +1,6 @@
 # Random notes
 
-## Reset author and committer of git history
+## Bulk reset author in git
 
 ```shell
 git -c rebase.instructionFormat='%s%nexec GIT_AUTHOR_DATE="%aD" GIT_COMMITTER_DATE="%cD" git commit --amend --no-edit --reset-author' rebase

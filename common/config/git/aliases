@@ -1,0 +1,81 @@
+[alias]
+  cfg = config --list
+  root = rev-parse --show-toplevel
+  ignored = ls-files --others --ignored --exclude-standard
+  remotes = remote --verbose
+  tags = tag
+  stashes = stash list
+
+  cl = clone --recurse-submodules
+  fa = fetch --all --prune
+  up = pull --rebase --autostash
+  submodup = submodule update --init --rebase --recursive
+
+  wt = worktree
+  wta = worktree add
+  wtls = worktree list
+  wtmv = worktree move
+  wtrm = worktree remove
+
+  bss = bisect start
+  bsg = bisect good
+  bsb = bisect bad
+  bsr = bisect reset
+
+  rb = rebase
+  rbi = rebase --interactive
+  rbc = rebase --continue
+  rba = rebase --abort
+  rbo = rebase --onto
+  rbs = rebase --skip
+  rb-reset-author = -c rebase.instructionFormat='%s%nexec GIT_AUTHOR_DATE=\"%aD\" GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit --reset-author' rebase
+
+  cp = cherry-pick
+  cpc = cherry-pick --continue
+  cpa = cherry-pick --abort
+
+  a = add
+  af = add --force
+  apa = add --patch
+  rmc = rm --cached
+
+  cam = commit --all --message
+  cmsg = commit --message
+  can = commit --all --no-edit --amend
+  cn = commit --no-edit --amend
+
+  rh = reset
+  rhh = reset --hard
+  roh = !git reset --hard \"origin/$(git branch --show-current)\"
+  pristine = !git reset --hard && git clean -dfx
+
+  p = push
+  pd = push --delete
+  pf = push --force-with-lease --force-if-includes
+  pfa = pf --all
+  psup = !git push --set-upstream origin $(git branch --show-current)
+  psupf = psup --force-with-lease --force-if-includes
+
+  sw = switch
+  swc = switch --create
+
+  branches = branch --all
+  b = branch
+  bf = branch --force
+  bd = branch --delete
+  bsup = !git branch --set-upstream-to=\"origin/$(git branch --show-current)\"
+  cosubmod = checkout --recurse-submodules
+
+  st = status
+  ss = status --short
+  sps = show --pretty=short --show-signature
+  word-diff = diff --ignore-all-space --word-diff=color
+
+  log-fmt-abs = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
+  log-fmt-rel = log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'
+  lod = log-fmt-abs
+  lods = log-fmt-abs --date=short
+  lol = log-fmt-rel
+  lola = log-fmt-rel --all
+  lols = log-fmt-rel --stat
+  loga = log --oneline --decorate --graph --all
