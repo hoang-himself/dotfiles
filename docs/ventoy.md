@@ -1,29 +1,40 @@
 # Ventoy
 
+## Disable 8.3 file names in Windows
+
+For use after partitioning and formatting the installation disk
+
+Replace the drive letter where necessary
+
+```
+fsutil.exe 8dot3name set W: 1
+fsutil.exe 8dot3name strip /s /f W:\
+```
+
 ## Testing with a Windows NT 10.0 virtual machine
 
-This section is documented accordingly to Hyper-V, but may apply to other hypervisors as well
+This section is documented according to Hyper-V, but may apply to other hypervisors as well
 
 ### Preparing a Ventoy virtual hard disk
 
 First, prepare a virtual hard disk for Ventoy
 
 1. Use Hyper-V Manager or Disk Management to create a virtual hard disk
-2. Mount this disk
-3. Open Disk Management, find the disk, right click and choose `Initialize Disk`
+1. Mount this disk
+1. Open Disk Management, find the disk, right click and choose `Initialize Disk`
 
 Then, install Ventoy on this virtual hard disk
 
 1. Open Ventoy
-2. In `Option`, enable `Show All Devices`
-3. Select `Msft Virtual Disk` and other options to your liking
-4. Click `Install`
+1. In `Option`, enable `Show All Devices`
+1. Select `Msft Virtual Disk` and other options to your liking
+1. Click `Install`
 
 To apply this repo and make the Ventoy virtual hard disk bootable
 
 1. This repo assumes the installation of Windows NT 10.0, so download the latest [VHD boot template](https://github.com/ventoy/vhdiso) and copy `/ventoy_vhdboot/Win10Based/ventoy_vhdboot.img` into `/ventoy/`
-2. Build the `tela` theme, or edit `ventoy.json` to not use it at all
-3. This repo installs 7-Zip and Office as part of the Windows bootstrap process, so you need to update the `bootstrap` folder accordingly
+1. Build the `tela` theme, or edit `ventoy.json` to not use it at all
+1. This repo installs 7-Zip and Office as part of the Windows bootstrap process, so you need to update the `bootstrap` folder accordingly
 
 ### Installing a Windows NT 10.0 OS in Hyper-V
 
@@ -32,8 +43,8 @@ This section assumes a virtual machine with its own hard disk has already been c
 Then, in the `Settings` of this virtual machine
 
 1. Add the Ventoy virtual hard drive into a `SCSI Controller`
-2. In `Firmware`, set Boot Order to the hard drive of the virtual machine, then the Ventoy drive, then `Network Adapter`
-3. In `Security`, set Secure Boot template to `Microsoft UEFI Certificate Authority`
+1. In `Firmware`, set Boot Order to the hard drive of the virtual machine, then the Ventoy drive, then `Network Adapter`
+1. In `Security`, set Secure Boot template to `Microsoft UEFI Certificate Authority`
 
 You will need to enroll Ventoy's key or hash on first boot, then the installation works normally
 
