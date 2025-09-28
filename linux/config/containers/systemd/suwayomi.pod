@@ -1,5 +1,7 @@
 [Unit]
 Requires=flaresolverr.pod
+Requires=postgresql.pod
+After=postgresql.pod
 
 [Pod]
 Network=podman:ip=10.88.88.14
