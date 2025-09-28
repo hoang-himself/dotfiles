@@ -1,3 +1,6 @@
+[Unit]
+Requires=flaresolverr.pod
+
 [Pod]
 Network=podman:ip=10.88.88.14
 Volume=suwayomi.volume:/home/suwayomi/.local/share/Tachidesk
