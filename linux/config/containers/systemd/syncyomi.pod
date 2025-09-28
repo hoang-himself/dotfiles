@@ -1,3 +1,7 @@
+[Unit]
+Requires=postgresql.pod
+After=postgresql.pod
+
 [Pod]
 Network=podman:ip=10.88.88.15
 Volume=syncyomi.volume:/config
