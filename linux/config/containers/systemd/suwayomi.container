@@ -3,7 +3,7 @@ StartLimitIntervalSec=60
 StartLimitBurst=5
 
 [Container]
-Image=ghcr.io/suwayomi/tachidesk:latest
+Image=ghcr.io/suwayomi/suwayomi-server:preview
 AutoUpdate=registry
 Pod=suwayomi.pod
 EnvironmentFile=../suwayomi/suwayomi.env
