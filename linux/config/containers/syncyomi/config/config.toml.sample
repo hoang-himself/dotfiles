@@ -10,7 +10,7 @@ host = "0.0.0.0"
 #
 # Default: 8282
 #
-#port = 8282
+port = 8282
 
 # Database Type
 # Set database type to use. Supported: sqlite, postgres
@@ -19,7 +19,7 @@ host = "0.0.0.0"
 #
 # Optional
 #
-#DatabaseType = "sqlite"
+DatabaseType = "sqlite"
 
 # Postgres Host
 # Set postgres host to use.
@@ -60,14 +60,14 @@ host = "0.0.0.0"
 #
 # Optional
 #
-#baseUrl = "/SyncYomi/"
+baseUrl = ""
 
 # tachiyomi-sync-server logs file
 # If not defined, logs to stdout make sure it's forward slash otherwise it won't work
 #
 # Optional
 #
-#logPath = "log/SyncYomi.log"
+logPath = ""
 
 # Log level
 #
@@ -83,7 +83,7 @@ logLevel = "WARN"
 #
 # Max log size in megabytes
 #
-#logMaxSize = 50
+logMaxSize = 50
 
 # Log Max Backups
 #
@@ -91,11 +91,11 @@ logLevel = "WARN"
 #
 # Max amount of old log files
 #
-#logMaxBackups = 3
+logMaxBackups = 3
 
 # Check for updates
 #
-#checkForUpdates = true
+checkForUpdates = false
 
 # Session secret
 #
