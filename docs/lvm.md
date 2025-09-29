@@ -2,6 +2,8 @@
 
 > Partition -> Physical volume -> Volume group -> Logical volume -> File system
 
+First, use `lsblk` to determine relevant devices and partitions
+
 ```shell
 growpart /dev/sda 3
 pvresize /dev/sda3
