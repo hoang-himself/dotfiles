@@ -36,6 +36,7 @@
   autoStash = true
   autoSquash = true
   updateRefs = true
+  rebaseMerges = no-rebase-cousins
 
 [rerere] # in case `clear` does not work, delete .git/rr-cache
   enabled = true
