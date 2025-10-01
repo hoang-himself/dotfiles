@@ -26,12 +26,14 @@ dns:
     - https://dns.nextdns.io
     - https://doh.opendns.com/dns-query
     - https://dns.adguard-dns.com/dns-query
+    - https://dns.quad9.net/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
     - 8.8.8.8
     - 1.1.1.1
     - 208.67.222.222
     - 94.140.14.14
+    - 9.9.9.9
   fallback_dns: []
   upstream_mode: load_balance
   fastest_timeout: 1s
@@ -213,8 +215,6 @@ filtering:
       answer: 10.88.53.53
     - domain: swag.home.arpa
       answer: 10.88.80.80
-    - domain: adguard.hoang-himself.dev
-      answer: swag.home.arpa
   safe_fs_patterns:
     - /opt/adguardhome/work/userfilters/*
   safebrowsing_cache_size: 1048576
