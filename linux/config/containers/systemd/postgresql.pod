@@ -1,0 +1,6 @@
+[Pod]
+Network=podman:ip=10.88.10.10
+Volume=postgresql.volume:/var/lib/postgresql
+
+[Service]
+Restart=always
