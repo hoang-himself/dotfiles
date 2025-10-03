@@ -5,6 +5,7 @@
   symlinks = true
   fsmonitor = true
   untrackedCache = true
+  hooksPath = .githooks
 
 [commit]
   template = ~/.config/git/message
