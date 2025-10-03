@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONFIG_LIST=(
+  # "password|role|db|schema"
+)
+
+create_config() {
+  local password="$1"
+  local role="$2"
+  local target_db="$3"
+  local schema="$4"
+
+  echo "Creating configuration: role='$role', db='$target_db', schema='$schema'"
+
+  psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" \
+    --set ON_ERROR_STOP=1 \
+    -v pass="$password" \
+    -v role="$role" \
+    -v target_db="$target_db" \
+  <<'EOSQL'
+SELECT format(
+  'CREATE ROLE %I LOGIN PASSWORD %L',
+  :'role',
+  :'pass'
+)
+WHERE NOT EXISTS (
+  SELECT FROM pg_roles WHERE rolname = :'role'
+)
+\gexec
+
+SELECT format('CREATE DATABASE %I OWNER %I', :'target_db', :'role')
+WHERE :'target_db' <> current_database()
+  AND NOT EXISTS (
+    SELECT FROM pg_database WHERE datname = :'target_db'
+  );
+\gexec
+EOSQL
+
+  psql --username "$role" --dbname "$target_db" \
+    --set ON_ERROR_STOP=1 \
+    -v role="$role" \
+    -v schema="$schema" \
+  <<'EOSQL'
+CREATE SCHEMA IF NOT EXISTS :"schema" AUTHORIZATION :"role";
+EOSQL
+}
+
+echo "Processing ${#CONFIG_LIST[@]} configuration(s)."
+
+for config in "${CONFIG_LIST[@]}"; do
+  IFS='|' read -r password role db schema <<< "$config"
+
+  if [[ -z "$password" ]]; then
+    echo "ERROR: Password cannot be empty for role '$role'" >&2
+    exit 1
+  fi
+
+  create_config "$password" "$role" "$db" "$schema"
+done
+
+echo "Completed processing all configurations."
