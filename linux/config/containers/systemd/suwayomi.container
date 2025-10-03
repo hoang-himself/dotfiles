@@ -3,3 +3,6 @@ Image=ghcr.io/suwayomi/tachidesk:latest
 AutoUpdate=registry
 Pod=suwayomi.pod
 EnvironmentFile=../suwayomi/suwayomi.env
+
+[Service]
+Restart=always

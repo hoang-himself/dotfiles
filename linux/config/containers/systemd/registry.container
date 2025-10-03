@@ -4,3 +4,6 @@ AutoUpdate=registry
 Pod=registry.pod
 EnvironmentFile=../registry/registry.env
 Volume=../registry/distribution/config.yml:/etc/distribution/config.yml:Z
+
+[Service]
+Restart=always

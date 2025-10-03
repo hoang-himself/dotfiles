@@ -3,3 +3,6 @@ Image=docker.io/adguard/adguardhome:latest
 AutoUpdate=registry
 Pod=adguardhome.pod
 Volume=../adguardhome/conf:/opt/adguardhome/conf:Z
+
+[Service]
+Restart=always

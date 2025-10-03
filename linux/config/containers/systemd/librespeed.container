@@ -2,3 +2,6 @@
 Image=lscr.io/linuxserver/librespeed:latest
 AutoUpdate=registry
 Pod=librespeed.pod
+
+[Service]
+Restart=always
