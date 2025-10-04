@@ -1,4 +1,14 @@
 #
+# Purpose-specific
+#
+
+.*
+*.local
+!*.gitkeep
+!*.example
+!*.sample
+
+#
 # Program specific
 #
 
@@ -76,9 +86,7 @@ Backup of *.doc*
 
 # Environments
 *.venv
-*.venv.*
 *.env
-*.env.*
 
 # Font
 *.fnt
@@ -175,8 +183,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# Purpose-specific
-.*
-*.local
-!*.gitkeep

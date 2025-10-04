@@ -1,4 +1,5 @@
-# Common settings that generally should always be used with your language specific settings
+# Exclude files from exporting
+.git* export-ignore
 
 # Auto detect text files and perform LF normalization
 * text=auto
@@ -67,11 +68,5 @@
 *.patch -text
 
 # Text files with explicit line endings
-*.crlf text eol=crlf
-*.lf text eof=lf
-
-#
-# Exclude files from exporting
-#
-
-.git* export-ignore
+*.crlf.* text eol=crlf
+*.lf.* text eof=lf
