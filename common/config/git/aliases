@@ -1,6 +1,9 @@
 [alias]
   cfg = config --list
   root = rev-parse --show-toplevel
+  current-branch = branch --show-current
+  current-remote = !git config branch.$(git current-branch).remote || echo origin
+
   ignored = ls-files --others --ignored --exclude-standard
   remotes = remote --verbose
   tags = tag
@@ -9,7 +12,8 @@
   cl = clone --recurse-submodules
   fa = fetch --all --prune
   up = pull --rebase --autostash
-  submodup = submodule update --init --rebase --recursive
+  upsubmod = submodule update --init --rebase --recursive
+  cosubmod = checkout --recurse-submodules
 
   wt = worktree
   wta = worktree add
@@ -46,28 +50,26 @@
 
   rh = reset
   rhh = reset --hard
-  roh = !git reset --hard \"origin/$(git branch --show-current)\"
+  ruh = !git reset --hard \"$(git for-each-ref --format='%(upstream:short)' refs/heads/$(git current-branch))\"
   pristine = !git reset --hard && git clean -dfx
 
   p = push
   pd = push --delete
   pf = push --force-with-lease --force-if-includes
+  psup = push --set-upstream
+  pfsup = pf --set-upstream
   pfa = pf --all
-  psup = !git push --set-upstream origin $(git branch --show-current)
-  psupf = psup --force-with-lease --force-if-includes
 
   sw = switch
   swc = switch --create
 
   branches = branch --all
   b = branch
-  bf = branch --force
   bd = branch --delete
-  bsup = !git branch --set-upstream-to=\"origin/$(git branch --show-current)\"
-  cosubmod = checkout --recurse-submodules
+  bf = branch --force
+  bsup = branch --set-upstream-to
 
-  st = status
-  ss = status --short
+  st = status --short --branch
   sps = show --pretty=short --show-signature
   word-diff = diff --ignore-all-space --word-diff=color
 
