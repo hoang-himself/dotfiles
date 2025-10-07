@@ -1,0 +1,5 @@
+[Container]
+Image=docker.io/dpage/pgadmin4:9
+AutoUpdate=registry
+Pod=pgadmin.pod
+EnvironmentFile=../pgadmin/pgadmin.env

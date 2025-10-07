@@ -1,0 +1,3 @@
+[Pod]
+Network=podman:ip=10.88.88.17
+Volume=pgadmin.volume:/var/lib/pgadmin
