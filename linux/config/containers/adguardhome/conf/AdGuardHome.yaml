@@ -25,14 +25,12 @@ dns:
     - https://cloudflare-dns.com/dns-query
     - https://dns.nextdns.io
     - https://doh.opendns.com/dns-query
-    - https://dns.adguard-dns.com/dns-query
     - https://dns.quad9.net/dns-query
   upstream_dns_file: ""
   bootstrap_dns:
     - 8.8.8.8
     - 1.1.1.1
     - 208.67.222.222
-    - 94.140.14.14
     - 9.9.9.9
   fallback_dns: []
   upstream_mode: load_balance
@@ -50,13 +48,13 @@ dns:
   cache_size: 4194304
   cache_ttl_min: 0
   cache_ttl_max: 0
-  cache_optimistic: false
+  cache_optimistic: true
   bogus_nxdomain: []
   aaaa_disabled: false
-  enable_dnssec: false
+  enable_dnssec: true
   edns_client_subnet:
     custom_ip: ""
-    enabled: false
+    enabled: true
     use_custom: false
   max_goroutines: 300
   handle_ddr: true
@@ -171,6 +169,14 @@ filters:
     url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_66.txt
     name: HaGeZi's OPPO & Realme Tracker Blocklist
     id: 1757951031
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_54.txt
+    name: HaGeZi's DynDNS Blocklist
+    id: 1760198769
+  - enabled: true
+    url: https://adguardteam.github.io/HostlistsRegistry/assets/filter_71.txt
+    name: HaGeZi's DNS Rebind Protection
+    id: 1760198770
 whitelist_filters: []
 user_rules: []
 dhcp:
@@ -207,13 +213,13 @@ filtering:
     pixabay: true
     yandex: true
     youtube: true
-  blocking_mode: nxdomain
+  blocking_mode: default
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
   rewrites:
-    - domain: adguard.home.arpa
-      answer: 10.88.53.53
-    - domain: swag.home.arpa
+    - domain: '*.home.arpa'
+      answer: 10.88.80.80
+    - domain: '*.hoang-himself.dev'
       answer: 10.88.80.80
   safe_fs_patterns:
     - /opt/adguardhome/work/userfilters/*
@@ -222,7 +228,7 @@ filtering:
   parental_cache_size: 1048576
   cache_time: 30
   filters_update_interval: 12
-  blocked_response_ttl: 10
+  blocked_response_ttl: 30
   filtering_enabled: true
   parental_enabled: false
   safebrowsing_enabled: true
