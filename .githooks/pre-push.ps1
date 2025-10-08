@@ -17,7 +17,7 @@ $input | ForEach-Object {
   $branch_name = $local_ref -replace '^refs/heads/', ''
 
   # Modular branch name check
-  & '.\.githooks\pre-push.d\assert-branch.ps1' $branch_name
+  & '.\.githooks\pre-push.d\assert-branch-is-local.ps1' $branch_name
   if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
   }
@@ -31,7 +31,7 @@ $input | ForEach-Object {
   }
 
   # Modular commit message check
-  & '.\.githooks\pre-push.d\assert-commit.ps1' $commit_range
+  & '.\.githooks\pre-push.d\assert-commit-is-local.ps1' $commit_range
   if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
   }

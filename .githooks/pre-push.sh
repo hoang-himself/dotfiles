@@ -15,7 +15,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   branch_name="${local_ref#refs/heads/}"
 
   # Modular branch name check
-  ./.githooks/pre-push.d/assert-branch.sh "$branch_name"
+  ./.githooks/pre-push.d/assert-branch-is-local.sh "$branch_name"
   exit_code=$?
   if [ $exit_code -ne 0 ]; then
     exit $exit_code
@@ -29,7 +29,7 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   fi
 
   # Modular commit message check
-  ./.githooks/pre-push.d/assert-commit.sh "$commit_range"
+  ./.githooks/pre-push.d/assert-commit-is-local.sh "$commit_range"
   exit_code=$?
   if [ $exit_code -ne 0 ]; then
     exit $exit_code
