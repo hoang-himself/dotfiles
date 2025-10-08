@@ -1,5 +1,5 @@
 [Container]
-Image=docker.io/library/registry:latest
+Image=docker.io/library/registry:3
 AutoUpdate=registry
 Pod=registry.pod
 EnvironmentFile=../registry/registry.env
