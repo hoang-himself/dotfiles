@@ -14,6 +14,9 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   # Extract branch name from local ref (refs/heads/branch-name)
   branch_name="${local_ref#refs/heads/}"
 
+  # Automatically unset upstream for local branches
+  ./.githooks/pre-push.d/assert-local-has-upstream.sh "$branch_name"
+
   # Modular branch name check
   ./.githooks/pre-push.d/assert-branch-is-local.sh "$branch_name"
   exit_code=$?

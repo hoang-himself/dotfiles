@@ -16,6 +16,9 @@ $input | ForEach-Object {
   # Extract branch name from local ref (refs/heads/branch-name)
   $branch_name = $local_ref -replace '^refs/heads/', ''
 
+  # Automatically unset upstream for local branches
+  & '.\.githooks\pre-push.d\assert-local-has-upstream.ps1' $branch_name
+
   # Modular branch name check
   & '.\.githooks\pre-push.d\assert-branch-is-local.ps1' $branch_name
   if ($LASTEXITCODE -ne 0) {

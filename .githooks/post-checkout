@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ -n "$WINDIR" ]; then
+  if command -v pwsh >/dev/null 2>&1; then
+    pwsh -File ./.githooks/post-checkout.ps1 "$@"
+  else
+    echo "Warning: pwsh not found. Skipping."
+    exit 0
+  fi
+else
+  bash ./.githooks/post-checkout.sh "$@"
+fi
