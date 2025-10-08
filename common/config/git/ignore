@@ -1,12 +1,14 @@
 #
-# Purpose-specific
+# Purpose specific
 #
 
-.*
-*.local
 !*.gitkeep
 !*.example
 !*.sample
+!*.template
+
+.*
+*.local
 
 #
 # Program specific

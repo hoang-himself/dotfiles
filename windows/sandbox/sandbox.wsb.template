@@ -9,16 +9,16 @@
   <MappedFolders>
     <MappedFolder>
       <HostFolder>__SANDBOX__\Assets</HostFolder>
-      <SandboxFolder>C:\users\WDAGUtilityAccount\Desktop\Setup\Assets</SandboxFolder>
+      <SandboxFolder>C:\Windows\Setup\Assets</SandboxFolder>
       <ReadOnly>true</ReadOnly>
     </MappedFolder>
     <MappedFolder>
       <HostFolder>__SANDBOX__\Scripts</HostFolder>
-      <SandboxFolder>C:\users\WDAGUtilityAccount\Desktop\Setup\Scripts</SandboxFolder>
+      <SandboxFolder>C:\Windows\Setup\Scripts</SandboxFolder>
       <ReadOnly>true</ReadOnly>
     </MappedFolder>
   </MappedFolders>
   <LogonCommand>
-    <Command>C:\Users\WDAGUtilityAccount\Desktop\Setup\Scripts\SetupComplete.cmd</Command>
+    <Command>C:\Windows\Setup\Scripts\SetupComplete.cmd</Command>
   </LogonCommand>
 </Configuration>

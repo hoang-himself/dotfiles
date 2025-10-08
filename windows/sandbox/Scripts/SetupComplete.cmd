@@ -1,19 +1,31 @@
-set SETUPDIR=C:\Users\WDAGUtilityAccount\Desktop\Setup
+set SETUPDIR=%SystemRoot%\Setup
 set ASSETSDIR=%TEMP%\Assets
+set SCRIPTSDIR=%SETUPDIR%\Scripts
 
-:: We need a writeable location to launch MSIs for some reason
+:: MSI installs might require a writeable folder
 xcopy /HIVERKYQ %SETUPDIR%\* %TEMP%\
 
-::
+:: ScriptBlock Logging
+powershell.exe -Command "try { Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -ErrorAction Stop | Out-Null } catch {}"
+reg.exe add "HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" /f
+reg.exe add "HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging" /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f
+
+:: Speed up MSI installs
+reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v "VerifiedAndReputablePolicyState" /t REG_DWORD /d 0 /f
+CiTool.exe --refresh --json >nul 2>&1
+
+:: Explorer tweaks
+reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /f
+reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f
+reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v UseCompactMode /t REG_DWORD /d 1 /f
+
+:: Apply changes
+powershell.exe -Command "Stop-Process -Name explorer -Force;"
+
+:: Install applications
 start "" powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\NanaZip.msixbundle;"
+
 :: https://github.com/microsoft/vscode/blob/main/build/win32/code.iss
 start "" "%ASSETSDIR%\vscode-setup.exe" /SILENT /SUPPRESSMSGBOXES /MERGETASKS="!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath"
+
 ::start "" "%ASSETSDIR%\wireguard-installer.exe" /S
-
-:: PowerShell script block logging
-powershell.exe -Command "New-Item -Path HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -Force"
-powershell.exe -Command "Set-ItemProperty -Path HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging -Name EnableScriptBlockLogging -Value 1 -Force"
-
-::
-powershell.exe -Command "Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0 -Force"
-powershell.exe -Command "Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name UseCompactMode -Value 1 -Force"
