@@ -21,6 +21,7 @@ reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /
 
 :: Apply changes
 powershell.exe -Command "Stop-Process -Name explorer -Force;"
+powershell.exe -Command "Start-Process explorer.exe %ASSETSDIR%;"
 
 :: Install applications
 start "" powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\NanaZip.msixbundle;"
