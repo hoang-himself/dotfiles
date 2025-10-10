@@ -1,4 +1,12 @@
+[Unit]
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
 [Container]
 Image=lscr.io/linuxserver/librespeed:latest
 AutoUpdate=registry
 Pod=librespeed.pod
+
+[Service]
+Restart=on-failure
+RestartSec=5
