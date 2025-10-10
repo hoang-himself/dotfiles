@@ -1,5 +1,15 @@
+[Unit]
+StartLimitIntervalSec=120
+StartLimitBurst=10
+
 [Container]
 Image=docker.io/adguard/adguardhome:latest
 AutoUpdate=registry
 Pod=adguardhome.pod
 Volume=../adguardhome/conf:/opt/adguardhome/conf:Z
+
+[Service]
+Restart=always
+RestartSec=10
+OOMPolicy=continue
+OOMScoreAdjust=-10

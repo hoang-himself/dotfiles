@@ -1,3 +1,7 @@
+[Unit]
+StartLimitIntervalSec=120
+StartLimitBurst=10
+
 [Container]
 Image=lscr.io/linuxserver/swag:latest
 AutoUpdate=registry
@@ -7,3 +11,9 @@ Volume=../swag/config/dns-conf/porkbun.ini:/config/dns-conf/porkbun.ini:Z
 Volume=../swag/config/nginx/site-confs/default.conf:/config/nginx/site-confs/default.conf:Z
 Volume=../swag/config/nginx/proxy-confs/custom:/config/nginx/proxy-confs/custom:Z
 AddCapability=NET_ADMIN
+
+[Service]
+Restart=always
+RestartSec=10
+OOMPolicy=continue
+OOMScoreAdjust=-10

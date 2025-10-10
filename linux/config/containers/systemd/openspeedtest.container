@@ -1,4 +1,12 @@
+[Unit]
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
 [Container]
 Image=docker.io/openspeedtest/latest:latest
 AutoUpdate=registry
 Pod=openspeedtest.pod
+
+[Service]
+Restart=on-failure
+RestartSec=5

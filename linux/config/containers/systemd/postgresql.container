@@ -1,3 +1,7 @@
+[Unit]
+StartLimitIntervalSec=120
+StartLimitBurst=10
+
 [Container]
 Image=docker.io/library/postgres:18
 AutoUpdate=registry
@@ -6,3 +10,9 @@ EnvironmentFile=../postgresql/postgresql.env
 Volume=../postgresql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:Z
 Volume=../postgresql/postgresql:/etc/postgresql:Z
 Exec=postgres -c config_file=/etc/postgresql/postgresql.conf -c hba_file=/etc/postgresql/pg_hba.conf
+
+[Service]
+Restart=always
+RestartSec=10
+OOMPolicy=continue
+OOMScoreAdjust=-10
