@@ -1,5 +1,5 @@
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/sudo /usr/bin/systemctl enable --now fail2ban.service
-ExecStartPost=/usr/bin/sleep 10
-ExecStartPost=/usr/bin/sudo /usr/bin/fail2ban-client reload
+ExecStart=/usr/bin/sleep 10
+ExecStart=/usr/bin/sudo /usr/bin/fail2ban-client reload
