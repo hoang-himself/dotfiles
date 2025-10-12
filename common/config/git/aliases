@@ -68,6 +68,7 @@
   bd = branch --delete
   bf = branch --force
   bsup = branch --set-upstream-to
+  busup = branch --unset-upstream
 
   st = status --short --branch
   sps = show --pretty=short --show-signature
