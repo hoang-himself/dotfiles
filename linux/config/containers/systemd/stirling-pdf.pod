@@ -1,0 +1,2 @@
+[Pod]
+Network=podman:ip=10.88.88.18

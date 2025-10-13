@@ -1,0 +1,13 @@
+[Unit]
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Container]
+Image=ghcr.io/stirling-tools/stirling-pdf:latest-fat
+AutoUpdate=registry
+Pod=stirling-pdf.pod
+Volume=../stirling-pdf/configs/custom_settings.yml:/configs/custom_settings.yml:Z
+
+[Service]
+Restart=on-failure
+RestartSec=5
