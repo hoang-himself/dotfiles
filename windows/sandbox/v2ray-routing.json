@@ -1,0 +1,48 @@
+[
+  {
+    "outboundTag": "proxy",
+    "domain": [
+      "domain:home.arpa"
+    ],
+    "enabled": true,
+    "remarks": "rfc8375"
+  },
+  {
+    "outboundTag": "proxy",
+    "ip": [
+      "10.88.0.0/16"
+    ],
+    "enabled": true,
+    "remarks": "podman"
+  },
+  {
+    "outboundTag": "direct",
+    "domain": [
+      "geosite:private"
+    ],
+    "enabled": true,
+    "remarks": "https://github.com/v2fly/domain-list-community/blob/master/data/private"
+  },
+  {
+    "outboundTag": "direct",
+    "ip": [
+      "36.50.177.112"
+    ],
+    "enabled": true,
+    "remarks": "trusted"
+  },
+  {
+    "outboundTag": "direct",
+    "ip": [
+      "geoip:private"
+    ],
+    "enabled": true,
+    "remarks": "https://github.com/Loyalsoldier/geoip/blob/release/text/private.txt"
+  },
+  {
+    "port": "0-65535",
+    "outboundTag": "proxy",
+    "enabled": true,
+    "remarks": "default"
+  }
+]
