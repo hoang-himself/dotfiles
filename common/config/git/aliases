@@ -66,7 +66,7 @@
   branches = branch --all
   b = branch
   bd = branch --delete
-  bf = branch --force
+  bf = branch --force --no-unset-upstream
   bsup = branch --set-upstream-to
   busup = branch --unset-upstream
 
