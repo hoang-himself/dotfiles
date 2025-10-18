@@ -14,7 +14,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/host/00000000-0000-0000-0000-000000000000/ws"
+          "path": "/ws"
         }
       },
       "sniffing": {

@@ -14,7 +14,7 @@
       "streamSettings": {
         "network": "xhttp",
         "xhttpSettings": {
-          "path": "/host/00000000-0000-0000-0000-000000000000/xhttp"
+          "path": "/xhttp"
         }
       },
       "sniffing": {
