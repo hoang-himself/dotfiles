@@ -39,5 +39,9 @@ while IFS=' ' read -r local_ref local_sha remote_ref remote_sha; do
   done
 done < "$tmpfile"
 
+if command -v git-lfs >/dev/null 2>&1; then
+  git lfs pre-push "$@" < "$tmpfile"
+fi
+
 echo 'Pre-push checks passed.'
 exit 0
