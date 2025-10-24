@@ -27,14 +27,14 @@ function Install-Base {
   )
 
   @(
-    'XPFP7F8RL7MB1W',
-    'XPDC2RH70K22MN',
-    '9NBLGGH516XP',
-    'XP8LFCZM790F6B',
-    'XPDCCPPSK2XPQW',
-    '9PLJWWSV01LK',
-    'XP89DCGQ3K6VLD',
-    '9N8G7TSCL18R'
+    'XPFP7F8RL7MB1W', # Bing Wallpaper
+    'XPDC2RH70K22MN', # Discord
+    '9NBLGGH516XP', # EarTrumpet
+    'XP8LFCZM790F6B', # Visual Studio Code - Insiders
+    'XPDCCPPSK2XPQW', # TeraCopy
+    '9PLJWWSV01LK', # Twinkle Tray
+    'XP89DCGQ3K6VLD', # PowerToys
+    '9N8G7TSCL18R' # NanaZip
   ) | ForEach-Object -Process {
     winget install --accept-source-agreements --accept-package-agreements --source msstore --id "$_"
   }
