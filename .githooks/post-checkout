@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 
-if [ -n "$WINDIR" ]; then
-  if command -v pwsh >/dev/null 2>&1; then
-    pwsh -File ./.githooks/post-checkout.ps1 "$@"
-  else
-    echo "Warning: pwsh not found. Skipping."
-    exit 0
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+previous_head="$1"
+new_head="$2"
+branch_flag="$3"
+
+echo 'Running post-checkout hook.'
+
+for script in "$SCRIPT_DIR/post-checkout.d"/*.sh; do
+  if [ -f "$script" ] && [ -x "$script" ]; then
+    "$script" "$previous_head" "$new_head" "$branch_flag"
   fi
-else
-  bash ./.githooks/post-checkout.sh "$@"
-fi
+done
+
+echo 'Post-checkout hook completed.'
+exit 0

@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 branch_name="$1"
 
 has_upstream() {
   local branch="$1"
-  upstream=$(git config --get "branch.$branch.remote" 2>/dev/null)
-  [ -n "$upstream" ]
+  local upstream
+  upstream=$(git config --get "branch.$branch.remote" 2>/dev/null || echo "")
+  [ -n "$upstream" ] && [ "$upstream" != "." ]
 }
 
 unset_upstream() {
   local branch="$1"
 
-  echo "Unsetting upstream for branch '$branch'."
+  echo "Unsetting upstream for branch '$branch'"
 
   if git branch --unset-upstream "$branch" 2>/dev/null; then
     echo "Successfully unset upstream for branch '$branch'"
@@ -22,11 +25,13 @@ unset_upstream() {
   fi
 }
 
-if [[ "$branch_name" =~ ^local($|/) ]]; then
-  if has_upstream "$branch_name"; then
-    echo "Branch '$branch_name' starts with 'local' and has upstream set."
-    unset_upstream "$branch_name"
-  fi
-fi
+# Only process branches starting with "local" or "local/"
+[[ ! "$branch_name" =~ ^local($|/) ]] && exit 0
+
+# Skip if no upstream
+has_upstream "$branch_name" || exit 0
+
+echo "Branch '$branch_name' starts with 'local' and has upstream set"
+unset_upstream "$branch_name"
 
 exit 0
