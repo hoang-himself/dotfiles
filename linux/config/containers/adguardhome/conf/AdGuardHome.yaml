@@ -219,8 +219,10 @@ filtering:
   rewrites:
     - domain: '*.home.arpa'
       answer: 10.88.80.80
+      enabled: true
     - domain: '*.hoang-himself.dev'
       answer: 10.88.80.80
+      enabled: true
   safe_fs_patterns:
     - /opt/adguardhome/work/userfilters/*
   safebrowsing_cache_size: 1048576
@@ -230,6 +232,7 @@ filtering:
   filters_update_interval: 12
   blocked_response_ttl: 30
   filtering_enabled: true
+  rewrites_enabled: true
   parental_enabled: false
   safebrowsing_enabled: true
   protection_enabled: true
@@ -254,4 +257,4 @@ os:
   group: ""
   user: ""
   rlimit_nofile: 0
-schema_version: 30
+schema_version: 31
