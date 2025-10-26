@@ -19,20 +19,8 @@ current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
 # Only process branches starting with "local" or "local/"
 [[ ! "$current_branch" =~ ^local($|/) ]] && exit 0
 
-echo "Switched to local branch '$current_branch'"
+echo "Unsetting upstream for local branch"
 
-upstream=$(git config --get "branch.$current_branch.remote" 2>/dev/null || echo "")
-
-# Skip if no upstream or upstream is local
-[ -z "$upstream" ] || [ "$upstream" = "." ] && exit 0
-
-echo "Unsetting upstream '$upstream' for local branch"
-
-if git branch --unset-upstream "$current_branch" 2>/dev/null; then
-  echo 'Successfully unset upstream'
-else
-  echo 'Failed to unset upstream' >&2
-  exit 1
-fi
+git branch --unset-upstream "$current_branch" 2>/dev/null || true
 
 exit 0
