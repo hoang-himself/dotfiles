@@ -4,7 +4,7 @@
   current-branch = branch --show-current
   current-remote = !git config branch.$(git current-branch).remote || echo origin
 
-  ignored = ls-files --others --ignored --exclude-standard
+  ls-ignored = ls-files --others --ignored --exclude-standard
   remotes = remote --verbose
   tags = tag
   stashes = stash list
