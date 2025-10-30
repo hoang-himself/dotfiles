@@ -51,6 +51,7 @@
   rh = reset
   rhh = reset --hard
   ruh = !git reset --hard \"$(git for-each-ref --format='%(upstream:short)' refs/heads/$(git current-branch))\"
+  clr = clean -df
   pristine = !git reset --hard && git clean -dfx
 
   p = push
