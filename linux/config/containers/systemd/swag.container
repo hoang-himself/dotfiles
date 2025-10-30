@@ -13,7 +13,6 @@ Volume=../swag/config/nginx/proxy-confs/custom:/config/nginx/proxy-confs/custom:
 AddCapability=NET_ADMIN
 
 [Service]
-ExecStartPost=/bin/sh -c 'systemctl --user show -P SourcePath "$1" | tr " " "\\n" | xargs dirname | xargs dirname | xargs -I {} sudo chown -R "$2" "{}/swag/config"' -- %n %u
 Restart=always
 RestartSec=10
 OOMPolicy=continue
