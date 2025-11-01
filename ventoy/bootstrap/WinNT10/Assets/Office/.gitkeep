@@ -1,7 +1,0 @@
-# Office
-
-In `Offline_Install.ps1`, at `start OfficeClickToRun.exe`:
-
-- `start` with `-Wait`
-- Accept EULAs is `Yes` or `True`
-- Display level is `None` or `False`
