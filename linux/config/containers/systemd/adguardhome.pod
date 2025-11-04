@@ -1,2 +1,4 @@
 [Pod]
 Network=podman:ip=10.88.53.53
+PublishPort=53:53/tcp
+PublishPort=53:53/udp

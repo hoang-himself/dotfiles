@@ -11,13 +11,6 @@ See:
 - [Commit Information](https://git-scm.com/docs/git-commit#_commit_information)
 - [Placeholders that expand to information extracted from the commit](https://git-scm.com/docs/git-log#Documentation/git-log.txt-emHem)
 
-## Set unprivileged port start
-
-```shell
-sudo tee '/etc/sysctl.d/50-rootless-port.conf' <<<'net.ipv4.ip_unprivileged_port_start = 1024' >/dev/null
-sudo sysctl --system >/dev/null
-```
-
 ## PN532 read/write via I2C
 
 ### Prepare the Pi

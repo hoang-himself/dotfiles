@@ -71,18 +71,26 @@ function set_systemd {
 }
 
 function set_firewall {
-  sudo systemctl enable --now firewalld
+  sudo tee '/etc/sysctl.d/50-local-dns.conf' <<<'net.ipv4.ip_unprivileged_port_start = 53' >/dev/null
+  sudo sysctl --system >/dev/null
 
+  sudo mkdir -p '/etc/systemd/resolved.conf.d'
+  sudo tee '/etc/systemd/resolved.conf.d/50-local-dns.conf' <<EOF >/dev/null
+[Resolve]
+DNS=127.0.0.1
+DNSStubListener=no
+EOF
+  sudo systemctl restart systemd-resolved
+
+  sudo systemctl enable --now firewalld
   sudo firewall-cmd --permanent \
     --add-service ssh \
+    --add-service dns \
     --add-service http \
     --add-service http3 \
     --add-service https \
     --add-service wireguard
   sudo firewall-cmd --reload
-
-  sudo tee '/etc/sysctl.d/50-rootless-port.conf' <<<'net.ipv4.ip_unprivileged_port_start = 80' >/dev/null
-  sudo sysctl --system >/dev/null
 }
 
 function set_fail2ban {
