@@ -6,7 +6,8 @@
 function install_base {
   sudo rpm-ostree install -y \
     buildah qemu-user-static zsh \
-    git git-lfs neovim logrotate fail2ban
+    git git-lfs neovim logrotate \
+    fail2ban
 }
 
 function main {

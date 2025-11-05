@@ -90,6 +90,7 @@ EOF
     --add-service http3 \
     --add-service https \
     --add-service wireguard
+  sudo firewall-cmd --permanent --service wireguard --add-port 80/udp
   sudo firewall-cmd --reload
 }
 
