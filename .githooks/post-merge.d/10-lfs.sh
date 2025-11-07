@@ -11,4 +11,8 @@ if ! command -v git-lfs >/dev/null 2>&1; then
   exit 2
 fi
 
+if ! git lfs ls-files | grep -q .; then
+  exit 0
+fi
+
 exec git lfs post-merge "$@"

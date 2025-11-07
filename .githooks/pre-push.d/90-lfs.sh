@@ -11,6 +11,10 @@ if ! command -v git-lfs >/dev/null 2>&1; then
   exit 2
 fi
 
+if ! git lfs ls-files | grep -q .; then
+  exit 0
+fi
+
 tmpfile="$1"
 
 exec git lfs pre-push "$@" < "$tmpfile"
