@@ -11,6 +11,7 @@ trap 'rm -f "$tmpfile"' EXIT
 
 cat > "$tmpfile"
 
+# shellcheck disable=SC2094
 while IFS=' ' read -r local_ref local_sha remote_ref remote_sha; do
   if [[ "$local_sha" =~ ^0+$ ]]; then
     echo "Skipping validation for branch deletion: ${remote_ref#refs/heads/}"
@@ -28,8 +29,11 @@ while IFS=' ' read -r local_ref local_sha remote_ref remote_sha; do
   for script in "$SCRIPT_DIR/pre-push.d"/*.sh; do
     if [ -f "$script" ] && [ -x "$script" ]; then
       case "$(basename "$script")" in
-        assert-commit-is-local.sh)
+        *-assert-commit-is-local.sh)
           "$script" "$commit_range"
+          ;;
+        *-lfs.sh)
+          "$script" "$tmpfile"
           ;;
         *)
           "$script" "$branch_name"
@@ -38,10 +42,6 @@ while IFS=' ' read -r local_ref local_sha remote_ref remote_sha; do
     fi
   done
 done < "$tmpfile"
-
-if command -v git-lfs >/dev/null 2>&1; then
-  git lfs pre-push "$@" < "$tmpfile"
-fi
 
 echo 'Pre-push checks passed.'
 exit 0
