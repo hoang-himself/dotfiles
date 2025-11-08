@@ -4,14 +4,17 @@ function Get-Asset {
   Push-Location -Path 'Assets';
 
   $scriptBlockList += {
-    Invoke-WebRequest -Uri 'https://sourceforge.net/projects/nanazip/files/latest/download' `
-      -Headers @{ 'User-Agent' = 'Wget x64' } `
-      -OutFile 'nanazip.msixbundle';
+    [array](Invoke-RestMethod -Method 'GET' -uri 'https://api.github.com/repos/M2Team/NanaZip/releases') `
+    | Where-Object -FilterScript { -not $_.prerelease } `
+    | Select-Object -First 1 -ExpandProperty assets `
+    | Where-Object -FilterScript { $_.name -like "*.msixbundle" } `
+    | Select-Object -ExpandProperty browser_download_url `
+    | ForEach-Object { Invoke-WebRequest -Uri "$_ "-OutFile '40174MouriNaruto.NanaZip_gnj4mf6z9tkrc.msixbundle'; }
   }
 
   $scriptBlockList += {
     Invoke-WebRequest -Uri 'https://update.code.visualstudio.com/latest/win32-x64-user/stable' `
-      -OutFile 'vscode-setup.exe';
+      -OutFile 'VSCodeUserSetup-x64.exe';
   }
 
   $scriptBlockList += {

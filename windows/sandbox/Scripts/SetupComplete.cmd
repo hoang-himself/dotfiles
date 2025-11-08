@@ -24,9 +24,9 @@ powershell.exe -Command "Stop-Process -Name explorer -Force;"
 powershell.exe -Command "Start-Process explorer.exe %ASSETSDIR%;"
 
 :: Install applications
-start "" powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\NanaZip.msixbundle;"
+start "" powershell.exe -NoProfile -Command "Add-AppxPackage -Path %ASSETSDIR%\40174MouriNaruto.NanaZip_gnj4mf6z9tkrc.msixbundle;"
 
 :: https://github.com/microsoft/vscode/blob/main/build/win32/code.iss
-start "" "%ASSETSDIR%\vscode-setup.exe" /SILENT /SUPPRESSMSGBOXES /MERGETASKS="!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath"
+start "" "%ASSETSDIR%\VSCodeUserSetup-x64.exe" /SILENT /SUPPRESSMSGBOXES /MERGETASKS="!runcode,desktopicon,quicklaunchicon,addcontextmenufiles,addcontextmenufolders,addtopath"
 
 ::start "" "%ASSETSDIR%\wireguard-installer.exe" /S
