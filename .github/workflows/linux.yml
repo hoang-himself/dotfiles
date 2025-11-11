@@ -11,12 +11,9 @@ on:
 
 jobs:
   lint:
-    name: Linux lint
+    name: Shell Lint
     runs-on: ubuntu-latest
     container: koalaman/shellcheck-alpine:stable
-    defaults:
-      run:
-        working-directory: ./linux
     steps:
       - name: Clone dotfiles
         uses: actions/checkout@v4
