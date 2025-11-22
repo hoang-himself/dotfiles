@@ -18,6 +18,9 @@ CiTool.exe --refresh --json >nul 2>&1
 reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /f
 reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f
 reg.exe add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v UseCompactMode /t REG_DWORD /d 1 /f
+reg.exe add "HKCU\Software\Microsoft\Clipboard" /v EnableClipboardHistory /t REG_DWORD /d 1 /f
+reg.exe add "HKCU\Control Panel\Accessibility\Keyboard Preference" /v On /t REG_SZ /d 1 /f
+reg.exe add "HKCU\Control Panel\Accessibility\ToggleKeys" /v Flags /t REG_SZ /d 63 /f
 
 :: Apply changes
 powershell.exe -Command "Stop-Process -Name explorer -Force;"
