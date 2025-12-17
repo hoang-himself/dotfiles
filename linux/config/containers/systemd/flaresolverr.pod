@@ -1,2 +1,3 @@
 [Pod]
 Network=podman:ip=10.88.88.16
+Volume=flaresolverr.volume:/config
