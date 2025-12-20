@@ -6,7 +6,7 @@
     { "VTOY_WIN11_BYPASS_NRO": "1" }
   ],
   "theme": {
-    "file": "/ventoy/theme/tela/theme.txt"
+    "file": "/ventoy/theme/vimix/theme.txt"
   },
   "auto_install": [
     {

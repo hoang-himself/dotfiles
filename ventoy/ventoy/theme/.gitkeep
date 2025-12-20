@@ -1,9 +1,9 @@
-# tela
+# Theme
 
 ```shell
 git clone --depth 1 https://github.com/vinceliuice/grub2-themes.git && cd grub2-themes
-./install.sh -t tela -s 1080p -g .
-cp -r tela ..
+./install.sh -t vimix -s 1080p -g .
+cp -r vimix ..
 cd ..
 rm -rf grub2-themes
 ```
