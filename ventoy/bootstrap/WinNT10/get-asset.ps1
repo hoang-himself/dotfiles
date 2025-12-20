@@ -52,6 +52,18 @@ function Get-Asset {
     Start-Process -WorkingDirectory '.\Office' -FilePath 'setup.exe' -ArgumentList @('/download', 'O365ProPlusRetail.xml') -WindowStyle Minimized;
   }
 
+  $scriptBlockList | ForEach-Object { Start-Job -ScriptBlock $_ };
+
+  Get-Job | Wait-Job;
+
+  Pop-Location;
+}
+
+function Get-Script {
+  $scriptBlockList = @();
+
+  Push-Location -Path 'Scripts';
+
   $scriptBlockList += {
     Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/All-In-One-Version-KL/MAS_AIO.cmd' `
       -OutFile 'MAS_AIO.cmd';
@@ -65,3 +77,4 @@ function Get-Asset {
 }
 
 Get-Asset;
+Get-Script;
