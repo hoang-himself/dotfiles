@@ -20,5 +20,8 @@
 [includeIf "hasconfig:remote.*.url:git@github.com:hoang-himself/**"]
   path = gitconfig.gh-hh
 
-[includeIf "gitdir:~/work/**"]
+[includeIf "gitdir:**/dev-hoang-himself-git/**"]
+  path = gitconfig.work
+
+[includeIf "gitdir/i:**/D:/dev-hoang-himself-git/**"]
   path = gitconfig.work
