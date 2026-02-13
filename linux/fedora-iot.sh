@@ -4,14 +4,13 @@
 . ./common.sh
 
 function install_base {
-  sudo rpm-ostree install -y \
+  sudo rpm-ostree install --idempotent --reboot -y \
     buildah qemu-user-static zsh \
     git git-lfs neovim logrotate \
     fail2ban
 }
 
 function main {
-  install_base
   install_prompt
 
   set_base
