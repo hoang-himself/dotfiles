@@ -2,10 +2,6 @@
 
 set -euo pipefail
 
-# shellcheck disable=SC2034
-previous_head="$1"
-# shellcheck disable=SC2034
-new_head="$2"
 branch_flag="$3"
 
 # Only process branch checkouts
