@@ -77,13 +77,15 @@ function Set-Base {
     -Path "$env:ProgramData\ssh\sshd_config" `
     -Target $(Resolve-Path -LiteralPath '.\config\sshd_config') -Force
 
-  Get-ChildItem -Path '..\common\config\sshd_config.d' | ForEach-Object -Process {
+  Get-ChildItem -Path '..\common\config\sshd_config.d' -File `
+  | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:ProgramData\ssh\sshd_config.d\$($_.Name)" `
       -Target $_.FullName -Force
   }
 
-  Get-ChildItem -Path '..\common\config\ssh_config.d' | ForEach-Object -Process {
+  Get-ChildItem -Path '..\common\config\ssh_config.d' -File `
+  | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:ProgramData\ssh\ssh_config.d\$($_.Name)" `
       -Target $_.FullName -Force
@@ -96,7 +98,7 @@ function Set-Base {
   New-ItemProperty -Path 'HKLM:\SOFTWARE\OpenSSH' -PropertyType String `
     -Name 'DefaultShell' -Value 'C:\Program Files\PowerShell\7\pwsh.exe' -Force
 
-  Get-ChildItem -Path '..\common\config\containers\*.conf' `
+  Get-ChildItem -Path '..\common\config\containers\*.conf' -File `
   | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink `
       -Path "$env:XDG_CONFIG_HOME\containers\$($_.Name)" `
@@ -112,7 +114,8 @@ function Set-Shell {
   New-Item -ItemType Directory -Path "$PROFILE_HOME" -Force
   New-Item -ItemType Directory -Path "$PROFILE_HOME\profile.d" -Force
 
-  Get-ChildItem -Path '.\runcom\*.ps1' | ForEach-Object -Process {
+  Get-ChildItem -Path '.\runcom\*.*' -File `
+  | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink -Path "$PROFILE_HOME\$($_.Name)" `
       -Target $_.FullName -Force
   }

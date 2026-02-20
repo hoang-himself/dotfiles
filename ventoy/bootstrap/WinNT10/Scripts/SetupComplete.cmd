@@ -18,7 +18,7 @@ echo Installing Visual C++ Redistributable... >> "%LOGFILE%" 2>&1
 
 ::
 echo Installing WinGet... >> "%LOGFILE%" 2>&1
-powershell.exe -NoProfile -WorkingDirectory "%ASSETSDIR%" -Command "Get-ChildItem -Path '.\winget-cli\*.appx' | ForEach-Object -Process { Add-AppxProvisionedPackage -Online -Regions all -PackagePath $_.FullName -SkipLicense; }" >> "%LOGFILE%" 2>&1
+powershell.exe -NoProfile -WorkingDirectory "%ASSETSDIR%" -Command "Get-ChildItem -Path '.\winget-cli\*.appx' -File | ForEach-Object -Process { Add-AppxProvisionedPackage -Online -Regions all -PackagePath $_.FullName -SkipLicense; }" >> "%LOGFILE%" 2>&1
 powershell.exe -NoProfile -WorkingDirectory "%ASSETSDIR%" -Command "Add-AppxProvisionedPackage -Online -Regions all -PackagePath '.\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle' -SkipLicense;" >> "%LOGFILE%" 2>&1
 
 ::
