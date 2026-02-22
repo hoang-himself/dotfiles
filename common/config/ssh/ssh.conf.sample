@@ -1,5 +1,10 @@
-Host ${name}
+Host ${name1}
   HostName ${hostname}
+
+Host ${name2}
+  HostName ${hostname}
+
+Host ${name1} ${name2}
   Port ${port}
   User ${user}
   IdentityFile ${path}

@@ -1,7 +1,7 @@
 # Local host
-Host git.com
+Host github.com gitlab.com
   IdentityFile ~/.ssh/id.d/ed25519_git
 
 # Jump host
-Host git*.com
+Host github.com gitlab.com
   IdentitiesOnly no

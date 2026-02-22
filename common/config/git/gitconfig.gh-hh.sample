@@ -5,7 +5,7 @@
   gpgSign = true
 
 [user]
-  signingkey = ~/.ssh/id.d/ed25519_github.pub
+  signingkey = ~/.ssh/id.d/ed25519_git.pub
   name = Hoang NGUYEN
   email = 10150902+hoang-himself@users.noreply.github.com
 
