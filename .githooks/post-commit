@@ -8,6 +8,7 @@ echo 'Running post-commit hook.'
 
 for script in "$SCRIPT_DIR/post-commit.d"/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
+    echo "Running: $(basename "$script")"
     "$script"
   fi
 done

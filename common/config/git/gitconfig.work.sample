@@ -1,5 +1,6 @@
 [core]
   editor = code --wait
+  hooksPath = .githooks
 
 [credential]
   helper = cache --timeout 8192
