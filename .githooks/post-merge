@@ -9,6 +9,7 @@ echo 'Running post-merge hook.'
 
 for script in "$SCRIPT_DIR/post-merge.d"/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
+    echo "Running: $(basename "$script")"
     "$script" "$squash_flag"
   fi
 done

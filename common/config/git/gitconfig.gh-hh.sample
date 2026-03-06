@@ -1,3 +1,6 @@
+[core]
+  hooksPath = .githooks
+
 [commit]
   gpgSign = true
 
