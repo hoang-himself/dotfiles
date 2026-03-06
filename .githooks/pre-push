@@ -3,15 +3,22 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-echo 'Running pre-push hook.'
+remote_name="$1"
+remote_url="$2"
 
 tmpfile=$(mktemp -t pre-push.XXXXXX 2>/dev/null || mktemp 2>/dev/null || echo "${TMPDIR:-/tmp}/pre-push.$$.refs")
 trap 'rm -f "$tmpfile"' EXIT
-
 cat > "$tmpfile"
 
-# shellcheck disable=SC2094
+echo 'Running pre-push hook.'
+
+for script in "$SCRIPT_DIR/pre-push.d"/0*.sh; do
+  if [ -f "$script" ] && [ -x "$script" ]; then
+    echo "Running: $(basename "$script")"
+    "$script" "$remote_name" "$remote_url"
+  fi
+done
+
 while IFS=' ' read -r local_ref local_sha remote_ref remote_sha; do
   if [[ "$local_sha" =~ ^0+$ ]]; then
     echo "Skipping validation for branch deletion: ${remote_ref#refs/heads/}"
@@ -27,13 +34,17 @@ while IFS=' ' read -r local_ref local_sha remote_ref remote_sha; do
   fi
 
   for script in "$SCRIPT_DIR/pre-push.d"/*.sh; do
+    case "$(basename "$script")" in
+      0*|9*)
+        continue
+        ;;
+    esac
+
     if [ -f "$script" ] && [ -x "$script" ]; then
+      echo "Running: $(basename "$script")"
       case "$(basename "$script")" in
         *-assert-commit-is-local.sh)
           "$script" "$commit_range"
-          ;;
-        *-lfs.sh)
-          "$script" "$tmpfile"
           ;;
         *)
           "$script" "$branch_name"
@@ -42,6 +53,13 @@ while IFS=' ' read -r local_ref local_sha remote_ref remote_sha; do
     fi
   done
 done < "$tmpfile"
+
+for script in "$SCRIPT_DIR/pre-push.d"/9*.sh; do
+  if [ -f "$script" ] && [ -x "$script" ]; then
+    echo "Running: $(basename "$script")"
+    "$script" "$tmpfile"
+  fi
+done
 
 echo 'Pre-push checks passed.'
 exit 0

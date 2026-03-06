@@ -1,4 +1,7 @@
 [core]
+  hooksPath = .githooks
+
+[core]
   editor = code --wait
 
 [credential]

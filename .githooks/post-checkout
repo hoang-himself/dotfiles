@@ -11,6 +11,7 @@ echo 'Running post-checkout hook.'
 
 for script in "$SCRIPT_DIR/post-checkout.d"/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
+    echo "Running: $(basename "$script")"
     "$script" "$previous_head" "$new_head" "$branch_flag"
   fi
 done
