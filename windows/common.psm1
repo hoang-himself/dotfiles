@@ -24,7 +24,8 @@ function Add-ToUserPath {
 
   if ($Prepend) {
     Set-ItemProperty -Path "$RegistryPath" -Name 'Path' -Value "$Path;$oldPath" -Force
-  } else {
+  }
+  else {
     Set-ItemProperty -Path "$RegistryPath" -Name 'Path' -Value "$oldPath;$Path" -Force
   }
 }
@@ -112,18 +113,15 @@ function Set-Shell {
   $PROFILE_HOME = Split-Path -Parent $Profile
 
   New-Item -ItemType Directory -Path "$PROFILE_HOME" -Force
-  New-Item -ItemType Directory -Path "$PROFILE_HOME\profile.d" -Force
 
   Get-ChildItem -Path '.\runcom\*.*' -File `
   | ForEach-Object -Process {
     New-Item -ItemType SymbolicLink -Path "$PROFILE_HOME\$($_.Name)" `
       -Target $_.FullName -Force
   }
-  Get-ChildItem -Path '.\runcom\profile.d\*.*' -File `
-  | ForEach-Object -Process {
-    New-Item -ItemType SymbolicLink -Path "$PROFILE_HOME\profile.d\$($_.Name)" `
-      -Target $_.FullName -Force
-  }
+  New-Item -ItemType SymbolicLink `
+    -Path "$PROFILE_HOME\profile.d" `
+    -Target $(Resolve-Path -LiteralPath '.\runcom\profile.d') -Force
 }
 
 function Set-Prompt {

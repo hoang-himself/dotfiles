@@ -39,7 +39,6 @@ function set_base {
 function set_shell {
   chsh -s "$(command -v zsh)"
 
-  mkdir -p "$ZDOTDIR/zshrc.d"
   export ZSH="$ZDOTDIR/ohmyzsh"
   curl -SL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
 
@@ -52,6 +51,7 @@ function set_shell {
   for rc in ./runcom/*; do
     [[ -f "$rc" ]] && ln -frs "$rc" "$ZDOTDIR/.$(basename "$rc")"
   done
+  ln -frs './runcom/zshrc.d' "$ZDOTDIR/zshrc.d"
 }
 
 function set_prompt {

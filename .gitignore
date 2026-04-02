@@ -1,6 +1,7 @@
 !*.gitkeep
 
 *.target.*/
+*.d/
 
 *.conf
 *.ini
